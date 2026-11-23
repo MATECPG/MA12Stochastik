@@ -166,15 +166,16 @@ const A=[
   d) $P(X\\le4)=\\tfrac{1+2+3}{16}=\\tfrac6{16}=\\tfrac{3+2+1}{16}=P(X\\ge6)$. Ohne Rechnung: Die Verteilung ist symmetrisch zu $k=5$.`}
 ];
 
+function m(t){return t.replace(/\$([^$]*)\$/g,(x,inner)=>'$'+inner.replace(/</g,'\\lt ').replace(/>/g,'\\gt ')+'$');}
 function bauen(){
   let html='', bisher=0, nav='';
   A.forEach(a=>{
     const b=+a.id[0];
     if(b!==bisher){html+=`<h2>${BER[b]}</h2>`; bisher=b;}
     nav+=`<a href="#a${a.id}">${a.id.replace('-','.')}</a>`;
-    const tipps=a.tipps.map((t,i)=>`<div class="schritt tipp" data-s="${i}"><b>Tipp ${i+1}:</b> ${t}</div>`).join('');
+    const tipps=a.tipps.map((t,i)=>`<div class="schritt tipp" data-s="${i}"><b>Tipp ${i+1}:</b> ${m(t)}</div>`).join('');
     html+=`<div class="karte" id="a${a.id}"><h3><span>Aufgabe ${a.id.replace('-','.')}</span><span class="niv">${N[a.niv]}</span></h3>
-      <p class="thema">${a.thema}</p>${tipps}<div class="schritt loes" data-s="${a.tipps.length}"><b>Lösung:</b><br>${a.loes}</div>
+      <p class="thema">${a.thema}</p>${tipps}<div class="schritt loes" data-s="${a.tipps.length}"><b>Lösung:</b><br>${m(a.loes)}</div>
       <button type="button" data-k="${a.id}">Tipp 1 zeigen</button></div>`;
   });
   document.getElementById('liste').innerHTML=html;
