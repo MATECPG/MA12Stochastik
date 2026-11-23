@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MA12 · Tipps und Lösungen</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<style>
+:root{--kopf:#E39A6C;--dunkel:#9C3D17;--akzent:#C4501C;--infohg:#FCEFE6;--text:#222;--muted:#5d5d5d;--papier:#fffdfa;--linie:#e9e4dc;
+  --tipphg:#FFF6D6;--tipprand:#E0B400;--gut:#2E8B57;--guthg:#e8f5ee}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--text);line-height:1.55;background-color:var(--papier);
+  background-image:linear-gradient(var(--linie) 1px,transparent 1px),linear-gradient(90deg,var(--linie) 1px,transparent 1px);background-size:20px 20px}
+header{background:var(--kopf);color:#fff;padding:20px 16px 16px}
+header .in{max-width:820px;margin:0 auto}
+header small{display:block;opacity:.9;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+header h1{margin:4px 0 0;font-weight:400;font-size:1.6rem;line-height:1.2}
+main{max-width:820px;margin:0 auto;padding:14px 16px 60px}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
+nav a{display:inline-block;padding:4px 10px;border-radius:14px;background:#fff;border:1px solid #e3cbb9;color:var(--dunkel);text-decoration:none;font-size:.92rem}
+nav a:hover{border-color:var(--akzent)}
+h2{color:var(--dunkel);font-size:1.15rem;margin:26px 0 6px;border-bottom:2px solid var(--dunkel);padding-bottom:3px}
+.karte{background:#fff;border:1px solid #e6d8cd;border-radius:10px;padding:14px 16px;margin:12px 0;scroll-margin-top:12px}
+.karte.ziel{border:2px solid var(--akzent);box-shadow:0 0 0 4px rgba(196,80,28,.12)}
+.karte h3{margin:0 0 4px;font-size:1.05rem;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.karte h3 .niv{font-weight:400;font-size:.85rem;color:var(--dunkel);white-space:nowrap}
+.thema{color:var(--muted);font-size:.93rem;margin:0 0 8px}
+.schritt{display:none;margin-top:8px;padding:8px 12px;border-radius:6px}
+.schritt.offen{display:block}
+.tipp{background:var(--tipphg);border-left:4px solid var(--tipprand)}
+.loes{background:var(--guthg);border-left:4px solid var(--gut);overflow-x:auto}
+button{font-size:.98rem;padding:8px 16px;border-radius:7px;border:0;background:var(--akzent);color:#fff;cursor:pointer;margin-top:8px}
+button:hover{background:var(--dunkel)}
+button.loesbtn{background:#fff;color:var(--gut);border:1.5px solid var(--gut)}
+button.loesbtn:hover{background:var(--guthg)}
+table.v{border-collapse:collapse;margin:6px 0}
+table.v td{border:1px solid #999;padding:3px 9px;text-align:center}
+table.v td:first-child{background:#eee}
+.hinweis{color:var(--muted);font-size:.92rem}
+.sym{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid currentColor;vertical-align:-1px}
+.sym.halb{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.sym.voll{background:currentColor}
+svg{max-width:340px;width:100%;height:auto;display:block;margin:6px 0}
+footer{max-width:820px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:.85rem}
+@media (max-width:520px){header h1{font-size:1.3rem}}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <small>MA12 · Stochastik · Übungsstunde Zufallsgrößen</small>
+  <h1>Tipps und Lösungen</h1>
+</div></header>
+<main>
+<p class="hinweis">Erst selbst probieren! Nehmt nur so viele Tipps, wie ihr braucht. Die Lösung zum Vergleichen kommt ganz am Schluss.
+Zurück zum <a href="./" style="color:var(--dunkel)">Einordnungstest</a>.</p>
+<nav id="nav"></nav>
+<div id="liste"></div>
+</main>
+<footer>Mathematik Q12 · Übungsstunde Zufallsgrößen und ihre Verteilung</footer>
+
+<script>
+// Treppe für Lösung 2.2 / 4.2
+function treppe(xs,F,xmin,xmax,yticks){
+  const W=340,H=220,L=36,R=14,T=14,B=26;
+  const sx=x=>L+(x-xmin)/(xmax-xmin)*(W-L-R), sy=y=>H-B-y/1.08*(H-T-B);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Treppengraph der Verteilungsfunktion">`;
+  for(let y=0.1;y<=1.0001;y+=0.1){s+=`<line x1="${sx(xmin)}" x2="${sx(xmax)}" y1="${sy(y)}" y2="${sy(y)}" stroke="#e2e2e2"/>`;
+    if(Math.round(y*10)%2===0) s+=`<text x="${sx(0)-4}" y="${sy(y)+4}" font-size="10" text-anchor="end" fill="#444">${y.toFixed(1).replace('.',',')}</text>`;}
+  for(let x=Math.ceil(xmin);x<=xmax;x++) if(x!==0) s+=`<text x="${sx(x)}" y="${sy(0)+15}" font-size="10" text-anchor="middle" fill="#444">${x}</text>`;
+  s+=`<line x1="${sx(xmin)}" x2="${sx(xmax)}" y1="${sy(0)}" y2="${sy(0)}" stroke="#333"/><line x1="${sx(0)}" x2="${sx(0)}" y1="${sy(0)}" y2="${sy(1.08)}" stroke="#333"/>`;
+  const c='#C4501C', pts=[[xmin,xs[0],0]]; xs.forEach((x,i)=>pts.push([x,i<xs.length-1?xs[i+1]:xmax,F[i]]));
+  pts.forEach(([a,b,y],i)=>{s+=`<line x1="${sx(a)}" x2="${sx(b)}" y1="${sy(y)}" y2="${sy(y)}" stroke="${c}" stroke-width="2.5"/>`;
+    if(i>0) s+=`<circle cx="${sx(a)}" cy="${sy(y)}" r="3.5" fill="${c}"/>`;
+    if(i<pts.length-1) s+=`<circle cx="${sx(b)}" cy="${sy(y)}" r="3.5" fill="#fff" stroke="${c}" stroke-width="1.6"/>`;});
+  return s+'</svg>';
+}
+
+const N={A:'<span class="sym"></span> Werkzeug',B:'<span class="sym halb"></span> Weitergedacht',C:'<span class="sym voll"></span> Profi'};
+const BER={1:'1 · Zufallsgröße und Verteilung',2:'2 · Die kumulative Verteilungsfunktion',3:'3 · Formale Schreibweise',4:'4 · Profi-Aufgaben'};
+const A=[
+ {id:'1-1',niv:'A',thema:'Urne (3 rot, 2 blau), zwei Kugeln ohne Zurücklegen; X: Anzahl roter Kugeln',
+  tipps:['Zeichnet ein Baumdiagramm mit zwei Stufen. Ohne Zurücklegen heißt: In der 2. Stufe liegen nur noch 4 Kugeln in der Urne, die Wahrscheinlichkeiten ändern sich.',
+         'Für $X=1$ gibt es <b>zwei</b> Pfade: rot–blau und blau–rot. Ihre Wahrscheinlichkeiten werden addiert. Probe am Ende: Die Summe aller $P(X=k)$ muss 1 sein.'],
+  loes:`a) $X\\in\\{0;\\,1;\\,2\\}$<br>
+  b) $P(X=0)=\\tfrac25\\cdot\\tfrac14=\\tfrac1{10}$, $\\;P(X=1)=\\tfrac35\\cdot\\tfrac24+\\tfrac25\\cdot\\tfrac34=\\tfrac6{10}$, $\\;P(X=2)=\\tfrac35\\cdot\\tfrac24=\\tfrac3{10}$
+  <table class="v"><tr><td>$k$</td><td>0</td><td>1</td><td>2</td></tr><tr><td>$P(X=k)$</td><td>0,1</td><td>0,6</td><td>0,3</td></tr></table>
+  c) Balken der Höhen 0,1 · 0,6 · 0,3 über 0, 1, 2 (das ist Histogramm D in Aufgabe 1.2).<br>
+  d) $P(X\\ge1)=1-P(X=0)=1-0{,}1=0{,}9$. In Worten: Es wird <i>mindestens eine</i> rote Kugel gezogen.`},
+ {id:'1-2',niv:'B',thema:'Histogramme A–D den Zufallsexperimenten zuordnen',
+  tipps:['Überlegt zu jedem Experiment, welche Werte $X$ annehmen kann. Das passt nur zu Histogrammen mit genau diesen Werten auf der $k$-Achse.',
+         'Beim dreimaligen Münzwurf gibt es 8 gleich wahrscheinliche Ergebnisse. Für das „falsche“ Histogramm: Addiert alle Balkenhöhen.'],
+  loes:`(1) Würfel $\\to$ <b>C</b> (sechs gleich hohe Balken $\\tfrac16$)<br>
+  (2) Münze dreimal $\\to$ <b>A</b> ($\\tfrac18,\\tfrac38,\\tfrac38,\\tfrac18$)<br>
+  (3) Urne $\\to$ <b>D</b> (0,1; 0,6; 0,3)<br>
+  B ist keine Wahrscheinlichkeitsverteilung: $0{,}2+0{,}4+0{,}3+0{,}2=1{,}1\\neq1$.`},
+
+ {id:'2-1',niv:'A',thema:'Wahrscheinlichkeiten am Graphen von F ablesen',
+  tipps:['Nutzt die Tabelle im Infokasten. Nur $P(X\\le k)$ kann man direkt ablesen: Es ist die Höhe des vollen Punktes bei $k$.',
+         '„$X<3$“ heißt „$X\\le2$“. Bei „$\\ge$“ und „$>$“ hilft das Gegenereignis: $P(X\\ge4)=1-P(X\\le3)$. Bei $P(2\\le X\\le4)$ zieht man nur ab, was <i>unter</i> 2 liegt: $F(1)$.'],
+  loes:`a) $P(X\\le3)=F(3)=0{,}75$<br>
+  b) $P(X<3)=F(2)=0{,}5$<br>
+  c) $P(X>2)=1-F(2)=0{,}5$<br>
+  d) $P(X\\ge4)=1-F(3)=0{,}25$<br>
+  e) $P(2\\le X\\le4)=F(4)-F(1)=0{,}9-0{,}2=0{,}7$<br>
+  f) $P(X=3)=F(3)-F(2)=0{,}25$ (Sprunghöhe bei 3)<br>
+  g) $F(2{,}5)=P(X\\le2{,}5)=P(X\\le2)=0{,}5$`},
+ {id:'2-2',niv:'A',thema:'F(k) aus der Verteilung berechnen und den Graphen zeichnen',
+  tipps:['$F(k)$ ist die Summe aller Wahrscheinlichkeiten bis einschließlich $k$: $F(2)=P(X=1)+P(X=2)$.',
+         'Der Graph ist eine Treppe: links von 1 ist $F=0$, ab 4 ist $F=1$. Jede Stufe beginnt mit einem vollen Punkt und endet mit einem leeren Kreis.'],
+  loes:`a) $F(1)=0{,}1;\\;F(2)=0{,}5;\\;F(3)=0{,}8;\\;F(4)=1$<br>
+  b) `+treppe([1,2,3,4],[0.1,0.5,0.8,1],-0.6,5.5)+`
+  c) $P(X\\ge3)=1-F(2)=0{,}5$, $\\;P(X<4)=F(3)=0{,}8$`},
+ {id:'2-3',niv:'B',thema:'Vom Graphen von F zurück zur Verteilung',
+  tipps:['Die Höhe jedes Sprungs ist $P(X=k)$: $P(X=k)=F(k)-F(k-1)$.',
+         'Zwischen zwei Sprüngen bleibt $F$ konstant, also ist $F(3{,}5)=F(3)$. Für d) geht von links nach rechts und sucht die erste Stufe, die mindestens auf Höhe 0,5 liegt.'],
+  loes:`a) <table class="v"><tr><td>$k$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr><tr><td>$P(X=k)$</td><td>0,1</td><td>0,2</td><td>0,05</td><td>0,25</td><td>0,3</td><td>0,1</td></tr></table>
+  b) $X=5$: Dort hat der Graph den größten Sprung (0,3).<br>
+  c) $F(3{,}5)=F(3)=0{,}35$; $\\;F(-1)=0$; $\\;F(10)=1$<br>
+  d) $F(3)=0{,}35<0{,}5$, aber $F(4)=0{,}6\\ge0{,}5$, also $k=4$.<br>
+  e) $P(2<X\\le5)=F(5)-F(2)=0{,}9-0{,}3=0{,}6$`},
+ {id:'2-4',niv:'B',thema:'Fehlersuche: Max’ Rechnungen prüfen',
+  tipps:['Übersetzt bei jeder Zeile zuerst die Ungleichung in die Form „$\\le$“: $X<4$ ist $X\\le3$, $X\\ge2$ ist das Gegenteil von $X\\le1$.',
+         '$1<X<5$ umfasst nur die Werte 2, 3 und 4. Zwei der fünf Zeilen sind richtig.'],
+  loes:`(1) falsch: $P(X<4)=F(3)=0{,}75$<br>
+  (2) falsch: $P(X\\ge2)=1-F(1)=0{,}8$<br>
+  (3) falsch: $P(1<X<5)=P(2\\le X\\le4)=F(4)-F(1)=0{,}7$<br>
+  (4) richtig<br>
+  (5) richtig: $0{,}9-0{,}75=0{,}15$`},
+
+ {id:'3-1',niv:'A',thema:'Lebkuchenherzen: Worte ↔ formale Schreibweise',
+  tipps:['Schaut in die Tabelle im Infokasten: „höchstens“ ist $\\le$, „mindestens“ ist $\\ge$, „weniger als“ ist $<$, „mehr als“ ist $>$.',
+         'Schreibt bei schwierigen Fällen die möglichen Werte auf: „mehr als 2, aber weniger als 6“ sind 3, 4, 5. „Keines“ heißt $X=0$.'],
+  loes:`a) (1) $P(X\\le3)$ (2) $P(X\\ge5)$ (3) $P(2<X<6)=P(3\\le X\\le5)$ (4) $P(X=0)$<br>
+  (5) $P(X\\ge1)$ (6) $P(X\\le4)$ (7) $P(2\\le X\\le5)$ (8) $P(X<7)=P(X\\le6)$<br>
+  b) $P(X<4)$: weniger als 4 (höchstens 3) Herzen werden verkauft.<br>
+  $P(X\\ge2)$: mindestens 2 Herzen werden verkauft.<br>
+  $P(3<X\\le6)$: mehr als 3, aber höchstens 6 (also 4, 5 oder 6).<br>
+  $1-P(X\\le2)=P(X\\ge3)$: mindestens 3 (mehr als 2) Herzen werden verkauft.`},
+ {id:'3-2',niv:'B',thema:'Losbude: mit der Tabelle von F rechnen',
+  tipps:['Schreibt jede Wahrscheinlichkeit zuerst nur mit $P(X\\le\\ldots)$, z.&nbsp;B. $P(X\\ge3)=1-P(X\\le2)$, und lest dann in der Tabelle ab.',
+         '„Genau 2“: $P(X\\le2)-P(X\\le1)$. „Mindestens einmal“: $1-P(X\\le0)$. Bei e) sind es die Werte 2, 3, 4; bei f) die Werte 4, 5, 6.'],
+  loes:`a) $P(X\\le2)=0{,}7969$<br>
+  b) $P(X\\ge3)=1-P(X\\le2)=0{,}2031$<br>
+  c) $P(X=2)=P(X\\le2)-P(X\\le1)=0{,}2936$<br>
+  d) $P(X\\ge1)=1-P(X\\le0)=0{,}8322$<br>
+  e) $P(2\\le X\\le4)=P(X\\le4)-P(X\\le1)=0{,}9896-0{,}5033=0{,}4863$<br>
+  f) $P(4\\le X\\le6)=P(X\\le6)-P(X\\le3)=0{,}9999-0{,}9437=0{,}0562$`},
+
+ {id:'4-1',niv:'C',thema:'Verteilung aus Bedingungen bestimmen',
+  tipps:['Setzt $P(X=1)=p$. Dann ist $P(X=2)=2p$.',
+         'Aus $P(X\\le2)=p+2p=0{,}45$ folgt $p$. $P(X=3)$ bekommt ihr, weil alle vier Wahrscheinlichkeiten zusammen 1 ergeben.'],
+  loes:`a) $3p=0{,}45\\Rightarrow p=0{,}15$: $\\;P(X=1)=0{,}15$, $P(X=2)=0{,}3$, $P(X=4)=0{,}15$, $P(X=3)=1-0{,}45-0{,}15=0{,}4$<br>
+  b) $F(1)=0{,}15;\\;F(2)=0{,}45;\\;F(3)=0{,}85;\\;F(4)=1$`+treppe([1,2,3,4],[0.15,0.45,0.85,1],-0.6,5.5)+`
+  $P(X>1)=1-F(1)=0{,}85$`},
+ {id:'4-2',niv:'C',thema:'Zwei Tetraeder-Würfel, X: Augensumme',
+  tipps:['Legt eine $4\\times4$-Tabelle mit allen 16 gleich wahrscheinlichen Ergebnissen an und zählt, wie oft jede Summe von 2 bis 8 vorkommt.',
+         '$0{,}375=\\tfrac6{16}$. Sucht die Stufe auf dieser Höhe: Wo beginnt sie (voller Punkt), wo endet sie (leerer Kreis)? Für d) schaut auf die Symmetrie des Histogramms.'],
+  loes:`a) <table class="v"><tr><td>$k$</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+  <tr><td>$P(X=k)$</td><td>$\\frac1{16}$</td><td>$\\frac2{16}$</td><td>$\\frac3{16}$</td><td>$\\frac4{16}$</td><td>$\\frac3{16}$</td><td>$\\frac2{16}$</td><td>$\\frac1{16}$</td></tr>
+  <tr><td>$F(k)$</td><td>$\\frac1{16}$</td><td>$\\frac3{16}$</td><td>$\\frac6{16}$</td><td>$\\frac{10}{16}$</td><td>$\\frac{13}{16}$</td><td>$\\frac{15}{16}$</td><td>1</td></tr></table>`+
+  treppe([2,3,4,5,6,7,8],[1/16,3/16,6/16,10/16,13/16,15/16,1],-0.6,9.5)+`
+  b) $F(5)=0{,}625<0{,}75$, $\\;F(6)=0{,}8125\\ge0{,}75$, also $k=6$.<br>
+  c) $F(x)=\\tfrac6{16}$ für $4\\le x<5$.<br>
+  d) $P(X\\le4)=\\tfrac{1+2+3}{16}=\\tfrac6{16}=\\tfrac{3+2+1}{16}=P(X\\ge6)$. Ohne Rechnung: Die Verteilung ist symmetrisch zu $k=5$.`}
+];
+
+function bauen(){
+  let html='', bisher=0, nav='';
+  A.forEach(a=>{
+    const b=+a.id[0];
+    if(b!==bisher){html+=`<h2>${BER[b]}</h2>`; bisher=b;}
+    nav+=`<a href="#a${a.id}">${a.id.replace('-','.')}</a>`;
+    const tipps=a.tipps.map((t,i)=>`<div class="schritt tipp" data-s="${i}"><b>Tipp ${i+1}:</b> ${t}</div>`).join('');
+    html+=`<div class="karte" id="a${a.id}"><h3><span>Aufgabe ${a.id.replace('-','.')}</span><span class="niv">${N[a.niv]}</span></h3>
+      <p class="thema">${a.thema}</p>${tipps}<div class="schritt loes" data-s="${a.tipps.length}"><b>Lösung:</b><br>${a.loes}</div>
+      <button type="button" data-k="${a.id}">Tipp 1 zeigen</button></div>`;
+  });
+  document.getElementById('liste').innerHTML=html;
+  document.getElementById('nav').innerHTML=nav;
+  document.querySelectorAll('button[data-k]').forEach(btn=>btn.addEventListener('click',()=>weiter(btn)));
+}
+function weiter(btn){
+  const karte=btn.closest('.karte'), zu=[...karte.querySelectorAll('.schritt:not(.offen)')];
+  if(!zu.length) return;
+  zu[0].classList.add('offen');
+  const rest=zu.length-1;
+  if(rest===0){btn.remove();return;}
+  if(rest===1){btn.textContent='Lösung zeigen';btn.className='loesbtn';}
+  else btn.textContent=`Tipp ${karte.querySelectorAll('.schritt.offen').length+1} zeigen`;
+}
+function markieren(){
+  document.querySelectorAll('.karte.ziel').forEach(k=>k.classList.remove('ziel'));
+  const k=location.hash&&document.querySelector(location.hash);
+  if(k&&k.classList.contains('karte')){k.classList.add('ziel');k.scrollIntoView();}
+}
+bauen();
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false});
+  markieren();
+});
+window.addEventListener('hashchange',markieren);
+</script>
+</body>
+</html>
