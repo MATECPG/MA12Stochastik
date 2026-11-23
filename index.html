@@ -255,20 +255,20 @@ function auswerten(){
   const schwach=k=>ber[k][0]<ber[k][1]; // mind. ein Fehler im Bereich
   const plan=[];
   if(stufe==='A'){
-    plan.push(['1.1 und 1.2','Verteilung aufstellen, fehlenden Wert bestimmen','Werkzeug']);
+    plan.push(['1.1','Verteilung aufstellen, Histogramm zeichnen','Werkzeug']);
     plan.push(['2.1 und 2.2','Ablesen am Graphen von F, Graph zeichnen','Werkzeug']);
-    plan.push(['3.1 und 3.2','Worte ↔ formale Schreibweise','Werkzeug']);
-    plan.push(['danach 2.3 und 2.4','Rückwärts ablesen, Fehlersuche','Weitergedacht']);
+    plan.push(['3.1','Worte ↔ formale Schreibweise','Werkzeug']);
+    plan.push(['wenn Zeit bleibt: 2.4','Fehlersuche','Weitergedacht']);
   } else if(stufe==='B'){
     if(schwach(2)) plan.push(['2.1 zum Aufwärmen','Ablesen mit der Tabelle im Infokasten','Werkzeug']);
-    if(schwach(3)) plan.push(['3.2 zum Aufwärmen','Alles auf P(X ≤ …) zurückführen','Werkzeug']);
-    plan.push(['2.3, 2.4 und 2.5','Rückwärts ablesen, Fehlersuche, Graphen prüfen','Weitergedacht']);
-    plan.push(['3.3 und 3.4','Tabelle von F nutzen, Gegenereignis','Weitergedacht']);
-    plan.push(['1.3 und 1.4','Verteilung aufstellen, Histogramme zuordnen','Weitergedacht']);
+    if(schwach(3)) plan.push(['3.1 zum Aufwärmen','Worte ↔ formale Schreibweise','Werkzeug']);
+    plan.push(['2.3 und 2.4','Rückwärts ablesen, Fehlersuche','Weitergedacht']);
+    plan.push(['3.2','Wahrscheinlichkeiten mit der Tabelle von F','Weitergedacht']);
+    plan.push(['1.2','Histogramme zuordnen','Weitergedacht']);
     plan.push(['wenn Zeit bleibt: 4.1','Verteilung aus Bedingungen','Profi']);
   } else {
-    plan.push(['2.4 und 3.4 (kurzer Check)','Fehlersuche und Gegenereignis','Weitergedacht']);
-    plan.push(['4.1 bis 4.4','Profi-Aufgaben','Profi']);
+    plan.push(['2.4 (kurzer Check)','Fehlersuche','Weitergedacht']);
+    plan.push(['4.1 und 4.2','Profi-Aufgaben','Profi']);
     if(schwach(1)||schwach(2)||schwach(3)) plan.push(['bei Fehlern im Test','zuerst die passende Weitergedacht-Aufgabe des Bereichs','Weitergedacht']);
   }
   document.getElementById('plan').innerHTML=plan.map(([a,t,s])=>`<li><b>Aufgabe ${a}</b>: ${t}<span class="tag">${s}</span></li>`).join('');
