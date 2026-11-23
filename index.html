@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MA12 · Einordnungstest Zufallsgrößen</title>
+<style>
+:root{
+  --kopf:#E39A6C; --dunkel:#9C3D17; --akzent:#C4501C; --infohg:#FCEFE6;
+  --text:#222; --muted:#5d5d5d; --papier:#fffdfa; --linie:#e9e4dc; --karte:#ffffff;
+  --gut:#2E8B57; --gutHg:#e8f5ee; --schlecht:#D03A1F; --schlechtHg:#fdecea;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--text);line-height:1.5;
+  background-color:var(--papier);
+  background-image:linear-gradient(var(--linie) 1px,transparent 1px),linear-gradient(90deg,var(--linie) 1px,transparent 1px);
+  background-size:20px 20px;}
+header{background:var(--kopf);color:#fff;padding:22px 16px 18px}
+header .in{max-width:820px;margin:0 auto}
+header small{display:block;opacity:.9;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+header h1{margin:4px 0 0;font-weight:400;font-size:1.7rem;line-height:1.2}
+main{max-width:820px;margin:0 auto;padding:18px 16px 60px}
+.karte{background:var(--karte);border:1px solid #e6d8cd;border-radius:10px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.info{background:var(--infohg);border-color:var(--dunkel)}
+h2{color:var(--dunkel);font-size:1.15rem;margin:26px 0 6px;border-bottom:2px solid var(--dunkel);padding-bottom:3px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h2 span.niv{font-size:.85rem;font-weight:400}
+.frage{position:relative}
+.frage .nr{font-weight:700;color:var(--dunkel);margin-right:6px}
+.frage p{margin:0 0 8px}
+.m{font-family:"Times New Roman",Times,serif;font-style:italic;white-space:nowrap}
+.m b{font-style:normal}
+input[type=text]{font-size:1.05rem;padding:7px 10px;border:1.5px solid #c9b8ab;border-radius:6px;width:9em;background:#fff;color:var(--text)}
+input[type=text]:focus{outline:2px solid var(--akzent);border-color:var(--akzent)}
+.opts{display:grid;gap:6px}
+.opts label{display:flex;gap:8px;align-items:center;padding:7px 10px;border:1.5px solid #e2d6cc;border-radius:6px;cursor:pointer;background:#fff}
+.opts label:hover{border-color:var(--akzent)}
+.opts input{accent-color:var(--akzent)}
+.fb{margin-top:8px;padding:8px 10px;border-radius:6px;font-size:.95rem;display:none}
+.fb.gut{display:block;background:var(--gutHg);border-left:4px solid var(--gut)}
+.fb.schlecht{display:block;background:var(--schlechtHg);border-left:4px solid var(--schlecht)}
+.graph{max-width:520px;margin:6px 0 4px}
+.graph svg{width:100%;height:auto;display:block}
+button{font-size:1.05rem;padding:11px 22px;border-radius:8px;border:0;background:var(--akzent);color:#fff;cursor:pointer}
+button:hover{background:var(--dunkel)}
+button.zweit{background:#fff;color:var(--dunkel);border:1.5px solid var(--dunkel)}
+.leiste{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+#ergebnis{display:none}
+.niveau{display:flex;gap:16px;align-items:center}
+.niveau .gross{font-size:1.8rem;color:var(--dunkel);font-weight:700;line-height:1.1}
+.balken{display:grid;grid-template-columns:14em 1fr 3.2em;gap:8px;align-items:center;margin:4px 0;font-size:.95rem}
+.balken .spur{height:12px;background:#f0e6de;border-radius:6px;overflow:hidden}
+.balken .voll{height:100%;background:var(--akzent)}
+ol.plan{padding-left:1.4em;margin:6px 0}
+ol.plan li{margin:4px 0}
+.tag{display:inline-block;font-size:.78rem;padding:1px 7px;border-radius:10px;background:var(--infohg);color:var(--dunkel);border:1px solid #e7c9b6;margin-left:4px}
+.hinweis{color:var(--muted);font-size:.9rem}
+.sym{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid currentColor;vertical-align:-2px}
+.sym.halb{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.sym.voll{background:currentColor}
+footer{max-width:820px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:.85rem}
+@media (max-width:520px){header h1{font-size:1.35rem}.balken{grid-template-columns:8.5em 1fr 2.6em}}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <small>MA12 · Stochastik · Kapitel III</small>
+  <h1>Einordnungstest: Zufallsgrößen und Verteilungsfunktion</h1>
+</div></header>
+
+<main>
+<div class="karte info">
+  <strong>So geht's:</strong> Beantwortet die 11 Fragen ohne Hilfsmittel (ca. 10 Minuten). Dezimalzahlen dürft ihr mit Komma oder Punkt eingeben, Brüche wie <span class="m">3/5</span> gehen auch.
+  Am Ende seht ihr, mit welcher Stufe ihr im Übungsgeheft startet: <span style="color:var(--dunkel)"><span class="sym"></span> Werkzeug</span>, <span style="color:var(--dunkel)"><span class="sym halb"></span> Weitergedacht</span> oder <span style="color:var(--dunkel)"><span class="sym voll"></span> Profi</span>, und welche Aufgaben ihr bearbeiten solltet.
+</div>
+
+<form id="test" autocomplete="off" onsubmit="return false">
+<div id="fragen"></div>
+<div class="leiste">
+  <button type="button" id="auswerten">Auswerten</button>
+  <button type="button" class="zweit" id="neu">Neu beginnen</button>
+</div>
+</form>
+
+<section id="ergebnis" aria-live="polite">
+  <h2>Euer Ergebnis</h2>
+  <div class="karte">
+    <div class="niveau"><div><div class="hinweis">Startet mit der Stufe</div><div class="gross" id="nivName"></div></div></div>
+    <p id="nivText" style="margin:10px 0 4px"></p>
+  </div>
+  <div class="karte">
+    <strong>Punkte nach Bereichen</strong>
+    <div id="balken" style="margin-top:6px"></div>
+  </div>
+  <div class="karte">
+    <strong>Euer Plan für die Stunde</strong> <span class="hinweis">(Aufgaben aus dem Übungsgeheft)</span>
+    <ol class="plan" id="plan"></ol>
+    <p class="hinweis" style="margin:6px 0 0">Die Lösungen stehen im Heft jeweils direkt nach einem Bereich. Erst rechnen, dann vergleichen! Scrollt nach oben: Bei jeder Frage steht jetzt eine Rückmeldung.</p>
+  </div>
+</section>
+</main>
+<footer>Mathematik Q12 · Übungsstunde Zufallsgrößen und ihre Verteilung</footer>
+
+<script>
+// ---------- Graph der kumulativen Verteilungsfunktion ----------
+// Werte 1..5, F: 0.1, 0.35, 0.6, 0.85, 1
+const GRAPH = {xs:[1,2,3,4,5], F:[0.1,0.35,0.6,0.85,1], xmin:-0.6, xmax:6.6};
+function svgF(g){
+  const W=520,H=330,L=50,R=20,T=22,B=34;
+  const sx=x=>L+(x-g.xmin)/(g.xmax-g.xmin)*(W-L-R);
+  const sy=y=>H-B-y/1.08*(H-T-B);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Graph einer kumulativen Verteilungsfunktion F mit Sprüngen bei 1, 2, 3, 4 und 5">`;
+  // Gitter
+  for(let y=0;y<=1.0001;y+=0.05){const major=Math.abs(y*10-Math.round(y*10))<1e-6;
+    s+=`<line x1="${sx(g.xmin)}" x2="${sx(g.xmax)}" y1="${sy(y)}" y2="${sy(y)}" stroke="${major?'#cfcfcf':'#ececec'}" stroke-width="1"/>`;
+    if(major&&y>0) s+=`<text x="${sx(0)-6}" y="${sy(y)+4}" font-size="12" text-anchor="end" fill="#444">${y.toFixed(1).replace('.',',')}</text>`;}
+  for(let x=Math.ceil(g.xmin);x<=Math.floor(g.xmax);x++){
+    s+=`<line x1="${sx(x)}" x2="${sx(x)}" y1="${sy(0)}" y2="${sy(1.05)}" stroke="#e3e3e3"/>`;
+    if(x!==0) s+=`<text x="${sx(x)}" y="${sy(0)+18}" font-size="12" text-anchor="middle" fill="#444">${x}</text>`;}
+  // Achsen
+  s+=`<defs><marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#333"/></marker></defs>`;
+  s+=`<line x1="${sx(g.xmin)}" x2="${sx(g.xmax)+8}" y1="${sy(0)}" y2="${sy(0)}" stroke="#333" stroke-width="1.3" marker-end="url(#pf)"/>`;
+  s+=`<line x1="${sx(0)}" x2="${sx(0)}" y1="${sy(0)+4}" y2="${sy(1.08)-6}" stroke="#333" stroke-width="1.3" marker-end="url(#pf)"/>`;
+  s+=`<text x="${sx(g.xmax)+6}" y="${sy(0)+20}" font-size="14" font-style="italic" fill="#333">x</text>`;
+  s+=`<text x="${sx(0)+8}" y="${T}" font-size="14" font-style="italic" fill="#333">F(x)</text>`;
+  // Treppe
+  const c='#C4501C';
+  const pts=[[g.xmin,g.xs[0],0]];
+  g.xs.forEach((x,i)=>pts.push([x, i<g.xs.length-1?g.xs[i+1]:g.xmax, g.F[i]]));
+  pts.forEach(([a,b,y],i)=>{
+    s+=`<line x1="${sx(a)}" x2="${sx(b)}" y1="${sy(y)}" y2="${sy(y)}" stroke="${c}" stroke-width="3"/>`;
+    if(i>0) s+=`<circle cx="${sx(a)}" cy="${sy(y)}" r="4.5" fill="${c}"/>`;
+    if(i<pts.length-1) s+=`<circle cx="${sx(b)}" cy="${sy(y)}" r="4.5" fill="#fff" stroke="${c}" stroke-width="2"/>`;
+  });
+  return s+'</svg>';
+}
+
+// ---------- Fragen ----------
+// bereich: 1 Verteilung, 2 Verteilungsfunktion ablesen, 3 formale Schreibweise
+// stufe: A Werkzeug, B Weitergedacht, C Profi
+const FRAGEN = [
+ {stufe:'A',bereich:1,typ:'zahl',loes:0.3,
+  text:`Die Zufallsgröße <span class="m">X</span> hat die Verteilung
+  <table style="border-collapse:collapse;margin:6px 0" border="1" cellpadding="5"><tr><td style="background:#eee"><span class="m">k</span></td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+  <tr><td style="background:#eee"><span class="m">P(X = k)</span></td><td>0,2</td><td>0,35</td><td><span class="m">a</span></td><td>0,15</td></tr></table>
+  Bestimmt <span class="m">a</span>.`,
+  erkl:`Alle Wahrscheinlichkeiten ergeben zusammen 1: 0,2 + 0,35 + a + 0,15 = 1, also a = 0,3.`},
+ {stufe:'A',bereich:1,typ:'zahl',loes:0.5,
+  text:`Eine Münze wird zweimal geworfen. <span class="m">X</span> ist die Anzahl der Wappen. Bestimmt <span class="m">P(X = 1)</span>.`,
+  erkl:`Günstig sind WZ und ZW, also 2 von 4 gleich wahrscheinlichen Ergebnissen: P(X = 1) = 2/4 = 0,5.`},
+ {stufe:'A',bereich:2,typ:'zahl',loes:0.6,graph:true,
+  text:`Abgebildet ist der Graph der kumulativen Verteilungsfunktion <span class="m">F</span> einer Zufallsgröße <span class="m">X</span>. Lest ab: <span class="m">P(X ≤ 3)</span>.`,
+  erkl:`P(X ≤ 3) = F(3) = 0,6. Der volle Punkt bei x = 3 liegt auf Höhe 0,6.`},
+ {stufe:'A',bereich:3,typ:'mc',loes:0,opts:['P(X ≤ 2)','P(X &lt; 2)','P(X ≥ 2)','P(X &gt; 2)'],
+  text:`<span class="m">X</span> ist die Anzahl der Tore in einem Spiel. Welche Schreibweise passt zu „<b>höchstens</b> 2 Tore“?`,
+  erkl:`„Höchstens 2“ heißt 0, 1 oder 2 Tore: P(X ≤ 2).`},
+
+ {stufe:'B',bereich:2,typ:'zahl',loes:0.6,graph:true,
+  text:`Gleicher Graph wie in Frage 3: Bestimmt <span class="m">P(X &lt; 4)</span>.`,
+  erkl:`P(X < 4) = P(X ≤ 3) = F(3) = 0,6. Achtung: nicht F(4)!`},
+ {stufe:'B',bereich:2,typ:'zahl',loes:0.65,graph:true,
+  text:`Gleicher Graph wie in Frage 3: Bestimmt <span class="m">P(X ≥ 3)</span>.`,
+  erkl:`P(X ≥ 3) = 1 − P(X ≤ 2) = 1 − F(2) = 1 − 0,35 = 0,65.`},
+ {stufe:'B',bereich:2,typ:'zahl',loes:0.75,graph:true,
+  text:`Gleicher Graph wie in Frage 3: Bestimmt <span class="m">P(2 ≤ X ≤ 4)</span>.`,
+  erkl:`P(2 ≤ X ≤ 4) = F(4) − F(1) = 0,85 − 0,1 = 0,75. Man zieht nur ab, was <i>unter</i> 2 liegt.`},
+ {stufe:'B',bereich:3,typ:'mc',loes:1,opts:['1 − P(X ≤ 4)','1 − P(X ≤ 5)','1 − P(X &lt; 5)','P(X ≤ 5) − 1'],
+  text:`<span class="m">X</span> nimmt die Werte 0, 1, …, 10 an. Welcher Term ist gleich <span class="m">P(X &gt; 5)</span>?`,
+  erkl:`Das Gegenereignis von „mehr als 5“ ist „höchstens 5“: P(X > 5) = 1 − P(X ≤ 5).`},
+
+ {stufe:'C',bereich:2,typ:'zahl',loes:4,graph:true,
+  text:`Gleicher Graph wie in Frage 3: Bestimmt den <b>kleinsten</b> Wert <span class="m">k</span>, für den <span class="m">P(X ≤ k) ≥ 0,8</span> gilt.`,
+  erkl:`F(3) = 0,6 < 0,8, aber F(4) = 0,85 ≥ 0,8. Also k = 4.`},
+ {stufe:'C',bereich:2,typ:'mc',loes:2,opts:['nur für x = 2','für 1 ≤ x &lt; 2','für 2 ≤ x &lt; 3','für 2 &lt; x ≤ 3'],
+  text:`Gleicher Graph wie in Frage 3: Für welche Zahlen <span class="m">x</span> gilt <span class="m">F(x) = 0,35</span>?`,
+  erkl:`Die Stufe auf Höhe 0,35 beginnt bei x = 2 (voller Punkt) und endet vor x = 3 (leerer Kreis): 2 ≤ x < 3.`},
+ {stufe:'C',bereich:1,typ:'zahl',loes:0.4,
+  text:`<span class="m">Y</span> nimmt nur die Werte 1, 2 und 3 an. Es gilt <span class="m">P(Y = 1) = P(Y = 3)</span> und <span class="m">P(Y ≤ 2) = 0,7</span>. Bestimmt <span class="m">P(Y = 2)</span>.`,
+  erkl:`P(Y = 3) = 1 − P(Y ≤ 2) = 0,3, also auch P(Y = 1) = 0,3. Dann P(Y = 2) = 0,7 − 0,3 = 0,4.`}
+];
+
+const STUFEN = {A:['Werkzeug','sym'],B:['Weitergedacht','sym halb'],C:['Profi','sym voll']};
+const BEREICHE = {1:'Verteilung',2:'Verteilungsfunktion ablesen',3:'Formale Schreibweise'};
+
+function render(){
+  const box=document.getElementById('fragen');
+  let html='', last='', graphShown=false;
+  FRAGEN.forEach((f,i)=>{
+    if(f.stufe!==last){
+      const [n,cls]=STUFEN[f.stufe];
+      html+=`<h2>Teil ${f.stufe}<span class="niv"><span class="sym ${cls.split(' ')[1]||''}"></span> ${n}</span></h2>`;
+      last=f.stufe;
+    }
+    let g='';
+    if(f.graph){ g=`<div class="graph"${graphShown?' style="max-width:400px"':''}>${svgF(GRAPH)}</div>`; graphShown=true; }
+    let inp='';
+    if(f.typ==='zahl') inp=`<input type="text" inputmode="decimal" id="q${i}" aria-label="Antwort zu Frage ${i+1}">`;
+    else inp=`<div class="opts">`+f.opts.map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> <span class="m" style="font-size:1.05rem">${o}</span></label>`).join('')+`</div>`;
+    html+=`<div class="karte frage"><p><span class="nr">${i+1}</span>${f.text}</p>${g}${inp}<div class="fb" id="fb${i}"></div></div>`;
+  });
+  box.innerHTML=html;
+}
+
+function parseZahl(s){
+  s=(s||'').trim().replace(/\s/g,'').replace(',', '.');
+  if(!s) return NaN;
+  let pct=false; if(s.endsWith('%')){pct=true;s=s.slice(0,-1);}
+  let v;
+  if(/^-?\d+(\.\d+)?\/\d+(\.\d+)?$/.test(s)){const [a,b]=s.split('/');v=parseFloat(a)/parseFloat(b);}
+  else if(/^-?\d*\.?\d+$/.test(s)) v=parseFloat(s); else return NaN;
+  return pct? v/100 : v;
+}
+
+function auswerten(){
+  const p={A:0,B:0,C:0}, n={A:0,B:0,C:0}, ber={1:[0,0],2:[0,0],3:[0,0]};
+  let offen=0;
+  FRAGEN.forEach((f,i)=>{
+    let ok=false, beantwortet=true;
+    if(f.typ==='zahl'){
+      const v=parseZahl(document.getElementById('q'+i).value);
+      if(isNaN(v)) beantwortet=false; else ok=Math.abs(v-f.loes)<0.0015;
+    } else {
+      const r=document.querySelector(`input[name="q${i}"]:checked`);
+      if(!r) beantwortet=false; else ok=(+r.value===f.loes);
+    }
+    if(!beantwortet) offen++;
+    n[f.stufe]++; ber[f.bereich][1]++;
+    if(ok){p[f.stufe]++; ber[f.bereich][0]++;}
+    const fb=document.getElementById('fb'+i);
+    fb.className='fb '+(ok?'gut':'schlecht');
+    fb.innerHTML=(ok?'<b>Richtig.</b> ':(beantwortet?'<b>Leider nicht.</b> ':'<b>Nicht beantwortet.</b> '))+f.erkl;
+  });
+
+  // Einordnung
+  let stufe;
+  if(p.A<3 || p.A+p.B<5) stufe='A';
+  else if(p.B>=3 && p.C>=2) stufe='C';
+  else stufe='B';
+
+  const [name]=STUFEN[stufe];
+  document.getElementById('nivName').innerHTML=`<span class="sym ${STUFEN[stufe][1].split(' ')[1]||''}" style="width:22px;height:22px;vertical-align:-3px"></span> ${name}`;
+  const texte={
+    A:'Die Grundlagen sitzen noch nicht ganz sicher. Startet in jedem Bereich mit den Werkzeug-Aufgaben. Wenn die klappen, geht es mit Weitergedacht weiter.',
+    B:'Die Grundlagen sitzen. Startet mit den Weitergedacht-Aufgaben. Wer schnell ist, probiert danach eine Profi-Aufgabe.',
+    C:'Stark! Ihr beherrscht das Ablesen und die Schreibweise sicher. Prüft euch kurz mit der Fehlersuche und geht dann an die Profi-Aufgaben.'
+  };
+  document.getElementById('nivText').textContent=texte[stufe]+(offen?` (${offen} Frage${offen>1?'n':''} unbeantwortet, zählt als falsch.)`:'');
+
+  // Balken je Bereich
+  let b='';
+  for(const k of [1,2,3]){const [r,t]=ber[k];
+    b+=`<div class="balken"><span>${BEREICHE[k]}</span><div class="spur"><div class="voll" style="width:${100*r/t}%"></div></div><span>${r}/${t}</span></div>`;}
+  document.getElementById('balken').innerHTML=b;
+
+  // Plan
+  const schwach=k=>ber[k][0]<ber[k][1]; // mind. ein Fehler im Bereich
+  const plan=[];
+  if(stufe==='A'){
+    plan.push(['1.1 und 1.2','Verteilung aufstellen, fehlenden Wert bestimmen','Werkzeug']);
+    plan.push(['2.1 und 2.2','Ablesen am Graphen von F, Graph zeichnen','Werkzeug']);
+    plan.push(['3.1 und 3.2','Worte ↔ formale Schreibweise','Werkzeug']);
+    plan.push(['danach 2.3 und 2.4','Rückwärts ablesen, Fehlersuche','Weitergedacht']);
+  } else if(stufe==='B'){
+    if(schwach(2)) plan.push(['2.1 zum Aufwärmen','Ablesen mit der Tabelle im Infokasten','Werkzeug']);
+    if(schwach(3)) plan.push(['3.2 zum Aufwärmen','Alles auf P(X ≤ …) zurückführen','Werkzeug']);
+    plan.push(['2.3, 2.4 und 2.5','Rückwärts ablesen, Fehlersuche, Graphen prüfen','Weitergedacht']);
+    plan.push(['3.3 und 3.4','Tabelle von F nutzen, Gegenereignis','Weitergedacht']);
+    plan.push(['1.3 und 1.4','Verteilung aufstellen, Histogramme zuordnen','Weitergedacht']);
+    plan.push(['wenn Zeit bleibt: 4.1','Verteilung aus Bedingungen','Profi']);
+  } else {
+    plan.push(['2.4 und 3.4 (kurzer Check)','Fehlersuche und Gegenereignis','Weitergedacht']);
+    plan.push(['4.1 bis 4.4','Profi-Aufgaben','Profi']);
+    if(schwach(1)||schwach(2)||schwach(3)) plan.push(['bei Fehlern im Test','zuerst die passende Weitergedacht-Aufgabe des Bereichs','Weitergedacht']);
+  }
+  document.getElementById('plan').innerHTML=plan.map(([a,t,s])=>`<li><b>Aufgabe ${a}</b>: ${t}<span class="tag">${s}</span></li>`).join('');
+
+  const e=document.getElementById('ergebnis'); e.style.display='block';
+  e.scrollIntoView({behavior:'smooth'});
+}
+
+render();
+document.getElementById('auswerten').addEventListener('click',auswerten);
+document.getElementById('neu').addEventListener('click',()=>{
+  render(); document.getElementById('ergebnis').style.display='none'; window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
