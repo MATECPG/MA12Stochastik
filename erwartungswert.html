@@ -585,6 +585,59 @@ footer a{color:var(--dunkel)}
   </div>
 </div>
 </div>
+
+<h3>Theorie: Varianz und Standardabweichung im Überblick</h3>
+<div class="karte info">
+  <p style="margin-top:0">Hier ist zusammengefasst, was ihr in den Aufträgen 5 bis 8 entdeckt habt.</p>
+
+  <h4 style="color:var(--blau);margin:12px 0 4px">1. Warum braucht man ein Streuungsmaß?</h4>
+  <p>Der Erwartungswert $\mu$ gibt an, wo die Werte einer Zufallsgröße im Mittel liegen. Er sagt aber nichts darüber, wie weit die Werte um $\mu$ herum verteilt sind. Zwei Zufallsgrößen können denselben Erwartungswert haben und trotzdem ganz verschieden aussehen (Kurs 1 und Kurs 2: beide $\mu=3{,}5$).</p>
+
+  <h4 style="color:var(--blau);margin:12px 0 4px">2. Varianz</h4>
+  <div class="def" style="margin:6px 0">
+    Für die Zufallsgröße $X$ mit möglichen Werten $x_1, x_2, \dots, x_n$ und Erwartungswert $\mu$ heißt
+    $$\begin{aligned}\mathrm{Var}(X)&=(x_1-\mu)^2\cdot P(X=x_1)+(x_2-\mu)^2\cdot P(X=x_2)+\dots+(x_n-\mu)^2\cdot P(X=x_n)\\[4pt]&=\sum_{i=1}^{n}(x_i-\mu)^2\cdot P(X=x_i)\end{aligned}$$
+    <b>Varianz</b> von $X$.
+  </div>
+  <p><b>In Worten:</b> Die Varianz ist der mit den Wahrscheinlichkeiten gewichtete Mittelwert der <b>quadrierten Abweichungen</b> vom Erwartungswert.</p>
+  <ul style="margin:4px 0 8px;padding-left:1.2em">
+    <li><b>Warum Abweichungen?</b> $x_i-\mu$ misst, wie weit ein Wert vom Erwartungswert entfernt ist.</li>
+    <li><b>Warum quadriert?</b> Die Summe $\sum (x_i-\mu)\cdot P(X=x_i)$ ist für jede Zufallsgröße 0, weil sich positive und negative Abweichungen aufheben. Durch das Quadrieren werden alle Summanden $\geq 0$. Große Abweichungen zählen dabei besonders stark.</li>
+    <li><b>Eigenschaften:</b> Es gilt immer $\mathrm{Var}(X)\geq 0$. Je größer die Varianz, desto stärker streuen die Werte um $\mu$. $\mathrm{Var}(X)=0$ heißt: $X$ nimmt sicher nur den Wert $\mu$ an.</li>
+    <li><b>Nachteil:</b> Die Varianz hat die quadrierte Einheit von $X$ (z. B. €² oder „Notenstufen²“). Man kann sie deshalb schlecht direkt deuten.</li>
+  </ul>
+
+  <h4 style="color:var(--blau);margin:12px 0 4px">3. Standardabweichung</h4>
+  <div class="def" style="margin:6px 0">
+    Die reelle Zahl $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) heißt <b>Standardabweichung</b> von $X$. Statt $\mathrm{Var}(X)$ schreibt man deshalb auch $\sigma^2$.
+  </div>
+  <ul style="margin:4px 0 8px;padding-left:1.2em">
+    <li>Die Wurzel macht das Quadrieren rückgängig: $\sigma$ hat <b>dieselbe Einheit wie $X$</b> (z. B. € oder Notenstufen).</li>
+    <li><b>Deutung:</b> $\sigma$ gibt an, wie weit die Werte „typischerweise“ vom Erwartungswert abweichen. Ein großer Teil der Wahrscheinlichkeit liegt im Bereich von $\mu-\sigma$ bis $\mu+\sigma$.</li>
+    <li>In der Praxis verwendet man meist $\sigma$, weil man sie direkt mit den Werten vergleichen kann.</li>
+  </ul>
+  <p><b>Varianz und Standardabweichung sind Maße für die Streuung.</b> Zusammen mit dem Erwartungswert heißen sie <b>Kenngrößen</b> der Zufallsgröße.</p>
+
+  <h4 style="color:var(--blau);margin:12px 0 4px">4. So berechnet ihr Varianz und Standardabweichung</h4>
+  <ol style="margin:4px 0 8px;padding-left:1.4em">
+    <li>Erwartungswert berechnen: $\mu=\sum x_i\cdot P(X=x_i)$.</li>
+    <li>Für jeden Wert die Abweichung $x_i-\mu$ bestimmen.</li>
+    <li>Die Abweichungen quadrieren: $(x_i-\mu)^2$.</li>
+    <li>Jedes Quadrat mit $P(X=x_i)$ multiplizieren und alles addieren. Das Ergebnis ist $\mathrm{Var}(X)$.</li>
+    <li>Wurzel ziehen: $\sigma=\sqrt{\mathrm{Var}(X)}$.</li>
+  </ol>
+  <p>Eine Tabelle hilft dabei:</p>
+  <div class="tabwrap"><table class="vt">
+    <tr><th>$x_i$</th><td>2</td><td>3</td><td>4</td><td>5</td><th style="background:#fff">Summe</th></tr>
+    <tr><th>$P(X_1=x_i)$</th><td>$\frac{2}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{2}{24}$</td><td>$1$</td></tr>
+    <tr><th>$x_i\cdot P(X_1=x_i)$</th><td>$\frac{4}{24}$</td><td>$\frac{30}{24}$</td><td>$\frac{40}{24}$</td><td>$\frac{10}{24}$</td><td>$\mu=\frac{84}{24}=3{,}5$</td></tr>
+    <tr><th>$x_i-\mu$</th><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td><td></td></tr>
+    <tr><th>$(x_i-\mu)^2$</th><td>$2{,}25$</td><td>$0{,}25$</td><td>$0{,}25$</td><td>$2{,}25$</td><td></td></tr>
+    <tr><th>$(x_i-\mu)^2\cdot P(X_1=x_i)$</th><td>$\frac{4{,}5}{24}$</td><td>$\frac{2{,}5}{24}$</td><td>$\frac{2{,}5}{24}$</td><td>$\frac{4{,}5}{24}$</td><td>$\mathrm{Var}=\frac{14}{24}\approx 0{,}58$</td></tr>
+  </table></div>
+  <p>Also $\sigma_1=\sqrt{0{,}58\overline{3}}\approx 0{,}76$ für Kurs 1. Für Kurs 2 erhält man $\mathrm{Var}(X_2)=\frac{98}{24}\approx 4{,}08$ und $\sigma_2\approx 2{,}02$.</p>
+  <p style="margin-bottom:0"><b>Deutung im Beispiel:</b> Beide Kurse haben den Notendurchschnitt $3{,}5$. In Kurs 1 weichen die Noten typischerweise um etwa eine dreiviertel Notenstufe vom Schnitt ab, in Kurs 2 um etwa zwei Notenstufen. Kurs 2 ist also viel „gemischter“.</p>
+</div>
 </section>
 
 <!-- ================= NOTIZ-CHECK ================= -->
@@ -598,7 +651,7 @@ footer a{color:var(--dunkel)}
   <label><input type="checkbox" data-check="3"> <span>Ich weiß, dass $\mu$ kein Wert sein muss, den $X$ annimmt, und habe ein Beispiel.</span></label>
   <label><input type="checkbox" data-check="4"> <span>Ich habe notiert, wann ein Spiel fair ist.</span></label>
   <label><input type="checkbox" data-check="5"> <span>Ich kann mit dem Notenbeispiel erklären, warum man ein Streuungsmaß braucht.</span></label>
-  <label><input type="checkbox" data-check="6"> <span>Ich habe die Formel für die Varianz und weiß, warum quadriert wird.</span></label>
+  <label><input type="checkbox" data-check="6"> <span>Ich habe die Formel für die Varianz (auch mit $\Sigma$) und weiß, warum quadriert wird.</span></label>
   <label><input type="checkbox" data-check="7"> <span>Ich habe notiert, wie die Standardabweichung $\sigma$ definiert ist und was sie aussagt.</span></label>
 </div>
 </section>
