@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MA12 · Erwartungswert und Varianz</title>
+<title>MA12 · Erwartungswert, Varianz, Standardabweichung</title>
 <link rel="stylesheet" href="katex/katex.min.css">
 <script defer src="katex/katex.min.js"></script>
 <script defer src="katex/auto-render.min.js"></script>
@@ -139,7 +139,7 @@ footer a{color:var(--dunkel)}
 
 <div class="karte auftrag">
   <div class="kopf">Das Problem für heute</div>
-  <p>Auf dem Schulfest bietet die Q12 ein Spiel an: <b>Drei Münzen werden geworfen.</b> Der Einsatz beträgt <b>1,60 €</b>. Als Auszahlung erhaltet ihr die <b>Anzahl der geworfenen Wappen in Euro</b> (also 0 €, 1 €, 2 € oder 3 €).</p>
+  <p>Auf dem Schulfest bietet die Q12 ein Spiel an: <b>Drei Münzen werden geworfen.</b> Der Einsatz beträgt <b>1,60 €</b>. Als Auszahlung erhaltet ihr die <b>Anzahl der geworfenen „Zahl“ in Euro</b> (also 0 €, 1 €, 2 € oder 3 €).</p>
   <p><b>Würdet ihr mitspielen?</b> Entscheidet aus dem Bauch heraus:</p>
   <div class="opts" id="bauch">
     <label><input type="radio" name="bauch" value="ja"> Ja, man kann ja bis zu 3 € bekommen.</label>
@@ -259,7 +259,7 @@ footer a{color:var(--dunkel)}
 </div>
 </section>
 
-<!-- ================= STATION 4 ================= -->
+<!-- ================= STATION 3 ================= -->
 <section class="station" id="s3" data-station="3">
 <div class="stkopf"><span class="num">3</span><h2>Faire Spiele – zurück zum Schulfest</h2><span class="zeit">≈ 7 Min.</span></div>
 <div class="def">
@@ -268,8 +268,8 @@ footer a{color:var(--dunkel)}
 </div>
 
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 5: Das Münzspiel</div>
-  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl der Wappen. Von den $2^3=8$ gleich wahrscheinlichen Ergebnissen (z. B. WZW) haben 1, 3, 3 bzw. 1 genau 0, 1, 2 bzw. 3 Wappen:</p>
+  <div class="kopf">Auftrag 3: Das Münzspiel</div>
+  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl von „Zahl“. Von den $2^3=8$ gleich wahrscheinlichen Ergebnissen (z. B. ZWZ) haben 1, 3, 3 bzw. 1 genau 0, 1, 2 bzw. 3-mal „Zahl“:</p>
   <div class="tabwrap"><table class="vt">
     <tr><th>$w_i$</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
     <tr><th>$P(W=w_i)$</th><td>$\frac18$</td><td>$\frac38$</td><td>$\frac38$</td><td>$\frac18$</td></tr>
@@ -297,80 +297,97 @@ footer a{color:var(--dunkel)}
   </div>
 </div>
 
-<!-- ================= STATION 5 ================= -->
+<!-- ================= STATION 4 ================= -->
 <section class="station" id="s4" data-station="4">
-<div class="stkopf"><span class="num">4</span><h2>Gleicher Erwartungswert – gleiches Risiko? Die Varianz</h2><span class="zeit">≈ 9 Min.</span></div>
-<p>Zwei Würfelspiele, jeweils ein Wurf pro Runde:</p>
-<div class="zwei">
-  <div class="karte" style="margin:4px 0;border-left:5px solid var(--blau)"><b style="color:var(--blau)">Spiel A „Ruhig“</b><br>Gewinn in € $=$ Augenzahl $-\,3{,}50$.<br><span class="hinweis">Also z. B. $-2{,}50$ € bei einer 1, $+2{,}50$ € bei einer 6.</span></div>
-  <div class="karte" style="margin:4px 0;border-left:5px solid var(--akzent)"><b style="color:var(--akzent)">Spiel B „Alles oder nichts“</b><br>Bei einer 6 gewinnt man 15 €, sonst verliert man 3 €.</div>
-</div>
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 7</div>
-  <div class="aufgabe" data-id="s5a" data-ziel="0" data-tol="0.001">
-    <p>a) Berechnet den Erwartungswert des Gewinns für <b>Spiel B</b>. (Spiel A habt ihr praktisch schon in Station 1 berechnet.)</p>
-    <div class="zeile">$E(B)=$ <input type="text" aria-label="E(B)"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$E(B)=15\cdot\frac16+(-3)\cdot\frac56=2{,}5-2{,}5=0$. Auch $E(A)=3{,}5-3{,}5=0$. Beide Spiele sind fair!" data-nein="Die 6 hat Wahrscheinlichkeit $\frac16$, „keine 6“ hat $\frac56$."></div>
-  </div>
-  <p>b) Spielt jetzt jeweils 50 Runden und beobachtet den Kontostand. Wiederholt das einige Male.</p>
-  <div class="zeile"><button id="spiel50">50 Runden spielen</button><button class="zweit klein" id="spielReset">Diagramm leeren</button></div>
-  <div class="svgbox"><svg id="kontoSvg" viewBox="0 0 640 280" role="img" aria-label="Kontostand bei Spiel A und B"></svg></div>
-  <div class="legende"><span style="--c:var(--blau)">Spiel A</span><span style="--c:var(--akzent)">Spiel B</span></div>
-  <div class="aufgabe" data-id="s5b" data-mc="1">
-    <p>c) Was beobachtet ihr?</p>
-    <div class="opts">
-      <label><input type="radio" name="s5b"> Spiel B ist auf lange Sicht günstiger, weil man 15 € gewinnen kann.</label>
-      <label><input type="radio" name="s5b"> Beide sind im Mittel gleich, aber bei Spiel B schwankt der Kontostand viel stärker.</label>
-      <label><input type="radio" name="s5b"> Es gibt keinen Unterschied zwischen den Spielen.</label>
-    </div>
-    <div class="fb" data-ok="Genau. Der Erwartungswert allein beschreibt eine Zufallsgröße nicht vollständig. Wir brauchen eine zweite Kennzahl für die <b>Streuung</b> um den Erwartungswert." data-nein="Schaut auf die Diagramme: Wo liegen die Kurven im Mittel? Wie weit gehen sie nach oben und unten?"></div>
-  </div>
-</div>
-<h3>Ein Maß für die Streuung</h3>
-<p>Idee: Man schaut, wie weit die Werte $x_i$ vom Erwartungswert $\mu$ entfernt sind, also auf die <b>Abweichungen</b> $x_i-\mu$, und gewichtet sie wieder mit den Wahrscheinlichkeiten. Wir probieren das mit der Augenzahl $X$ beim Würfel ($\mu=3{,}5$).</p>
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 8: Erster Versuch</div>
+<div class="stkopf"><span class="num">4</span><h2>Gleicher Durchschnitt – gleiche Noten? Varianz und Standardabweichung</h2><span class="zeit">≈ 10 Min.</span></div>
+<p>In zwei Q12-Mathekursen mit je 24 Schülerinnen und Schülern wird derselbe Test geschrieben. Aus jedem Kurs wird zufällig ein Test ausgewählt. $X_1$ bzw. $X_2$ ist die Note dieses Tests.</p>
+<div class="karte">
   <div class="tabwrap"><table class="vt">
-    <tr><th>$x_i$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-    <tr><th>$P(X=x_i)$</th><td>$\frac16$</td><td>$\frac16$</td><td>$\frac16$</td><td>$\frac16$</td><td>$\frac16$</td><td>$\frac16$</td></tr>
-    <tr><th>$x_i-\mu$</th><td>$-2{,}5$</td><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td><td>$2{,}5$</td></tr>
+    <tr><th>Note</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+    <tr><th style="color:var(--blau)">Kurs 1 (Anzahl)</th><td>0</td><td>2</td><td>10</td><td>10</td><td>2</td><td>0</td></tr>
+    <tr><th style="color:var(--akzent)">Kurs 2 (Anzahl)</th><td>6</td><td>5</td><td>1</td><td>1</td><td>5</td><td>6</td></tr>
+  </table></div>
+  <div class="svgbox"><svg id="notenSvg" viewBox="0 0 640 230" role="img" aria-label="Notenverteilungen der beiden Kurse"></svg></div>
+  <div class="legende"><span style="--c:var(--blau)">Kurs 1</span><span style="--c:var(--akzent)">Kurs 2</span></div>
+</div>
+<div class="karte auftrag">
+  <div class="kopf">Auftrag 4</div>
+  <p class="hinweis" style="margin-top:0">Die Wahrscheinlichkeiten erhaltet ihr aus den Anzahlen, z. B. $P(X_1=3)=\frac{10}{24}$.</p>
+  <div class="aufgabe" data-id="s5a" data-ziel="3.5" data-tol="0.001">
+    <p>a) Bestimmt die theoretisch zu erwartende Note in Kurs 1.</p>
+    <div class="zeile">$E(X_1)=$ <input type="text" aria-label="E(X1)"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$E(X_1)=2\cdot\frac{2}{24}+3\cdot\frac{10}{24}+4\cdot\frac{10}{24}+5\cdot\frac{2}{24}=\frac{84}{24}=3{,}5$." data-nein="Note mal Wahrscheinlichkeit, dann addieren. Die Noten 1 und 6 kommen in Kurs 1 nicht vor."></div>
+  </div>
+  <div class="aufgabe" data-id="s5c" data-ziel="3.5" data-tol="0.001">
+    <p>b) … und in Kurs 2.</p>
+    <div class="zeile">$E(X_2)=$ <input type="text" aria-label="E(X2)"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$E(X_2)=1\cdot\frac{6}{24}+2\cdot\frac{5}{24}+3\cdot\frac{1}{24}+4\cdot\frac{1}{24}+5\cdot\frac{5}{24}+6\cdot\frac{6}{24}=\frac{84}{24}=3{,}5$. Genau gleich!" data-nein="$1\cdot\frac{6}{24}+2\cdot\frac{5}{24}+\dots+6\cdot\frac{6}{24}$"></div>
+  </div>
+  <div class="aufgabe" data-id="s5d" data-mc="1">
+    <p>c) Mit welcher bekannten Größe ist der Erwartungswert hier zu vergleichen?</p>
+    <div class="opts">
+      <label><input type="radio" name="s5d"> Mit der häufigsten Note</label>
+      <label><input type="radio" name="s5d"> Mit dem Notendurchschnitt des Kurses</label>
+      <label><input type="radio" name="s5d"> Mit der besten Note</label>
+    </div>
+    <div class="fb" data-ok="Genau: Der Erwartungswert ist hier der Notendurchschnitt. Beide Kurse haben den Schnitt 3,5." data-nein="Rechnet den Schnitt der 24 Noten von Kurs 1 aus und vergleicht mit $E(X_1)$."></div>
+  </div>
+  <div class="aufgabe" data-id="s5b" data-mc="2">
+    <p>d) Ist der Erwartungswert hier eine aussagekräftige Größe?</p>
+    <div class="opts">
+      <label><input type="radio" name="s5b"> Ja, beide Kurse haben gleich abgeschnitten.</label>
+      <label><input type="radio" name="s5b"> Ja, er sagt alles über die Notenverteilung aus.</label>
+      <label><input type="radio" name="s5b"> Nur bedingt: Der Schnitt ist gleich, aber in Kurs 2 liegen die Noten viel weiter auseinander.</label>
+    </div>
+    <div class="fb" data-ok="Richtig. In Kurs 1 liegen fast alle Noten bei 3 und 4, in Kurs 2 gibt es viele Einser und viele Sechser. Wir brauchen eine zweite Kennzahl für die <b>Streuung</b> um den Erwartungswert." data-nein="Schaut auf das Diagramm: Sehen die beiden Verteilungen gleich aus?"></div>
+  </div>
+</div>
+
+<h3>Ein Maß für die Streuung</h3>
+<p>Idee: Man schaut, wie weit die Werte $x_i$ vom Erwartungswert $\mu$ entfernt sind, also auf die <b>Abweichungen</b> $x_i-\mu$, und gewichtet sie wieder mit den Wahrscheinlichkeiten. Wir probieren das mit Kurs 1 ($\mu=3{,}5$).</p>
+<div class="karte auftrag">
+  <div class="kopf">Auftrag 5: Erster Versuch</div>
+  <div class="tabwrap"><table class="vt">
+    <tr><th>$x_i$</th><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><th>$P(X_1=x_i)$</th><td>$\frac{2}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{2}{24}$</td></tr>
+    <tr><th>$x_i-\mu$</th><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td></tr>
   </table></div>
   <div class="aufgabe" data-id="s6a" data-ziel="0" data-tol="0.001">
-    <p>a) Berechnet $\displaystyle\sum_{i=1}^{6}(x_i-\mu)\cdot P(X=x_i)$.</p>
+    <p>Berechnet $(x_1-\mu)\cdot P(X_1=x_1)+(x_2-\mu)\cdot P(X_1=x_2)+\dots$</p>
     <div class="zeile"><input type="text" aria-label="Summe Abweichungen"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Die Summe ist 0. Positive und negative Abweichungen heben sich auf." data-nein="$(-2{,}5)\cdot\frac16+(-1{,}5)\cdot\frac16+\dots+2{,}5\cdot\frac16$. Was fällt euch an den Abweichungen auf?"></div>
+    <div class="fb" data-ok="Die Summe ist 0. Positive und negative Abweichungen heben sich auf." data-nein="$(-1{,}5)\cdot\frac{2}{24}+(-0{,}5)\cdot\frac{10}{24}+0{,}5\cdot\frac{10}{24}+1{,}5\cdot\frac{2}{24}$. Was fällt euch auf?"></div>
   </div>
 </div>
 
 <div class="aufklapp" data-nach="s6a">
 <div class="karte denk">
-  <b>Das ist kein Zufall:</b> Für <b>jede</b> Zufallsgröße heben sich die gewichteten Abweichungen zu 0 auf. Diese Summe taugt also nicht als Streuungsmaß.<br><b>Ausweg:</b> Das Vorzeichen der Abweichung darf nicht mehr ins Gewicht fallen. Man könnte Beträge $|x_i-\mu|$ nehmen. In der Mathematik hat man sich für die <b>Quadrate</b> $(x_i-\mu)^2$ entschieden (damit lässt sich besser rechnen). Große Abweichungen zählen dadurch besonders stark.
+  <b>Das ist kein Zufall:</b> Für <b>jede</b> Zufallsgröße heben sich die gewichteten Abweichungen zu 0 auf. Diese Summe taugt also nicht als Streuungsmaß.<br><b>Ausweg:</b> Man nimmt die <b>Quadrate</b> $(x_i-\mu)^2$. Dann fällt das Vorzeichen weg, und große Abweichungen zählen besonders stark.
 </div>
 <div class="def">
   <b class="t">Definition: Varianz</b><br>
-  Ist $X$ eine Zufallsgröße mit den Werten $x_1,\dots,x_n$ und dem Erwartungswert $E(X)=\mu$, so heißt die reelle Zahl
-  $$\mathrm{Var}(X)=(x_1-\mu)^2\cdot P(X=x_1)+\dots+(x_n-\mu)^2\cdot P(X=x_n)=\sum_{i=1}^{n}(x_i-\mu)^2\cdot P(X=x_i)$$
-  <b>Varianz</b> der Zufallsgröße $X$.
+  Für die Zufallsgröße $X$ mit möglichen Werten $x_1, x_2, \dots$ und Erwartungswert $\mu$ heißt
+  $$\mathrm{Var}(X)=(x_1-\mu)^2\cdot P(X=x_1)+(x_2-\mu)^2\cdot P(X=x_2)+\dots$$
+  <b>Varianz</b> von $X$.
 </div>
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 9: Varianz von Spiel B</div>
-  <div class="aufgabe" data-id="s6d" data-ziel="45" data-tol="0.001">
-    <p>a) Berechnet $\mathrm{Var}(B)$. Zum Vergleich: Für Spiel A erhält man $\mathrm{Var}(A)=\frac{35}{12}\approx 2{,}92$.</p>
-    <div class="zeile">$\mathrm{Var}(B)=$ <input type="text" aria-label="Var(B)"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\mathrm{Var}(B)=(15-0)^2\cdot\frac16+(-3-0)^2\cdot\frac56=37{,}5+7{,}5=45$. Rund 15-mal so groß wie bei A, das passt zum Kontostand-Diagramm!" data-nein="$\mu=0$, also $(15-0)^2\cdot\frac16+(-3-0)^2\cdot\frac56$."></div>
+  <div class="kopf">Auftrag 6: Varianz von Kurs 1</div>
+  <div class="aufgabe" data-id="s6d" data-ziel="7/12" data-tol="0.006">
+    <p>a) Berechnet $\mathrm{Var}(X_1)$ (zwei Nachkommastellen oder als Bruch).</p>
+    <div class="zeile">$\mathrm{Var}(X_1)=$ <input type="text" aria-label="Var(X1)"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$\mathrm{Var}(X_1)=2{,}25\cdot\frac{2}{24}+0{,}25\cdot\frac{10}{24}+0{,}25\cdot\frac{10}{24}+2{,}25\cdot\frac{2}{24}=\frac{14}{24}\approx 0{,}58$. Für Kurs 2 erhält man $\mathrm{Var}(X_2)=\frac{98}{24}\approx 4{,}08$, also ungefähr das Siebenfache." data-nein="Quadriert die Abweichungen aus der Tabelle: $(-1{,}5)^2=2{,}25$ usw. Dann mit der Wahrscheinlichkeit multiplizieren und addieren."></div>
   </div>
   <div class="karte denk" style="margin:10px 0 0">
-    <b>Ein Haken an der Varianz:</b> Der Gewinn wird in € gemessen. Durch das Quadrieren hat die Varianz die Einheit €². Was sollen „45 Quadrat-Euro“ sein? Deshalb zieht man die Wurzel:
+    <b>Ein Haken an der Varianz:</b> Durch das Quadrieren hat die Varianz nicht mehr die „Einheit“ der Noten. Deshalb zieht man in der Praxis die Wurzel:
   </div>
   <div class="def">
     <b class="t">Definition: Standardabweichung</b><br>
-    Die reelle Zahl $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) heißt <b>Standardabweichung</b> der Zufallsgröße $X$. Die Varianz schreibt man deshalb auch als $\sigma^2$.<br>
-    $\sigma$ hat dieselbe Einheit wie $X$ und gibt an, wie weit die Werte „typischerweise“ um $\mu$ streuen.
+    In der Praxis wird oft die <b>Standardabweichung</b> $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) verwendet.<br>
+    Varianz und Standardabweichung sind Maße für die <b>Streuung</b>.
   </div>
-  <div class="aufgabe" data-id="s6e" data-ziel="6.708" data-tol="0.006">
-    <p>b) Bestimmt $\sigma_B$ (zwei Nachkommastellen).</p>
-    <div class="zeile">$\sigma_B\approx$ <input type="text" aria-label="sigma B"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\sigma_B=\sqrt{45}\approx 6{,}71$ €, dagegen $\sigma_A=\sqrt{35/12}\approx 1{,}71$ €. Kennzahlen der Zufallsgröße: $\mu$ sagt, wo der Schwerpunkt liegt, $\sigma$, wie breit es streut." data-nein="Zieht die Wurzel aus $\mathrm{Var}(B)=45$."></div>
+  <div class="aufgabe" data-id="s6e" data-ziel="0.764" data-tol="0.006">
+    <p>b) Bestimmt $\sigma_1$ für Kurs 1 (zwei Nachkommastellen).</p>
+    <div class="zeile">$\sigma_1\approx$ <input type="text" aria-label="sigma 1"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$\sigma_1=\sqrt{0{,}58\overline{3}}\approx 0{,}76$. In Kurs 2 ist $\sigma_2=\sqrt{4{,}08\overline{3}}\approx 2{,}02$. Bei gleichem Durchschnitt weichen die Noten in Kurs 2 also typischerweise etwa 2 Notenstufen vom Schnitt ab, in Kurs 1 nicht einmal eine." data-nein="Zieht die Wurzel aus $\mathrm{Var}(X_1)\approx 0{,}583$."></div>
   </div>
 </div>
 </div>
@@ -386,18 +403,18 @@ footer a{color:var(--dunkel)}
 <div class="stkopf"><span class="num">✎</span><h2>Merkzettel</h2><button class="klein zweit keindruck" style="margin-left:auto" onclick="window.print()">Drucken / als PDF</button></div>
 <div class="karte merk">
   <h4>Erwartungswert</h4>
-  <p>$\mu=E(X)=\displaystyle\sum_{i=1}^{n}x_i\cdot P(X=x_i)$ &nbsp;·&nbsp; mittlerer Wert von $X$ pro Versuch auf lange Sicht, „Gleichgewichtspunkt“ des Histogramms. $\mu$ muss kein Wert von $X$ sein.</p>
+  <p>$\mu=E(X)=\displaystyle\sum_{i=1}^{n}x_i\cdot P(X=x_i)$ &nbsp;·&nbsp; mittlerer Wert von $X$ pro Versuch auf lange Sicht, $\mu$ muss kein Wert von $X$ sein.</p>
   <h4>Faires Spiel</h4>
   <p>Erwartungswert des Gewinns $=0$ für jeden Spieler. Gleichwertig: erwartete Auszahlung $=$ Einsatz.</p>
   <h4>Varianz und Standardabweichung</h4>
   <p>$\mathrm{Var}(X)=\sigma^2=\displaystyle\sum_{i=1}^{n}(x_i-\mu)^2\cdot P(X=x_i)$ &nbsp;·&nbsp; $\sigma=\sqrt{\mathrm{Var}(X)}$<br>
-  Maß für die Streuung um $\mu$. Quadrate, weil sich die Abweichungen $x_i-\mu$ sonst zu 0 aufheben. $\sigma$ hat dieselbe Einheit wie $X$.</p>
+  Maß für die Streuung um $\mu$. Quadrate, weil sich die Abweichungen $x_i-\mu$ sonst zu 0 aufheben.</p>
   <h4>Beispiele</h4>
   <div class="tabwrap"><table class="vt">
     <tr><th></th><th>$\mu$</th><th>$\mathrm{Var}(X)$</th><th>$\sigma$</th></tr>
-    <tr><th>Augenzahl Tetraeder</th><td>2,5</td><td>1,25</td><td>≈ 1,12</td></tr>
-    <tr><th>Augenzahl Würfel</th><td>3,5</td><td>$\frac{35}{12}\approx 2{,}92$</td><td>≈ 1,71</td></tr>
-    <tr><th>Spiel B (15 € / −3 €)</th><td>0</td><td>45</td><td>≈ 6,71</td></tr>
+    <tr><th>Augenzahl Würfel</th><td>3,5</td><td></td><td></td></tr>
+    <tr><th>Note Kurs 1</th><td>3,5</td><td>$\frac{7}{12}\approx 0{,}58$</td><td>≈ 0,76</td></tr>
+    <tr><th>Note Kurs 2</th><td>3,5</td><td>$\frac{49}{12}\approx 4{,}08$</td><td>≈ 2,02</td></tr>
   </table></div>
 </div>
 </section>
@@ -461,7 +478,7 @@ $$('.aufgabe[data-mc]').forEach(box=>{
 });
 
 /* ---------- Stationen & Fortschritt ---------- */
-const STATIONEN={1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5b','s6a','s6d','s6e']};
+const STATIONEN={1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5c','s5d','s5b','s6a','s6d','s6e']};
 function fortschritt(){
   let n=0;
   for(const k in STATIONEN){const fertig=STATIONEN[k].every(geloest);if(fertig)n++;
@@ -557,26 +574,15 @@ function zeichneEinsatz(){
 }
 $('#einsatz').addEventListener('input',zeichneEinsatz);zeichneEinsatz();
 
-/* ---------- Station 5: Kontostand ---------- */
-let laeufe=[];
-function zeichneKonto(){
-  const s=$('#kontoSvg');s.innerHTML='';
-  const L=50,R=620,T=14,B=250,N=50;
-  let lo=-30,hi=30;laeufe.forEach(l=>l.werte.forEach(v=>{lo=Math.min(lo,v);hi=Math.max(hi,v)}));
-  lo=Math.floor(lo/10)*10;hi=Math.ceil(hi/10)*10;
-  const x=i=>L+i/N*(R-L), y=v=>B-(v-lo)/(hi-lo)*(B-T);
-  const st=(hi-lo)>120?40:(hi-lo)>60?20:10;
-  for(let v=lo;v<=hi;v+=st){svgEl('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:v===0?'#888':'#eee'},s);txt(s,L-6,y(v)+4,fmt(v,0)+' €',{'text-anchor':'end','font-size':10})}
-  txt(s,R,B+16,'Runde 50',{'text-anchor':'end','font-size':11});txt(s,L,B+16,'0',{'font-size':11});
-  laeufe.forEach((l,k)=>{const neu=k>=laeufe.length-2;let d='';l.werte.forEach((v,i)=>d+=(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1));
-    svgEl('path',{d,fill:'none',stroke:l.typ==='A'?'#2F5F8A':'#C4501C','stroke-width':neu?2.4:1.2,opacity:neu?1:.3},s)});
-  if(!laeufe.length)txt(s,(L+R)/2,(T+B)/2,'Klickt auf „50 Runden spielen“',{'text-anchor':'middle',fill:'#999','font-size':14});
-}
-$('#spiel50').addEventListener('click',()=>{
-  for(const typ of ['A','B']){let k=0;const w=[0];for(let i=0;i<50;i++){const z=1+Math.floor(Math.random()*6);k+=typ==='A'?z-3.5:(z===6?15:-3);w.push(k)}laeufe.push({typ,werte:w})}
-  if(laeufe.length>16)laeufe=laeufe.slice(-16);zeichneKonto()});
-$('#spielReset').addEventListener('click',()=>{laeufe=[];zeichneKonto()});
-zeichneKonto();
+/* ---------- Station 4: Notenverteilung ---------- */
+(function(){
+  const s=$('#notenSvg'), K1=[0,2,10,10,2,0], K2=[6,5,1,1,5,6];
+  const L=40,R=620,T=12,B=200, y=v=>B-v/12*(B-T), bx=i=>L+(i+0.5)*(R-L)/6;
+  for(let v=0;v<=12;v+=2){svgEl('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:'#eee'},s);txt(s,L-6,y(v)+4,v,{'text-anchor':'end','font-size':10})}
+  K1.forEach((v,i)=>{svgEl('rect',{x:bx(i)-24,y:y(v),width:22,height:B-y(v),fill:'#2F5F8A'},s);svgEl('rect',{x:bx(i)+2,y:y(K2[i]),width:22,height:B-y(K2[i]),fill:'#C4501C'},s);txt(s,bx(i),B+18,'Note '+(i+1),{'text-anchor':'middle'})});
+  svgEl('line',{x1:L,x2:R,y1:B,y2:B,stroke:'#999'},s);
+  const m=L+3*(R-L)/6; svgEl('line',{x1:m,x2:m,y1:T,y2:B,stroke:'#555','stroke-dasharray':'5 4'},s);
+})();
 
 /* ---------- Frage, Reset ---------- */
 const fr=$('#frage');fr.value=stand.frage||'';fr.addEventListener('input',()=>{stand.frage=fr.value;speichern()});
