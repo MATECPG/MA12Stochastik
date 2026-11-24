@@ -115,13 +115,9 @@ footer a{color:var(--dunkel)}
 <nav class="pfad" aria-label="Lernpfad"><div class="in" id="pfad">
   <a href="#start">Start</a>
   <a href="#s1">1 Auf lange Sicht</a>
-  <a href="#s2">2 Glücksrad</a>
-  <a href="#s3">3 Wippe</a>
-  <a href="#s4">4 Faire Spiele</a>
-  <a href="#s5">5 Risiko</a>
-  <a href="#s6">6 Varianz</a>
-  <a href="#s7">7 Labor</a>
-  <a href="#s8">8 Check</a>
+  <a href="#s2">2 Erwartungswert</a>
+  <a href="#s3">3 Faires Spiel</a>
+  <a href="#s4">4 Streuung</a>
   <a href="#merkzettel">Merkzettel</a>
 </div></nav>
 
@@ -130,15 +126,15 @@ footer a{color:var(--dunkel)}
 <!-- ================= START ================= -->
 <section class="station" id="start" data-station="start">
 <div class="karte info">
-  <strong>So arbeitet ihr (ca. 45–60 Minuten):</strong>
+  <strong>So arbeitet ihr (ca. 30 Minuten):</strong>
   <ul style="margin:6px 0 4px;padding-left:1.2em">
     <li>Geht die Stationen der Reihe nach durch. Probiert die Simulationen aus, <b>bevor</b> ihr weiterlest.</li>
     <li>Eingaben werden sofort geprüft. Dezimalzahlen mit Komma oder Punkt, Brüche wie <code>7/2</code> gehen auch.</li>
-    <li>Haltet Rechnungen und die blauen Definitionskästen in eurem Heft fest. Am Ende gibt es einen Merkzettel zum Ausdrucken.</li>
+    <li>Übertragt die blauen Definitionskästen in euer Heft. Ausführlich geübt wird in der nächsten Stunde.</li>
     <li>Euer Fortschritt wird in diesem Browser gespeichert. Grüne Haken oben zeigen erledigte Stationen.</li>
   </ul>
   <div class="fortschritt" aria-hidden="true"><div id="gesamtBalken"></div></div>
-  <div class="hinweis" id="gesamtText">0 von 8 Stationen erledigt</div>
+  <div class="hinweis" id="gesamtText">0 von 4 Stationen erledigt</div>
 </div>
 
 <div class="karte auftrag">
@@ -150,13 +146,13 @@ footer a{color:var(--dunkel)}
     <label><input type="radio" name="bauch" value="nein"> Nein, auf lange Sicht verliert man.</label>
     <label><input type="radio" name="bauch" value="egal"> Weiß nicht, auf lange Sicht ist es ungefähr ausgeglichen.</label>
   </div>
-  <p class="hinweis" id="bauchFb">Eure Antwort wird gespeichert. In Station 4 könnt ihr sie überprüfen.</p>
+  <p class="hinweis" id="bauchFb">Eure Antwort wird gespeichert. In Station 3 könnt ihr sie überprüfen.</p>
 </div>
 </section>
 
 <!-- ================= STATION 1 ================= -->
 <section class="station" id="s1" data-station="1">
-<div class="stkopf"><span class="num">1</span><h2>Was kommt „auf lange Sicht“ heraus?</h2><span class="zeit">≈ 6 Min.</span></div>
+<div class="stkopf"><span class="num">1</span><h2>Was kommt „auf lange Sicht“ heraus?</h2><span class="zeit">≈ 5 Min.</span></div>
 <p>Die Zufallsgröße <span>$X$</span> sei die Augenzahl beim Wurf eines Würfels bzw. eines Tetraeders (Augenzahlen 1 bis 4). Einzelne Würfe sind unvorhersehbar. Aber was passiert mit dem <b>Mittelwert aller bisherigen Augenzahlen</b>, wenn man sehr oft wirft?</p>
 
 <div class="karte">
@@ -178,17 +174,12 @@ footer a{color:var(--dunkel)}
 <div class="karte auftrag">
   <div class="kopf">Auftrag 1</div>
   <div class="aufgabe" data-id="s1a" data-ziel="3.5" data-tol="0.051">
-    <p>a) Gegen welchen Wert läuft der Mittelwert beim <b>Würfel</b>?</p>
+    <p>a) Gegen welchen Wert läuft der Mittelwert beim <b>Würfel</b>? (Mit „Tetraeder“ könnt ihr zusätzlich vergleichen.)</p>
     <div class="zeile"><input type="text" aria-label="Wert Würfel"><button class="klein pruef">Prüfen</button></div>
     <div class="fb" data-ok="Genau: 3,5. Diesen Wert nimmt der Würfel nie an, trotzdem ist er der Durchschnitt auf lange Sicht. Die rote Linie im Diagramm zeigt ihn jetzt." data-nein="Werft mindestens 1000-mal und lest den Mittelwert ab. Auf eine Nachkommastelle genau reicht."></div>
   </div>
-  <div class="aufgabe" data-id="s1b" data-ziel="2.5" data-tol="0.051">
-    <p>b) Und beim <b>Tetraeder</b>?</p>
-    <div class="zeile"><input type="text" aria-label="Wert Tetraeder"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Richtig: 2,5." data-nein="Stellt oben auf „Tetraeder“ um und werft oft."></div>
-  </div>
   <div class="aufgabe" data-id="s1c" data-mc="1">
-    <p>c) Wie kann man diese Werte <b>ohne Simulation</b> erhalten?</p>
+    <p>b) Wie kann man diesen Wert <b>ohne Simulation</b> erhalten?</p>
     <div class="opts">
       <label><input type="radio" name="s1c"> Größte Augenzahl halbieren.</label>
       <label><input type="radio" name="s1c"> Jede Augenzahl mit ihrer Wahrscheinlichkeit multiplizieren und alles addieren.</label>
@@ -201,7 +192,7 @@ footer a{color:var(--dunkel)}
 
 <!-- ================= STATION 2 ================= -->
 <section class="station" id="s2" data-station="2">
-<div class="stkopf"><span class="num">2</span><h2>Vom Glücksrad zur Formel</h2><span class="zeit">≈ 8 Min.</span></div>
+<div class="stkopf"><span class="num">2</span><h2>Vom Glücksrad zum Erwartungswert</h2><span class="zeit">≈ 9 Min.</span></div>
 <p>Bevor man am Glücksrad drehen darf, zahlt man <b>1 € Einsatz</b>. In den acht gleich großen Sektoren steht die Auszahlung in Euro. Die Zufallsgröße <span>$G$</span> gibt den <b>Gewinn</b> in Euro an (Auszahlung minus Einsatz).</p>
 
 <div class="karte">
@@ -259,62 +250,18 @@ footer a{color:var(--dunkel)}
       <b>Erwartungswert</b> der Zufallsgröße $X$. Kurz schreibt man $\mu$ (lies: my) statt $E(X)$.<br>
       Der Erwartungswert ist der <b>mittlere Wert</b> der Zufallsgröße pro Versuch <b>auf lange Sicht</b>.
     </div>
-    <div class="aufgabe" data-id="s2f" data-ziel="1.125" data-tol="0.001">
-      <p><b>Kurz anwenden:</b> Beim selben Glücksrad betrachten wir jetzt die <b>Auszahlung</b> $A$ statt des Gewinns. $A$ nimmt die Werte 0, 1 und 4 (in €) an. Berechnet $E(A)$ als Dezimalzahl.</p>
-      <div class="zeile">$E(A)=$ <input type="text" aria-label="E(A)"> € <button class="klein pruef">Prüfen</button></div>
-      <div class="fb" data-ok="$E(A)=0\cdot\frac58+1\cdot\frac18+4\cdot\frac28=\frac98=1{,}125$ €. Das ist genau 1 € mehr als $E(G)=0{,}125$ €, denn jeder Gewinn ist um den Einsatz von 1 € kleiner als die Auszahlung." data-nein="Rechnet $E(A)=0\cdot\frac58+1\cdot\frac18+4\cdot\frac28$."></div>
+    <div class="aufgabe" data-id="s2f" data-ziel="2.5" data-tol="0.001">
+      <p><b>Kurz anwenden:</b> Berechnet mit der Formel den Erwartungswert der Augenzahl beim <b>Tetraeder</b> (Augenzahlen 1 bis 4, jeweils mit Wahrscheinlichkeit $\frac14$).</p>
+      <div class="zeile">$\mu=$ <input type="text" aria-label="Erwartungswert Tetraeder"><button class="klein pruef">Prüfen</button></div>
+      <div class="fb" data-ok="$\mu=1\cdot\frac14+2\cdot\frac14+3\cdot\frac14+4\cdot\frac14=\frac{10}{4}=2{,}5$. Das passt zur Simulation in Station 1." data-nein="Jede Augenzahl mal $\frac14$, dann alles addieren."></div>
     </div>
-  </div>
-</div>
-</section>
-
-<!-- ================= STATION 3 ================= -->
-<section class="station" id="s3" data-station="3">
-<div class="stkopf"><span class="num">3</span><h2>Der Erwartungswert als Gleichgewichtspunkt</h2><span class="zeit">≈ 8 Min.</span></div>
-<p>Stellt euch das Histogramm einer Zufallsgröße als Gewichte auf einer Wippe vor: Jede Säule wiegt so viel wie ihre Wahrscheinlichkeit. Der Erwartungswert ist genau die Stelle, an der man die Wippe unterstützen muss, damit sie <b>im Gleichgewicht</b> ist.</p>
-<div class="karte">
-  <p class="hinweis" style="margin-top:0"><b>Bedienung:</b> Zieht die Säulen mit Maus oder Finger nach oben oder unten. Die Wahrscheinlichkeiten werden automatisch so angepasst, dass die Summe 1 ist.</p>
-  <div class="svgbox"><svg id="wippe1" viewBox="0 0 640 300" role="img" aria-label="Verteilung auf einer Wippe"></svg></div>
-  <div class="zeile" id="wippe1Info"></div>
-  <div class="zeile"><button class="klein zweit" data-w1="gleich">Gleichverteilung</button><button class="klein zweit" data-w1="zufall">Zufällig</button><button class="klein zweit" data-w1="null">Alles auf 0</button></div>
-</div>
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 3: Baut Verteilungen</div>
-  <div id="chal1"></div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 4: Jetzt mit der Formel</div>
-  <div class="aufgabe" data-id="s3a" data-ziel="2.5" data-tol="0.001">
-    <p>a) Berechnet den Erwartungswert der Augenzahl beim <b>Tetraeder</b> mit der Formel. Passt das zu Station 1?</p>
-    <div class="zeile">$\mu=$ <input type="text" aria-label="Erwartungswert Tetraeder"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\mu=1\cdot\frac14+2\cdot\frac14+3\cdot\frac14+4\cdot\frac14=\frac{10}{4}=2{,}5$. Passt!" data-nein="Jede Augenzahl hat die Wahrscheinlichkeit $\frac14$."></div>
-  </div>
-  <div class="aufgabe" data-id="s3b" data-ziel="7" data-tol="0.001">
-    <p>b) Zwei Würfel werden geworfen, $S$ ist die <b>Augensumme</b>. Die Verteilung ist:</p>
-    <div class="tabwrap"><table class="vt">
-      <tr><th>$s_i$</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
-      <tr><th>$P(S=s_i)$</th><td>$\frac1{36}$</td><td>$\frac2{36}$</td><td>$\frac3{36}$</td><td>$\frac4{36}$</td><td>$\frac5{36}$</td><td>$\frac6{36}$</td><td>$\frac5{36}$</td><td>$\frac4{36}$</td><td>$\frac3{36}$</td><td>$\frac2{36}$</td><td>$\frac1{36}$</td></tr>
-    </table></div>
-    <p>Bestimmt $E(S)$. Es geht auch ganz ohne lange Rechnung: Denkt an die Wippe!</p>
-    <div class="zeile">$E(S)=$ <input type="text" aria-label="Erwartungswert Augensumme"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$E(S)=7$. Die Verteilung ist symmetrisch zu 7, also liegt dort der Gleichgewichtspunkt. Zur Kontrolle: $2\cdot\frac1{36}+3\cdot\frac2{36}+\dots+12\cdot\frac1{36}=\frac{252}{36}=7$." data-nein="Das Histogramm ist symmetrisch. Wo muss man eine symmetrische Wippe unterstützen?"></div>
-  </div>
-  <div class="aufgabe" data-id="s3c" data-mc="2">
-    <p>c) Welche Aussage über den Erwartungswert ist richtig?</p>
-    <div class="opts">
-      <label><input type="radio" name="s3c"> Der Erwartungswert ist immer der Wert mit der größten Wahrscheinlichkeit.</label>
-      <label><input type="radio" name="s3c"> Der Erwartungswert ist immer einer der Werte, die $X$ annehmen kann.</label>
-      <label><input type="radio" name="s3c"> Der Erwartungswert muss kein Wert sein, den $X$ annehmen kann.</label>
-    </div>
-    <div class="fb" data-ok="Richtig. Beim Würfel ist $\mu=3{,}5$, beim Glücksrad $\mu=0{,}125$, obwohl $G$ nur $-1$, $0$ und $3$ annimmt." data-nein="Denkt an den Würfel: Welche Augenzahl ist 3,5? Und beim Glücksrad ist der wahrscheinlichste Gewinn $-1$, der Erwartungswert aber $0{,}125$."></div>
   </div>
 </div>
 </section>
 
 <!-- ================= STATION 4 ================= -->
-<section class="station" id="s4" data-station="4">
-<div class="stkopf"><span class="num">4</span><h2>Faire Spiele – zurück zum Schulfest</h2><span class="zeit">≈ 8 Min.</span></div>
+<section class="station" id="s3" data-station="3">
+<div class="stkopf"><span class="num">3</span><h2>Faire Spiele – zurück zum Schulfest</h2><span class="zeit">≈ 7 Min.</span></div>
 <div class="def">
   <b class="t">Faires Spiel</b><br>
   Ein Spiel heißt <b>fair</b>, wenn der Erwartungswert des <b>Gewinns</b> für jeden Spieler $0$ ist. Auf lange Sicht gewinnt dann niemand und niemand verliert.
@@ -322,16 +269,11 @@ footer a{color:var(--dunkel)}
 
 <div class="karte auftrag">
   <div class="kopf">Auftrag 5: Das Münzspiel</div>
-  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl der Wappen. Ergänzt die Wahrscheinlichkeiten (als Bruch):</p>
+  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl der Wappen. Von den $2^3=8$ gleich wahrscheinlichen Ergebnissen (z. B. WZW) haben 1, 3, 3 bzw. 1 genau 0, 1, 2 bzw. 3 Wappen:</p>
   <div class="tabwrap"><table class="vt">
     <tr><th>$w_i$</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
-    <tr><th>$P(W=w_i)$</th>
-      <td><span class="aufgabe inl" data-id="s4a" data-ziel="0.125" data-tol="0.0005"><input type="text" aria-label="P(W=0)"></span></td>
-      <td><span class="aufgabe inl" data-id="s4b" data-ziel="0.375" data-tol="0.0005"><input type="text" aria-label="P(W=1)"></span></td>
-      <td><span class="aufgabe inl" data-id="s4c" data-ziel="0.375" data-tol="0.0005"><input type="text" aria-label="P(W=2)"></span></td>
-      <td><span class="aufgabe inl" data-id="s4d" data-ziel="0.125" data-tol="0.0005"><input type="text" aria-label="P(W=3)"></span></td></tr>
+    <tr><th>$P(W=w_i)$</th><td>$\frac18$</td><td>$\frac38$</td><td>$\frac38$</td><td>$\frac18$</td></tr>
   </table></div>
-  <p class="hinweis">Tipp: Es gibt $2^3=8$ gleich wahrscheinliche Ergebnisse (z. B. WZW). Wie viele davon haben genau ein Wappen?</p>
   <div class="aufgabe" data-id="s4e" data-ziel="1.5" data-tol="0.001">
     <p>Durchschnittliche Auszahlung pro Spiel: $E(W)=$</p>
     <div class="zeile"><input type="text" aria-label="E(W)"> € <button class="klein pruef">Prüfen</button></div>
@@ -355,30 +297,9 @@ footer a{color:var(--dunkel)}
   </div>
 </div>
 
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 6: Losbude auf dem Christkindlmarkt</div>
-  <p>Eine Losbude verkauft <b>200 Lose zu je 2 €</b>. Darunter sind ein Hauptgewinn im Wert von 100 €, 5 Gewinne zu je 20 € und 20 Gewinne zu je 5 €. Der Rest sind Nieten. $X$ ist der Gewinn (Wert des Preises minus Lospreis) für ein zufällig gekauftes Los.</p>
-  <div class="aufgabe" data-id="s4h" data-ziel="-0.5" data-tol="0.001">
-    <p>a) Bestimmt $E(X)$.</p>
-    <div class="zeile">$E(X)=$ <input type="text" aria-label="E(X) Los"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Der Wert der Preise beträgt im Schnitt $100\cdot\frac{1}{200}+20\cdot\frac{5}{200}+5\cdot\frac{20}{200}=\frac{300}{200}=1{,}50$ €, also $E(X)=1{,}50-2=-0{,}50$ €. Man kann auch direkt mit den Gewinnen 98 €, 18 €, 3 € und −2 € rechnen." data-nein="Tipp: Berechnet erst den erwarteten Wert des Preises (Nieten zählen 0 €) und zieht dann den Lospreis ab. Die Wahrscheinlichkeiten sind $\frac1{200}$, $\frac5{200}$, $\frac{20}{200}$ und $\frac{174}{200}$."></div>
-  </div>
-  <div class="aufgabe" data-id="s4i" data-ziel="100" data-tol="0.001">
-    <p>b) Wie viel Euro nimmt der Verein ein, wenn alle Lose verkauft werden und man die Preise abzieht? Und wie passt das zu a)?</p>
-    <div class="zeile"><input type="text" aria-label="Einnahmen Verein"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$400-300=100$ € $=200\cdot 0{,}50$ €. Der Verlust der Käufer ist genau der Gewinn des Vereins. Bei einer Wohltätigkeitslotterie ist das gewollt: Ein solches Spiel ist absichtlich nicht fair." data-nein="Einnahmen: 200 Lose zu 2 €. Ausgaben: Wert aller Preise."></div>
-  </div>
-  <div class="aufgabe" data-id="s4j" data-ziel="2.5" data-tol="0.001">
-    <p>c) <b>Weitergedacht:</b> Beim Glücksrad aus Station 2 soll der Gewinn auf den zwei 3-€-Feldern so geändert werden, dass das Spiel fair wird (Einsatz bleibt 1 €). Welcher Gewinn $g$ muss dort stehen?</p>
-    <div class="zeile">$g=$ <input type="text" aria-label="Gewinn g"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\frac58\cdot(-1)+\frac18\cdot 0+\frac28\cdot g=0\iff g=2{,}5$. Auf den Feldern müsste also eine Auszahlung von 3,50 € stehen." data-nein="Setzt den Erwartungswert gleich 0: $\frac58\cdot(-1)+\frac18\cdot 0+\frac28\cdot g=0$ und löst nach $g$ auf."></div>
-  </div>
-</div>
-</section>
-
 <!-- ================= STATION 5 ================= -->
-<section class="station" id="s5" data-station="5">
-<div class="stkopf"><span class="num">5</span><h2>Gleicher Erwartungswert – gleiches Risiko?</h2><span class="zeit">≈ 7 Min.</span></div>
+<section class="station" id="s4" data-station="4">
+<div class="stkopf"><span class="num">4</span><h2>Gleicher Erwartungswert – gleiches Risiko? Die Varianz</h2><span class="zeit">≈ 9 Min.</span></div>
 <p>Zwei Würfelspiele, jeweils ein Wurf pro Runde:</p>
 <div class="zwei">
   <div class="karte" style="margin:4px 0;border-left:5px solid var(--blau)"><b style="color:var(--blau)">Spiel A „Ruhig“</b><br>Gewinn in € $=$ Augenzahl $-\,3{,}50$.<br><span class="hinweis">Also z. B. $-2{,}50$ € bei einer 1, $+2{,}50$ € bei einer 6.</span></div>
@@ -405,11 +326,7 @@ footer a{color:var(--dunkel)}
     <div class="fb" data-ok="Genau. Der Erwartungswert allein beschreibt eine Zufallsgröße nicht vollständig. Wir brauchen eine zweite Kennzahl für die <b>Streuung</b> um den Erwartungswert." data-nein="Schaut auf die Diagramme: Wo liegen die Kurven im Mittel? Wie weit gehen sie nach oben und unten?"></div>
   </div>
 </div>
-</section>
-
-<!-- ================= STATION 6 ================= -->
-<section class="station" id="s6" data-station="6">
-<div class="stkopf"><span class="num">6</span><h2>Ein Maß für die Streuung: die Varianz</h2><span class="zeit">≈ 10 Min.</span></div>
+<h3>Ein Maß für die Streuung</h3>
 <p>Idee: Man schaut, wie weit die Werte $x_i$ vom Erwartungswert $\mu$ entfernt sind, also auf die <b>Abweichungen</b> $x_i-\mu$, und gewichtet sie wieder mit den Wahrscheinlichkeiten. Wir probieren das mit der Augenzahl $X$ beim Würfel ($\mu=3{,}5$).</p>
 <div class="karte auftrag">
   <div class="kopf">Auftrag 8: Erster Versuch</div>
@@ -423,20 +340,11 @@ footer a{color:var(--dunkel)}
     <div class="zeile"><input type="text" aria-label="Summe Abweichungen"><button class="klein pruef">Prüfen</button></div>
     <div class="fb" data-ok="Die Summe ist 0. Positive und negative Abweichungen heben sich auf." data-nein="$(-2{,}5)\cdot\frac16+(-1{,}5)\cdot\frac16+\dots+2{,}5\cdot\frac16$. Was fällt euch an den Abweichungen auf?"></div>
   </div>
-  <div class="aufgabe" data-id="s6b" data-mc="0">
-    <p>b) Probiert dieselbe Rechnung für Spiel B aus Station 5 ($\mu=0$). Was kommt heraus? Ist das Zufall?</p>
-    <div class="opts">
-      <label><input type="radio" name="s6b"> Wieder 0, und das gilt für <b>jede</b> Zufallsgröße. Die Summe ist als Streuungsmaß also unbrauchbar.</label>
-      <label><input type="radio" name="s6b"> Etwas Positives, weil Spiel B stärker streut.</label>
-      <label><input type="radio" name="s6b"> Nur bei symmetrischen Verteilungen kommt 0 heraus.</label>
-    </div>
-    <div class="fb" data-ok="Richtig: $15\cdot\frac16+(-3)\cdot\frac56=0$. Allgemein gilt $\sum (x_i-\mu)\cdot P(X=x_i)=\sum x_i\cdot P(X=x_i)-\mu\cdot\sum P(X=x_i)=\mu-\mu\cdot 1=0$." data-nein="Rechnet nach: $(15-0)\cdot\frac16+(-3-0)\cdot\frac56$. Die Verteilung von B ist gar nicht symmetrisch!"></div>
-  </div>
 </div>
 
-<div class="aufklapp" data-nach="s6b">
+<div class="aufklapp" data-nach="s6a">
 <div class="karte denk">
-  <b>Ausweg:</b> Das Vorzeichen der Abweichung darf nicht mehr ins Gewicht fallen. Man könnte Beträge $|x_i-\mu|$ nehmen. In der Mathematik hat man sich für die <b>Quadrate</b> $(x_i-\mu)^2$ entschieden (damit lässt sich besser rechnen). Große Abweichungen zählen dadurch besonders stark.
+  <b>Das ist kein Zufall:</b> Für <b>jede</b> Zufallsgröße heben sich die gewichteten Abweichungen zu 0 auf. Diese Summe taugt also nicht als Streuungsmaß.<br><b>Ausweg:</b> Das Vorzeichen der Abweichung darf nicht mehr ins Gewicht fallen. Man könnte Beträge $|x_i-\mu|$ nehmen. In der Mathematik hat man sich für die <b>Quadrate</b> $(x_i-\mu)^2$ entschieden (damit lässt sich besser rechnen). Große Abweichungen zählen dadurch besonders stark.
 </div>
 <div class="def">
   <b class="t">Definition: Varianz</b><br>
@@ -445,14 +353,9 @@ footer a{color:var(--dunkel)}
   <b>Varianz</b> der Zufallsgröße $X$.
 </div>
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 9: Varianz von Spiel A und B</div>
-  <div class="aufgabe" data-id="s6c" data-ziel="35/12" data-tol="0.006">
-    <p>a) Spiel A hat die Werte $-2{,}5;\ -1{,}5;\ \dots;\ 2{,}5$, jeweils mit $\frac16$. Berechnet $\mathrm{Var}(A)$ (auf zwei Nachkommastellen oder als Bruch).</p>
-    <div class="zeile">$\mathrm{Var}(A)=$ <input type="text" aria-label="Var(A)"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\mathrm{Var}(A)=\big((-2{,}5)^2+(-1{,}5)^2+(-0{,}5)^2+0{,}5^2+1{,}5^2+2{,}5^2\big)\cdot\frac16=\frac{17{,}5}{6}=\frac{35}{12}\approx 2{,}92$." data-nein="Quadriert jede Abweichung, multipliziert mit $\frac16$ und addiert. Zwischenergebnis: Die Summe der Quadrate ist 17,5."></div>
-  </div>
+  <div class="kopf">Auftrag 9: Varianz von Spiel B</div>
   <div class="aufgabe" data-id="s6d" data-ziel="45" data-tol="0.001">
-    <p>b) Berechnet $\mathrm{Var}(B)$.</p>
+    <p>a) Berechnet $\mathrm{Var}(B)$. Zum Vergleich: Für Spiel A erhält man $\mathrm{Var}(A)=\frac{35}{12}\approx 2{,}92$.</p>
     <div class="zeile">$\mathrm{Var}(B)=$ <input type="text" aria-label="Var(B)"><button class="klein pruef">Prüfen</button></div>
     <div class="fb" data-ok="$\mathrm{Var}(B)=(15-0)^2\cdot\frac16+(-3-0)^2\cdot\frac56=37{,}5+7{,}5=45$. Rund 15-mal so groß wie bei A, das passt zum Kontostand-Diagramm!" data-nein="$\mu=0$, also $(15-0)^2\cdot\frac16+(-3-0)^2\cdot\frac56$."></div>
   </div>
@@ -465,129 +368,12 @@ footer a{color:var(--dunkel)}
     $\sigma$ hat dieselbe Einheit wie $X$ und gibt an, wie weit die Werte „typischerweise“ um $\mu$ streuen.
   </div>
   <div class="aufgabe" data-id="s6e" data-ziel="6.708" data-tol="0.006">
-    <p>c) Bestimmt $\sigma_B$ (zwei Nachkommastellen).</p>
+    <p>b) Bestimmt $\sigma_B$ (zwei Nachkommastellen).</p>
     <div class="zeile">$\sigma_B\approx$ <input type="text" aria-label="sigma B"> € <button class="klein pruef">Prüfen</button></div>
     <div class="fb" data-ok="$\sigma_B=\sqrt{45}\approx 6{,}71$ €, dagegen $\sigma_A=\sqrt{35/12}\approx 1{,}71$ €. Kennzahlen der Zufallsgröße: $\mu$ sagt, wo der Schwerpunkt liegt, $\sigma$, wie breit es streut." data-nein="Zieht die Wurzel aus $\mathrm{Var}(B)=45$."></div>
   </div>
 </div>
 </div>
-</section>
-
-<!-- ================= STATION 7 ================= -->
-<section class="station" id="s7" data-station="7">
-<div class="stkopf"><span class="num">7</span><h2>Streuungs-Labor</h2><span class="zeit">≈ 7 Min.</span></div>
-<p>Wieder die Wippe, jetzt mit Standardabweichung. Der markierte Bereich reicht von $\mu-\sigma$ bis $\mu+\sigma$.</p>
-<div class="karte">
-  <div class="svgbox"><svg id="wippe2" viewBox="0 0 640 300" role="img" aria-label="Verteilung mit Erwartungswert und Standardabweichung"></svg></div>
-  <div class="zeile" id="wippe2Info"></div>
-  <div class="zeile"><button class="klein zweit" data-w2="gleich">Gleichverteilung</button><button class="klein zweit" data-w2="zufall">Zufällig</button><button class="klein zweit" data-w2="null">Alles auf 0</button></div>
-</div>
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 10: Baut Verteilungen mit …</div>
-  <div id="chal2"></div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">Auftrag 11: Tetraeder komplett (ins Heft übernehmen)</div>
-  <p>$X$ ist die Augenzahl beim Tetraeder, $\mu=2{,}5$. Füllt die Tabelle aus.</p>
-  <div class="tabwrap"><table class="vt" id="tetraTab">
-    <tr><th>$x_i$</th><td>1</td><td>2</td><td>3</td><td>4</td><th style="background:#fff">Summe</th></tr>
-    <tr><th>$P(X=x_i)$</th><td>$\frac14$</td><td>$\frac14$</td><td>$\frac14$</td><td>$\frac14$</td><td>1</td></tr>
-    <tr><th>$(x_i-\mu)^2$</th>
-      <td><span class="aufgabe inl" data-id="t1" data-ziel="2.25" data-tol="0.001"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t2" data-ziel="0.25" data-tol="0.001"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t3" data-ziel="0.25" data-tol="0.001"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t4" data-ziel="2.25" data-tol="0.001"><input type="text"></span></td><td>–</td></tr>
-    <tr><th>$(x_i-\mu)^2\cdot P(X=x_i)$</th>
-      <td><span class="aufgabe inl" data-id="t5" data-ziel="0.5625" data-tol="0.0006"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t6" data-ziel="0.0625" data-tol="0.0006"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t7" data-ziel="0.0625" data-tol="0.0006"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t8" data-ziel="0.5625" data-tol="0.0006"><input type="text"></span></td>
-      <td><span class="aufgabe inl" data-id="t9" data-ziel="1.25" data-tol="0.001"><input type="text" aria-label="Var"></span></td></tr>
-  </table></div>
-  <div class="aufgabe" data-id="t10" data-ziel="1.118" data-tol="0.006">
-    <p>Also $\mathrm{Var}(X)=1{,}25$ und $\sigma=$</p>
-    <div class="zeile"><input type="text" aria-label="sigma Tetraeder"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\sigma=\sqrt{1{,}25}\approx 1{,}12$. Zum Vergleich Würfel: $\sigma\approx 1{,}71$. Der Würfel streut stärker, weil seine Werte weiter auseinanderliegen." data-nein="Wurzel aus der Varianz."></div>
-  </div>
-  <p class="hinweis">In der Stunde lernt ihr, wie man solche Tabellen mit einer Tabellenkalkulation (Summe, Wurzel) schnell erstellt.</p>
-</div>
-</section>
-
-<!-- ================= STATION 8 ================= -->
-<section class="station" id="s8" data-station="8">
-<div class="stkopf"><span class="num">8</span><h2>Abschluss-Check</h2><span class="zeit">≈ 8 Min.</span></div>
-<p>Rechnet auf Papier und tragt die Ergebnisse ein.</p>
-
-<div class="karte auftrag">
-  <div class="kopf">1 · Werkzeug</div>
-  <p>Eine Zufallsgröße $X$ nimmt nur die angegebenen Werte an.</p>
-  <div class="tabwrap"><table class="vt">
-    <tr><th>$x_i$</th><td>0</td><td>1</td><td>2</td><td>4</td></tr>
-    <tr><th>$P(X=x_i)$</th><td>0,3</td><td>0,2</td><td>?</td><td>0,1</td></tr>
-  </table></div>
-  <div class="aufgabe" data-id="c1" data-ziel="0.4" data-tol="0.001">
-    <div class="zeile">a) $P(X=2)=$ <input type="text"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Die Summe aller Wahrscheinlichkeiten ist 1: $1-0{,}3-0{,}2-0{,}1=0{,}4$." data-nein="Alle Wahrscheinlichkeiten zusammen ergeben 1."></div>
-  </div>
-  <div class="aufgabe" data-id="c2" data-ziel="1.4" data-tol="0.001">
-    <div class="zeile">b) $E(X)=$ <input type="text"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$0\cdot 0{,}3+1\cdot 0{,}2+2\cdot 0{,}4+4\cdot 0{,}1=1{,}4$." data-nein="Habt ihr $P(X=2)=0{,}4$ verwendet?"></div>
-  </div>
-  <div class="aufgabe" data-id="c3" data-ziel="1.44" data-tol="0.001">
-    <div class="zeile">c) $\mathrm{Var}(X)=$ <input type="text"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$1{,}4^2\cdot 0{,}3+0{,}4^2\cdot 0{,}2+0{,}6^2\cdot 0{,}4+2{,}6^2\cdot 0{,}1=0{,}588+0{,}032+0{,}144+0{,}676=1{,}44$." data-nein="Abweichungen vom Erwartungswert 1,4: $-1{,}4;\ -0{,}4;\ 0{,}6;\ 2{,}6$. Quadrieren, gewichten, addieren."></div>
-  </div>
-  <div class="aufgabe" data-id="c4" data-ziel="1.2" data-tol="0.001">
-    <div class="zeile">d) $\sigma=$ <input type="text"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\sqrt{1{,}44}=1{,}2$." data-nein="$\sigma=\sqrt{\mathrm{Var}(X)}$."></div>
-  </div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">2 · Werkzeug</div>
-  <div class="aufgabe" data-id="c5" data-ziel="6" data-tol="0.001">
-    <p>Bei einem Würfelspiel zahlt man 1 € Einsatz. Fällt eine Sechs, bekommt man eine Auszahlung. Sonst bekommt man nichts. Wie hoch muss die Auszahlung sein, damit das Spiel fair ist?</p>
-    <div class="zeile"><input type="text"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Erwartete Auszahlung $a\cdot\frac16$ muss gleich dem Einsatz 1 € sein, also $a=6$ €. (Gewinn dann: $5\cdot\frac16+(-1)\cdot\frac56=0$.)" data-nein="Fair: erwartete Auszahlung $=$ Einsatz. Die erwartete Auszahlung ist $a\cdot\frac16$."></div>
-  </div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">3 · Weitergedacht</div>
-  <div class="aufgabe" data-id="c6" data-mc="1">
-    <p>Celia erhält als Erwartungswert einer Zufallsgröße die Zahl 4,2. Tabea meint: „Celia muss sich verrechnet haben, da alle Werte der Zufallsgröße ganzzahlig sind.“</p>
-    <div class="opts">
-      <label><input type="radio" name="c6"> Tabea hat recht. Bei ganzzahligen Werten ist auch der Erwartungswert ganzzahlig.</label>
-      <label><input type="radio" name="c6"> Tabea hat nicht recht. Der Erwartungswert ist ein gewichteter Mittelwert und muss kein Wert der Zufallsgröße sein.</label>
-      <label><input type="radio" name="c6"> Man kann das nicht entscheiden.</label>
-    </div>
-    <div class="fb" data-ok="Richtig. Gegenbeispiel: Würfel mit $\mu=3{,}5$." data-nein="Denkt an den Würfel aus Station 1."></div>
-  </div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">4 · Weitergedacht (Alltag)</div>
-  <div class="aufgabe" data-id="c7" data-mc="2">
-    <p>Zwei Pizza-Lieferdienste: Bei beiden beträgt die Lieferzeit im Mittel $\mu=30$ Minuten. Bei „Pronto“ ist $\sigma=3$ min, bei „Bella“ ist $\sigma=12$ min. Ihr bestellt um 19:00 Uhr und braucht die Pizza unbedingt bis 19:40 Uhr. Wo bestellt ihr?</p>
-    <div class="opts">
-      <label><input type="radio" name="c7"> Egal, beide liefern im Mittel nach 30 Minuten.</label>
-      <label><input type="radio" name="c7"> Bei Bella, weil man manchmal schon nach 10 Minuten die Pizza hat.</label>
-      <label><input type="radio" name="c7"> Bei Pronto, weil die Lieferzeiten dort kaum schwanken und 40 Minuten sehr selten überschritten werden.</label>
-    </div>
-    <div class="fb" data-ok="Genau. Wer sich auf etwas verlassen muss, achtet nicht nur auf $\mu$, sondern auch auf $\sigma$. 40 min liegt bei Pronto mehr als $3\sigma$ über dem Mittel, bei Bella nicht einmal $1\sigma$." data-nein="Bei gleichem Mittelwert entscheidet die Streuung: Wie wahrscheinlich sind deutlich längere Lieferzeiten?"></div>
-  </div>
-</div>
-
-<div class="karte auftrag">
-  <div class="kopf">5 · Profi</div>
-  <div class="aufgabe" data-id="c8" data-ziel="0" data-tol="0.001">
-    <p>Eine Zufallsgröße $Y$ hat die Varianz 0. Was lässt sich über $Y$ sagen? Gebt die Wahrscheinlichkeit ein, mit der $Y$ einen anderen Wert als $\mu$ annimmt.</p>
-    <div class="zeile"><input type="text"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Alle Summanden $(y_i-\mu)^2\cdot P(Y=y_i)$ sind $\ge 0$. Ihre Summe ist nur dann 0, wenn jeder Summand 0 ist. $Y$ nimmt also mit Wahrscheinlichkeit 1 den Wert $\mu$ an: Es gibt keinen Zufall mehr." data-nein="Jeder Summand der Varianz ist ein Quadrat mal eine Wahrscheinlichkeit, also nie negativ. Wann ist eine Summe nicht-negativer Zahlen 0?"></div>
-  </div>
-</div>
-
 <div class="karte auftrag" style="border-left-color:var(--gut)">
   <div class="kopf" style="color:var(--gut)">Für die Stunde</div>
   <p>Was ist euch noch unklar? Notiert <b>eine Frage</b>, die wir in der Stunde klären sollen. (Wird nur in eurem Browser gespeichert, schreibt sie auch ins Heft.)</p>
@@ -611,7 +397,6 @@ footer a{color:var(--dunkel)}
     <tr><th></th><th>$\mu$</th><th>$\mathrm{Var}(X)$</th><th>$\sigma$</th></tr>
     <tr><th>Augenzahl Tetraeder</th><td>2,5</td><td>1,25</td><td>≈ 1,12</td></tr>
     <tr><th>Augenzahl Würfel</th><td>3,5</td><td>$\frac{35}{12}\approx 2{,}92$</td><td>≈ 1,71</td></tr>
-    <tr><th>Augensumme zwei Würfel</th><td>7</td><td>$\frac{35}{6}\approx 5{,}83$</td><td>≈ 2,42</td></tr>
     <tr><th>Spiel B (15 € / −3 €)</th><td>0</td><td>45</td><td>≈ 6,71</td></tr>
   </table></div>
 </div>
@@ -624,7 +409,7 @@ footer a{color:var(--dunkel)}
 /* ---------- Hilfsfunktionen ---------- */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const NS='http://www.w3.org/2000/svg';
-const KEY='ma12-ew-v1';
+const KEY='ma12-ew-v2';
 let stand={};
 try{stand=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){stand={}}
 function speichern(){try{localStorage.setItem(KEY,JSON.stringify(stand))}catch(e){}}
@@ -676,15 +461,13 @@ $$('.aufgabe[data-mc]').forEach(box=>{
 });
 
 /* ---------- Stationen & Fortschritt ---------- */
-const STATIONEN={1:['s1a','s1b','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['w1a','w1b','w1c','s3a','s3b','s3c'],
-  4:['s4a','s4b','s4c','s4d','s4e','s4f','s4g','s4h','s4i','s4j'],5:['s5a','s5b'],6:['s6a','s6b','s6c','s6d','s6e'],
-  7:['w2a','w2b','w2c','t1','t2','t3','t4','t5','t6','t7','t8','t9','t10'],8:['c1','c2','c3','c4','c5','c6','c7','c8']};
+const STATIONEN={1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5b','s6a','s6d','s6e']};
 function fortschritt(){
   let n=0;
   for(const k in STATIONEN){const fertig=STATIONEN[k].every(geloest);if(fertig)n++;
     const a=document.querySelector(`nav.pfad a[href="#s${k}"]`); if(a)a.classList.toggle('fertig',fertig);}
-  $('#gesamtBalken').style.width=(100*n/8)+'%';
-  $('#gesamtText').textContent=n===8?'Alle 8 Stationen erledigt. Stark! Druckt euch noch den Merkzettel aus.':`${n} von 8 Stationen erledigt`;
+  $('#gesamtBalken').style.width=(100*n/4)+'%';
+  $('#gesamtText').textContent=n===4?'Alle 4 Stationen erledigt. Stark! Notiert euch eure Frage für die Stunde.':`${n} von 4 Stationen erledigt`;
 }
 
 /* ---------- Einstieg: Bauchgefühl ---------- */
@@ -757,86 +540,7 @@ $('#radReset').addEventListener('click',()=>{R.n=0;R.summe=0;radInfo()});
 radInfo();
 
 
-/* ---------- Wippe (Stationen 3 und 7) ---------- */
-function Wippe(svgId,infoId,mitSigma,startP){
-  const s=$('#'+svgId), X=[0,1,2,3,4,5,6];
-  let p=startP.slice();
-  const L=50,R=610,T=20,BB=210, xs=x=>L+(x+0.5)*(R-L)/7, bw=(R-L)/7*0.62, pmax=1;
-  const yv=v=>BB-v/pmax*(BB-T);
-  let ziehen=-1;
-  function norm(){const sum=p.reduce((a,b)=>a+b,0);return sum>0?p.map(v=>v/sum):p.map(()=>0)}
-  function kenn(){const q=norm();const mu=q.reduce((a,v,i)=>a+X[i]*v,0);const va=q.reduce((a,v,i)=>a+(X[i]-mu)**2*v,0);return {q,mu,va,sig:Math.sqrt(va),sum:p.reduce((a,b)=>a+b,0)}}
-  function zeichne(){
-    s.innerHTML='';const {q,mu,sig,sum}=kenn();
-    for(let v=0;v<=1.0001;v+=0.25){svgEl('line',{x1:L,x2:R,y1:yv(v),y2:yv(v),stroke:'#f0e8e1'},s);txt(s,L-6,yv(v)+4,fmt(v,2),{'text-anchor':'end','font-size':10})}
-    const xp=v=>L+(v+0.5)*(R-L)/7;
-    if(mitSigma&&sum>0){const a=Math.max(L,xp(mu-sig)),b=Math.min(R,xp(mu+sig));svgEl('rect',{x:a,y:T-6,width:Math.max(0,b-a),height:BB-T+6,fill:'rgba(47,95,138,.10)',stroke:'rgba(47,95,138,.45)','stroke-dasharray':'4 3'},s);
-      txt(s,(a+b)/2,T+6,'μ − σ … μ + σ',{'text-anchor':'middle',fill:'#2F5F8A','font-size':11})}
-    q.forEach((v,i)=>{
-      const g=svgEl('g',{style:'cursor:ns-resize'},s);
-      svgEl('rect',{x:xs(i)-bw/2,y:T,width:bw,height:BB-T,fill:'transparent'},g);
-      svgEl('rect',{x:xs(i)-bw/2,y:yv(v),width:bw,height:Math.max(0,BB-yv(v)),fill:'#E39A6C',stroke:'#9C3D17'},g);
-      svgEl('rect',{x:xs(i)-bw/2,y:yv(v)-3,width:bw,height:6,fill:'#9C3D17',rx:2},g);
-      if(v>0.004)txt(s,xs(i),yv(v)-8,fmt(v,2),{'text-anchor':'middle','font-size':11,fill:'#5a2a10'});
-    });
-    // Wippe
-    svgEl('rect',{x:L,y:BB,width:R-L,height:7,fill:'#5a2a10',rx:2},s);
-    X.forEach((x,i)=>txt(s,xs(i),BB+24,x,{'text-anchor':'middle','font-size':13}));
-    if(sum>0){const m=xp(mu);svgEl('polygon',{points:`${m},${BB+7} ${m-14},${BB+52} ${m+14},${BB+52}`,fill:'#2F5F8A'},s);
-      txt(s,m,BB+70,'μ = '+fmt(mu,2),{'text-anchor':'middle',fill:'#2F5F8A','font-weight':'bold','font-size':13})}
-    let info=`<span class="kennzahl"><i>μ</i> = <b>${sum>0?fmt(mu,2):'–'}</b></span>`;
-    if(mitSigma)info+=`<span class="kennzahl">Var(<i>X</i>) = <b>${sum>0?fmt(sig*sig,2):'–'}</b></span><span class="kennzahl"><i>σ</i> = <b>${sum>0?fmt(sig,2):'–'}</b></span>`;
-    if(sum===0)info+='<span class="hinweis">Zieht mindestens eine Säule hoch.</span>';
-    $('#'+infoId).innerHTML=info;
-    if(api.onChange)api.onChange(kenn());
-  }
-  function punkt(e){const pt=s.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(s.getScreenCTM().inverse())}
-  function setze(e){
-    const pt=punkt(e); let i=ziehen; if(i<0)return;
-    let ziel=Math.min(1,Math.max(0,(BB-pt.y)/(BB-T))); if(ziel<0.015)ziel=0;
-    const rest=p.reduce((a,b,j)=>j===i?a:a+b,0);
-    if(rest<1e-9){p=p.map(()=>0);p[i]=ziel>0?1:0}
-    else if(ziel>=0.995){p=p.map(()=>0);p[i]=1}
-    else{const f=(1-ziel)/rest;p=p.map((v,j)=>j===i?ziel:v*f)}
-    zeichne();
-  }
-  s.addEventListener('pointerdown',e=>{e.preventDefault();const pt=punkt(e);const i=Math.floor((pt.x-L)/((R-L)/7));if(i<0||i>6||pt.y>BB+5)return;ziehen=i;s.setPointerCapture(e.pointerId);setze(e)});
-  s.addEventListener('pointermove',e=>{if(ziehen>=0)setze(e)});
-  const los=()=>{ziehen=-1};s.addEventListener('pointerup',los);s.addEventListener('pointercancel',los);
-  const api={
-    setze(arr){p=arr.slice();zeichne()},
-    gleich(){p=X.map(()=>1/7);zeichne()},
-    zufall(){p=X.map(()=>Math.random()**2);p=norm();zeichne()},
-    null(){p=X.map(()=>0);zeichne()},
-    zeichne, onChange:null
-  };
-  return api;
-}
-function Challenges(contId,liste){
-  const c=$('#'+contId);
-  c.innerHTML=liste.map(ch=>`<div class="chal${geloest(ch.id)?' erfuellt':''}" id="ch-${ch.id}"><span class="haken"></span><div>${ch.text}<div class="fb"></div></div></div>`).join('');
-  mathe(c);
-  return k=>{liste.forEach(ch=>{if(!geloest(ch.id)&&k.sum>0&&ch.test(k)){const el=$('#ch-'+ch.id);el.classList.add('erfuellt');const fb=el.querySelector('.fb');fb.className='fb gut';fb.innerHTML=ch.ok;mathe(fb);markiere(ch.id)}})};
-}
-const w1=Wippe('wippe1','wippe1Info',false,[0.05,0.1,0.2,0.3,0.2,0.1,0.05]);
-w1.onChange=Challenges('chal1',[
-  {id:'w1a',text:'a) … dem Erwartungswert $\\mu=2$ (genau genug: zwischen 1,95 und 2,05).',test:k=>Math.abs(k.mu-2)<=0.05,ok:'Geschafft! Es gibt viele verschiedene Verteilungen mit $\\mu=2$.'},
-  {id:'w1b',text:'b) … $\\mu=3$, obwohl der Wert 3 <b>gar nicht</b> vorkommt ($P(X=3)=0$).',test:k=>Math.abs(k.mu-3)<=0.05&&k.q[3]<0.005,ok:'Genau: Der Erwartungswert muss kein Wert sein, den $X$ annimmt.'},
-  {id:'w1c',text:'c) … dem größtmöglichen Erwartungswert. Was muss dafür gelten?',test:k=>k.mu>=5.95,ok:'$\\mu=6$ geht nur, wenn $P(X=6)=1$ ist. Dann ist aber gar nichts mehr zufällig.'}
-]);
-w1.zeichne();
-$$('[data-w1]').forEach(b=>b.addEventListener('click',()=>w1[b.dataset.w1]()));
-
-const w2=Wippe('wippe2','wippe2Info',true,[0,0.1,0.2,0.4,0.2,0.1,0]);
-w2.onChange=Challenges('chal2',[
-  {id:'w2a',text:'a) $\\mu=3$ und sehr kleiner Streuung: $\\sigma\\lt 0{,}6$.',test:k=>Math.abs(k.mu-3)<=0.05&&k.sig<0.6,ok:'Fast alle Wahrscheinlichkeit liegt nah bei 3. Kleine Streuung heißt: Die Werte liegen eng um $\\mu$.'},
-  {id:'w2b',text:'b) $\\mu=3$ und großer Streuung: $\\sigma\\gt 2{,}5$.',test:k=>Math.abs(k.mu-3)<=0.05&&k.sig>2.5,ok:'Viel Wahrscheinlichkeit weit außen (bei 0 und 6) erzeugt große Streuung.'},
-  {id:'w2c',text:'c) der größtmöglichen Standardabweichung. Wie sieht die Verteilung aus, wie groß ist $\\sigma$?',test:k=>k.sig>=2.97,ok:'$P(X=0)=P(X=6)=0{,}5$ liefert $\\sigma=3$. Größer geht es mit den Werten 0 bis 6 nicht.'}
-]);
-w2.zeichne();
-$$('[data-w2]').forEach(b=>b.addEventListener('click',()=>w2[b.dataset.w2]()));
-
-/* ---------- Station 4: Einsatz-Regler ---------- */
+/* ---------- Station 3: Einsatz-Regler ---------- */
 function zeichneEinsatz(){
   const e=+$('#einsatz').value, s=$('#einsatzSvg'); s.innerHTML='';
   $('#einsatzWert').textContent=fmt(e,2)+' €';
