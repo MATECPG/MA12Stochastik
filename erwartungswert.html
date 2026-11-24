@@ -93,16 +93,19 @@ table.vt input{width:4.6em;font-size:.95rem;padding:3px 5px;text-align:center}
 .legende span::before{content:"";display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle;background:var(--c)}
 .fortschritt{height:10px;background:#f0e6de;border-radius:6px;overflow:hidden;margin:6px 0 2px}
 .fortschritt div{height:100%;background:var(--gut);width:0;transition:width .4s}
-.merk h4{margin:10px 0 4px;color:var(--blau)}
+.notiz{background:#fff;border:2px dashed var(--dunkel);border-radius:10px;padding:10px 16px;margin:14px 0}
+.notiz .kopf{font-weight:700;color:var(--dunkel);margin-bottom:2px}
+.notiz ul{margin:4px 0 2px;padding-left:1.2em}
+.notizmarke{display:inline-block;font-size:.85rem;padding:0 7px;border:1.5px dashed var(--dunkel);border-radius:6px;color:var(--dunkel);font-weight:600}
+.sumbau{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;font-size:.95rem;margin:6px 0}
+.check label{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed #e6d8cd;cursor:pointer}
+.check label:last-child{border-bottom:0}
+.check input{accent-color:var(--gut);margin-top:5px;width:16px;height:16px}
 footer{max-width:860px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:.85rem}
 footer a{color:var(--dunkel)}
 .katex{font-size:1.07em}
 .katex-display{position:relative;overflow-x:auto;overflow-y:hidden;padding:2px 0}
-@media print{
-  nav.pfad,header,.station,footer,.keindruck{display:none!important}
-  body{background:#fff}
-  #merkzettel{display:block!important}
-}
+
 </style>
 </head>
 <body>
@@ -114,11 +117,12 @@ footer a{color:var(--dunkel)}
 
 <nav class="pfad" aria-label="Lernpfad"><div class="in" id="pfad">
   <a href="#start">Start</a>
+  <a href="#s0">Σ Summenzeichen</a>
   <a href="#s1">1 Auf lange Sicht</a>
   <a href="#s2">2 Erwartungswert</a>
   <a href="#s3">3 Faires Spiel</a>
   <a href="#s4">4 Streuung</a>
-  <a href="#merkzettel">Merkzettel</a>
+  <a href="#notizcheck">Notiz-Check</a>
 </div></nav>
 
 <main>
@@ -126,15 +130,16 @@ footer a{color:var(--dunkel)}
 <!-- ================= START ================= -->
 <section class="station" id="start" data-station="start">
 <div class="karte info">
-  <strong>So arbeitet ihr (ca. 30 Minuten):</strong>
+  <strong>So arbeitet ihr:</strong>
   <ul style="margin:6px 0 4px;padding-left:1.2em">
     <li>Geht die Stationen der Reihe nach durch. Probiert die Simulationen aus, <b>bevor</b> ihr weiterlest.</li>
     <li>Eingaben werden sofort geprüft. Dezimalzahlen mit Komma oder Punkt, Brüche wie <code>7/2</code> gehen auch.</li>
-    <li>Übertragt die blauen Definitionskästen in euer Heft. Ausführlich geübt wird in der nächsten Stunde.</li>
+    <li><b>Macht euch eigene Notizen</b> auf Papier. Schreibt nichts ab, sondern haltet in eigenen Worten fest, was ihr herausfindet. Mit euren Notizen füllt ihr in der nächsten Stunde das Theorieblatt aus. Bei <span class="notizmarke">✎ Notiz</span> ist ein guter Moment dafür.</li>
+    <li>Am Ende prüft ihr mit dem <a href="#notizcheck" style="color:var(--dunkel)">Notiz-Check</a>, ob eure Notizen vollständig sind.</li>
     <li>Euer Fortschritt wird in diesem Browser gespeichert. Grüne Haken oben zeigen erledigte Stationen.</li>
   </ul>
   <div class="fortschritt" aria-hidden="true"><div id="gesamtBalken"></div></div>
-  <div class="hinweis" id="gesamtText">0 von 4 Stationen erledigt</div>
+  <div class="hinweis" id="gesamtText">0 von 5 Stationen erledigt</div>
 </div>
 
 <div class="karte auftrag">
@@ -150,9 +155,60 @@ footer a{color:var(--dunkel)}
 </div>
 </section>
 
+<!-- ================= STATION 0 ================= -->
+<section class="station" id="s0" data-station="0">
+<div class="stkopf"><span class="num">Σ</span><h2>Kurz vorweg: das Summenzeichen</h2></div>
+<p>Heute kommen lange Summen vor, deren Summanden alle gleich gebaut sind. Solche Summen schreibt man kurz mit dem <b>Summenzeichen</b> $\Sigma$ (großes griechisches Sigma, „S“ wie Summe):</p>
+<div class="karte info">
+  $$\sum_{i=1}^{4} i^2 \;=\; 1^2+2^2+3^2+4^2 \;=\; 30$$
+  <div class="sumbau">
+    <b>$i$</b><span>die <b>Laufvariable</b> (auch Index). Sie zählt mit.</span>
+    <b>$i=1$</b><span>unten: der <b>Startwert</b> von $i$</span>
+    <b>$4$</b><span>oben: der <b>Endwert</b> von $i$</span>
+    <b>$i^2$</b><span>rechts: <b>was addiert wird</b>. Für $i$ setzt man nacheinander $1, 2, 3, 4$ ein.</span>
+  </div>
+</div>
+<div class="karte">
+  <b>Summen-Entfalter:</b> Wählt aus, was addiert wird, und die Grenzen. Darunter seht ihr die ausgeschriebene Summe.
+  <div class="zeile">
+    <label>Summand <select id="sumTerm" style="font-size:1rem;padding:4px">
+      <option value="i">i</option><option value="i2">i²</option><option value="2i">2·i</option><option value="i6">i · 1/6</option><option value="x">x_i</option><option value="xp">x_i · P(X = x_i)</option>
+    </select></label>
+    <label>von $i=$ <select id="sumVon" style="font-size:1rem;padding:4px"><option>1</option><option>2</option><option>3</option></select></label>
+    <label>bis <select id="sumBis" style="font-size:1rem;padding:4px"><option>3</option><option selected>4</option><option>5</option><option>6</option></select></label>
+  </div>
+  <div id="sumAnzeige" style="overflow-x:auto;padding:4px 0"></div>
+</div>
+<div class="karte auftrag">
+  <div class="kopf">Auftrag 0: Ausprobieren</div>
+  <div class="aufgabe" data-id="z1" data-ziel="15">
+    <div class="zeile">a) $\displaystyle\sum_{i=1}^{5} i=$ <input type="text" aria-label="Summe a"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$1+2+3+4+5=15$." data-nein="Setzt für $i$ nacheinander 1 bis 5 ein und addiert."></div>
+  </div>
+  <div class="aufgabe" data-id="z2" data-ziel="12">
+    <div class="zeile">b) $\displaystyle\sum_{i=1}^{3} 2\cdot i=$ <input type="text" aria-label="Summe b"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$2\cdot1+2\cdot2+2\cdot3=12$." data-nein="$2\cdot 1+2\cdot 2+2\cdot 3$"></div>
+  </div>
+  <div class="aufgabe" data-id="z3" data-ziel="29">
+    <div class="zeile">c) $\displaystyle\sum_{i=2}^{4} i^2=$ <input type="text" aria-label="Summe c"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$2^2+3^2+4^2=4+9+16=29$. Achtung: Hier startet $i$ bei 2." data-nein="Achtet auf den Startwert: $i$ beginnt hier bei 2."></div>
+  </div>
+  <div class="aufgabe" data-id="z4" data-mc="0">
+    <p>d) Wie schreibt man $1\cdot\frac16+2\cdot\frac16+3\cdot\frac16+4\cdot\frac16+5\cdot\frac16+6\cdot\frac16$ mit dem Summenzeichen?</p>
+    <div class="opts">
+      <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{6} i\cdot\frac16$</label>
+      <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{6} \frac16$</label>
+      <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{1/6} i$</label>
+    </div>
+    <div class="fb" data-ok="Genau. Diese Summe begegnet euch gleich in Station 1 wieder." data-nein="Was ändert sich von Summand zu Summand? Das muss die Laufvariable $i$ sein."></div>
+  </div>
+</div>
+<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Was bedeuten die Teile des Summenzeichens? Notiert ein eigenes Beispiel mit ausgeschriebener Summe.</li></ul></div>
+</section>
+
 <!-- ================= STATION 1 ================= -->
 <section class="station" id="s1" data-station="1">
-<div class="stkopf"><span class="num">1</span><h2>Was kommt „auf lange Sicht“ heraus?</h2><span class="zeit">≈ 5 Min.</span></div>
+<div class="stkopf"><span class="num">1</span><h2>Was kommt „auf lange Sicht“ heraus?</h2></div>
 <p>Die Zufallsgröße <span>$X$</span> sei die Augenzahl beim Wurf eines Würfels bzw. eines Tetraeders (Augenzahlen 1 bis 4). Einzelne Würfe sind unvorhersehbar. Aber was passiert mit dem <b>Mittelwert aller bisherigen Augenzahlen</b>, wenn man sehr oft wirft?</p>
 
 <div class="karte">
@@ -192,7 +248,7 @@ footer a{color:var(--dunkel)}
 
 <!-- ================= STATION 2 ================= -->
 <section class="station" id="s2" data-station="2">
-<div class="stkopf"><span class="num">2</span><h2>Vom Glücksrad zum Erwartungswert</h2><span class="zeit">≈ 9 Min.</span></div>
+<div class="stkopf"><span class="num">2</span><h2>Vom Glücksrad zum Erwartungswert</h2></div>
 <p>Bevor man am Glücksrad drehen darf, zahlt man <b>1 € Einsatz</b>. In den acht gleich großen Sektoren steht die Auszahlung in Euro. Die Zufallsgröße <span>$G$</span> gibt den <b>Gewinn</b> in Euro an (Auszahlung minus Einsatz).</p>
 
 <div class="karte">
@@ -250,6 +306,7 @@ footer a{color:var(--dunkel)}
       <b>Erwartungswert</b> der Zufallsgröße $X$. Kurz schreibt man $\mu$ (lies: my) statt $E(X)$.<br>
       Der Erwartungswert ist der <b>mittlere Wert</b> der Zufallsgröße pro Versuch <b>auf lange Sicht</b>.
     </div>
+    <div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Was gibt der Erwartungswert an? Wie hängt er mit dem Durchschnitt „auf lange Sicht“ zusammen?</li><li>Wie berechnet man ihn? Schreibt die Formel einmal ausgeschrieben und einmal mit $\Sigma$ auf.</li><li>Wofür steht $\mu$?</li></ul></div>
     <div class="aufgabe" data-id="s2f" data-ziel="2.5" data-tol="0.001">
       <p><b>Kurz anwenden:</b> Berechnet mit der Formel den Erwartungswert der Augenzahl beim <b>Tetraeder</b> (Augenzahlen 1 bis 4, jeweils mit Wahrscheinlichkeit $\frac14$).</p>
       <div class="zeile">$\mu=$ <input type="text" aria-label="Erwartungswert Tetraeder"><button class="klein pruef">Prüfen</button></div>
@@ -257,11 +314,12 @@ footer a{color:var(--dunkel)}
     </div>
   </div>
 </div>
+<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Wann heißt ein Spiel fair? Welchen Wert hat dann $\mu$?</li><li>Wie findet man den fairen Einsatz? Notiert das Münzspiel als Beispiel.</li></ul></div>
 </section>
 
 <!-- ================= STATION 3 ================= -->
 <section class="station" id="s3" data-station="3">
-<div class="stkopf"><span class="num">3</span><h2>Faire Spiele – zurück zum Schulfest</h2><span class="zeit">≈ 7 Min.</span></div>
+<div class="stkopf"><span class="num">3</span><h2>Faire Spiele – zurück zum Schulfest</h2></div>
 <div class="def">
   <b class="t">Faires Spiel</b><br>
   Ein Spiel heißt <b>fair</b>, wenn der Erwartungswert des <b>Gewinns</b> für jeden Spieler $0$ ist. Auf lange Sicht gewinnt dann niemand und niemand verliert.
@@ -299,7 +357,7 @@ footer a{color:var(--dunkel)}
 
 <!-- ================= STATION 4 ================= -->
 <section class="station" id="s4" data-station="4">
-<div class="stkopf"><span class="num">4</span><h2>Gleicher Durchschnitt – gleiche Noten? Varianz und Standardabweichung</h2><span class="zeit">≈ 10 Min.</span></div>
+<div class="stkopf"><span class="num">4</span><h2>Gleicher Durchschnitt – gleiche Noten? Varianz und Standardabweichung</h2></div>
 <p>In zwei Q12-Mathekursen mit je 24 Schülerinnen und Schülern wird derselbe Test geschrieben. Aus jedem Kurs wird zufällig ein Test ausgewählt. $X_1$ bzw. $X_2$ ist die Note dieses Tests.</p>
 <div class="karte">
   <div class="tabwrap"><table class="vt">
@@ -369,6 +427,8 @@ footer a{color:var(--dunkel)}
   $$\mathrm{Var}(X)=(x_1-\mu)^2\cdot P(X=x_1)+(x_2-\mu)^2\cdot P(X=x_2)+\dots$$
   <b>Varianz</b> von $X$.
 </div>
+<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Warum reicht der Erwartungswert allein nicht? Haltet das Notenbeispiel kurz fest.</li><li>Warum quadriert man die Abweichungen $x_i-\mu$? Wie lautet die Formel der Varianz (auch mit $\Sigma$)?</li></ul></div>
+
 <div class="karte auftrag">
   <div class="kopf">Auftrag 6: Varianz von Kurs 1</div>
   <div class="aufgabe" data-id="s6d" data-ziel="7/12" data-tol="0.006">
@@ -384,6 +444,8 @@ footer a{color:var(--dunkel)}
     In der Praxis wird oft die <b>Standardabweichung</b> $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) verwendet.<br>
     Varianz und Standardabweichung sind Maße für die <b>Streuung</b>.
   </div>
+  <div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Wie erhält man die Standardabweichung aus der Varianz? Warum verwendet man sie in der Praxis lieber?</li><li>Was bedeutet ein großes bzw. kleines $\sigma$? (Kurs 1 gegen Kurs 2)</li></ul></div>
+
   <div class="aufgabe" data-id="s6e" data-ziel="0.764" data-tol="0.006">
     <p>b) Bestimmt $\sigma_1$ für Kurs 1 (zwei Nachkommastellen).</p>
     <div class="zeile">$\sigma_1\approx$ <input type="text" aria-label="sigma 1"><button class="klein pruef">Prüfen</button></div>
@@ -398,24 +460,19 @@ footer a{color:var(--dunkel)}
 </div>
 </section>
 
-<!-- ================= MERKZETTEL ================= -->
-<section class="station" id="merkzettel" style="margin-top:34px">
-<div class="stkopf"><span class="num">✎</span><h2>Merkzettel</h2><button class="klein zweit keindruck" style="margin-left:auto" onclick="window.print()">Drucken / als PDF</button></div>
-<div class="karte merk">
-  <h4>Erwartungswert</h4>
-  <p>$\mu=E(X)=\displaystyle\sum_{i=1}^{n}x_i\cdot P(X=x_i)$ &nbsp;·&nbsp; mittlerer Wert von $X$ pro Versuch auf lange Sicht, $\mu$ muss kein Wert von $X$ sein.</p>
-  <h4>Faires Spiel</h4>
-  <p>Erwartungswert des Gewinns $=0$ für jeden Spieler. Gleichwertig: erwartete Auszahlung $=$ Einsatz.</p>
-  <h4>Varianz und Standardabweichung</h4>
-  <p>$\mathrm{Var}(X)=\sigma^2=\displaystyle\sum_{i=1}^{n}(x_i-\mu)^2\cdot P(X=x_i)$ &nbsp;·&nbsp; $\sigma=\sqrt{\mathrm{Var}(X)}$<br>
-  Maß für die Streuung um $\mu$. Quadrate, weil sich die Abweichungen $x_i-\mu$ sonst zu 0 aufheben.</p>
-  <h4>Beispiele</h4>
-  <div class="tabwrap"><table class="vt">
-    <tr><th></th><th>$\mu$</th><th>$\mathrm{Var}(X)$</th><th>$\sigma$</th></tr>
-    <tr><th>Augenzahl Würfel</th><td>3,5</td><td></td><td></td></tr>
-    <tr><th>Note Kurs 1</th><td>3,5</td><td>$\frac{7}{12}\approx 0{,}58$</td><td>≈ 0,76</td></tr>
-    <tr><th>Note Kurs 2</th><td>3,5</td><td>$\frac{49}{12}\approx 4{,}08$</td><td>≈ 2,02</td></tr>
-  </table></div>
+<!-- ================= NOTIZ-CHECK ================= -->
+<section class="station" id="notizcheck" style="margin-top:34px">
+<div class="stkopf"><span class="num">✎</span><h2>Notiz-Check</h2></div>
+<p>Sind eure Notizen vollständig? Hakt ab, was ihr habt. Was fehlt, schaut ihr in der passenden Station noch einmal nach. Mit diesen Notizen füllt ihr in der nächsten Stunde das Theorieblatt aus.</p>
+<div class="karte check" id="checkliste">
+  <label><input type="checkbox" data-check="0"> <span>Ich kann das Summenzeichen lesen und eine Summe ausschreiben.</span></label>
+  <label><input type="checkbox" data-check="1"> <span>Ich habe notiert, was der Erwartungswert $\mu=E(X)$ angibt.</span></label>
+  <label><input type="checkbox" data-check="2"> <span>Ich habe die Formel für $E(X)$ (ausgeschrieben und mit $\Sigma$).</span></label>
+  <label><input type="checkbox" data-check="3"> <span>Ich weiß, dass $\mu$ kein Wert sein muss, den $X$ annimmt, und habe ein Beispiel.</span></label>
+  <label><input type="checkbox" data-check="4"> <span>Ich habe notiert, wann ein Spiel fair ist.</span></label>
+  <label><input type="checkbox" data-check="5"> <span>Ich kann mit dem Notenbeispiel erklären, warum man ein Streuungsmaß braucht.</span></label>
+  <label><input type="checkbox" data-check="6"> <span>Ich habe die Formel für die Varianz und weiß, warum quadriert wird.</span></label>
+  <label><input type="checkbox" data-check="7"> <span>Ich habe notiert, wie die Standardabweichung $\sigma$ definiert ist und was sie aussagt.</span></label>
 </div>
 </section>
 
@@ -478,13 +535,13 @@ $$('.aufgabe[data-mc]').forEach(box=>{
 });
 
 /* ---------- Stationen & Fortschritt ---------- */
-const STATIONEN={1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5c','s5d','s5b','s6a','s6d','s6e']};
+const STATIONEN={0:['z1','z2','z3','z4'],1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5c','s5d','s5b','s6a','s6d','s6e']};
 function fortschritt(){
   let n=0;
   for(const k in STATIONEN){const fertig=STATIONEN[k].every(geloest);if(fertig)n++;
     const a=document.querySelector(`nav.pfad a[href="#s${k}"]`); if(a)a.classList.toggle('fertig',fertig);}
-  $('#gesamtBalken').style.width=(100*n/4)+'%';
-  $('#gesamtText').textContent=n===4?'Alle 4 Stationen erledigt. Stark! Notiert euch eure Frage für die Stunde.':`${n} von 4 Stationen erledigt`;
+  $('#gesamtBalken').style.width=(100*n/5)+'%';
+  $('#gesamtText').textContent=n===5?'Alle 5 Stationen erledigt. Stark! Macht jetzt den Notiz-Check.':`${n} von 5 Stationen erledigt`;
 }
 
 /* ---------- Einstieg: Bauchgefühl ---------- */
@@ -583,6 +640,24 @@ $('#einsatz').addEventListener('input',zeichneEinsatz);zeichneEinsatz();
   svgEl('line',{x1:L,x2:R,y1:B,y2:B,stroke:'#999'},s);
   const m=L+3*(R-L)/6; svgEl('line',{x1:m,x2:m,y1:T,y2:B,stroke:'#555','stroke-dasharray':'5 4'},s);
 })();
+
+/* ---------- Summen-Entfalter ---------- */
+function sumZeigen(){
+  const t=$('#sumTerm').value, a=+$('#sumVon').value, b=+$('#sumBis').value, el=$('#sumAnzeige');
+  const T={i:['i',k=>`${k}`,k=>k],i2:['i^2',k=>`${k}^2`,k=>k*k],'2i':['2\\cdot i',k=>`2\\cdot ${k}`,k=>2*k],
+    i6:['i\\cdot\\frac16',k=>`${k}\\cdot\\frac16`,k=>k/6],x:['x_i',k=>`x_{${k}}`,null],xp:['x_i\\cdot P(X=x_i)',k=>`x_{${k}}\\cdot P(X=x_{${k}})`,null]}[t];
+  if(b<a){el.innerHTML='<span class="hinweis">Der Endwert muss mindestens so groß sein wie der Startwert.</span>';return}
+  const teile=[];let w=0;for(let k=a;k<=b;k++){teile.push(T[1](k));if(T[2])w+=T[2](k)}
+  let tex=`\\sum_{i=${a}}^{${b}} ${T[0]} = ${teile.join('+')}`;
+  if(T[2])tex+=` = ${fmt(w,3).replace(',','{,}').replace('−','-')}`;
+  if(window.katex)katex.render(tex,el,{displayMode:true,throwOnError:false});else el.textContent=tex;
+}
+['#sumTerm','#sumVon','#sumBis'].forEach(id=>$(id).addEventListener('change',sumZeigen));
+window.addEventListener('load',sumZeigen);
+
+/* ---------- Notiz-Check ---------- */
+$$('#checkliste input').forEach(c=>{c.checked=!!(stand.check&&stand.check[c.dataset.check]);
+  c.addEventListener('change',()=>{stand.check=stand.check||{};stand.check[c.dataset.check]=c.checked;speichern()})});
 
 /* ---------- Frage, Reset ---------- */
 const fr=$('#frage');fr.value=stand.frage||'';fr.addEventListener('input',()=>{stand.frage=fr.value;speichern()});
