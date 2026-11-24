@@ -96,6 +96,17 @@ table.vt input{width:4.6em;font-size:.95rem;padding:3px 5px;text-align:center}
 .notiz{background:#fff;border:2px dashed var(--dunkel);border-radius:10px;padding:10px 16px;margin:14px 0}
 .notiz .kopf{font-weight:700;color:var(--dunkel);margin-bottom:2px}
 .notiz ul{margin:4px 0 2px;padding-left:1.2em}
+.tabkopf{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--dunkel);margin:8px 0 2px;font-size:.95rem}
+button.info,span.info{width:24px;height:24px;border-radius:50%;padding:0;font-size:.85rem;font-weight:700;background:#fff;color:var(--blau);border:1.5px solid var(--blau);display:inline-flex;align-items:center;justify-content:center;line-height:1}
+button.info:hover,button.info[aria-expanded=true]{background:var(--blau);color:#fff}
+.infobox{display:none;background:var(--blauHg);border:1.5px solid var(--blau);border-radius:8px;padding:9px 12px;margin:4px 0 8px;font-size:.93rem;position:relative}
+.infobox.offen{display:block;animation:ein .25s ease}
+.hilfe{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}
+.hilfe button{font-size:.85rem;padding:4px 10px}
+button.tippbtn{background:#fff;color:#8a6d00;border:1.5px solid var(--tipprand)}button.tippbtn:hover{background:var(--tipphg)}
+button.loesbtn{background:#fff;color:var(--dunkel);border:1.5px dashed var(--dunkel)}
+.tippzeile{background:var(--tipphg);border-left:4px solid var(--tipprand);border-radius:6px;padding:6px 10px;margin:4px 0;font-size:.93rem}
+.fb.loesung{display:block;background:#f4f1ee;border-left:4px solid var(--dunkel)}
 .notizmarke{display:inline-block;font-size:.85rem;padding:0 7px;border:1.5px dashed var(--dunkel);border-radius:6px;color:var(--dunkel);font-weight:600}
 .sumbau{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;font-size:.95rem;margin:6px 0}
 .check label{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed #e6d8cd;cursor:pointer}
@@ -134,7 +145,8 @@ footer a{color:var(--dunkel)}
   <ul style="margin:6px 0 4px;padding-left:1.2em">
     <li>Geht die Stationen der Reihe nach durch. Probiert die Simulationen aus, <b>bevor</b> ihr weiterlest.</li>
     <li>Eingaben werden sofort geprüft. Dezimalzahlen mit Komma oder Punkt, Brüche wie <code>7/2</code> gehen auch.</li>
-    <li><b>Macht euch eigene Notizen</b> auf Papier. Schreibt nichts ab, sondern haltet in eigenen Worten fest, was ihr herausfindet. Mit euren Notizen füllt ihr in der nächsten Stunde das Theorieblatt aus. Bei <span class="notizmarke">✎ Notiz</span> ist ein guter Moment dafür.</li>
+    <li>Kommt ihr nicht weiter, holt euch einen <b>Tipp</b>. Nach drei falschen Versuchen könnt ihr euch die <b>Lösung</b> anzeigen lassen. Bei Tabellen erklärt das <span class="info" style="display:inline-flex;cursor:default">?</span> was darin steht.</li>
+    <li><b>Macht euch eigene Notizen</b> auf Papier. Schreibt nichts ab, sondern haltet in eigenen Worten fest, was ihr herausfindet. Mit euren Notizen füllt ihr in der nächsten Stunde das Theorieblatt aus.</li>
     <li>Am Ende prüft ihr mit dem <a href="#notizcheck" style="color:var(--dunkel)">Notiz-Check</a>, ob eure Notizen vollständig sind.</li>
     <li>Euer Fortschritt wird in diesem Browser gespeichert. Grüne Haken oben zeigen erledigte Stationen.</li>
   </ul>
@@ -181,35 +193,34 @@ footer a{color:var(--dunkel)}
 </div>
 <div class="karte auftrag">
   <div class="kopf">Auftrag 0: Ausprobieren</div>
-  <div class="aufgabe" data-id="z1" data-ziel="15">
+  <div class="aufgabe" data-id="z1" data-ziel="15" data-tipps="Für $i$ setzt man nacheinander $1, 2, 3, 4, 5$ ein. Der Summand ist einfach $i$ selbst.||Ihr müsst also $1+2+3+4+5$ ausrechnen.">
     <div class="zeile">a) $\displaystyle\sum_{i=1}^{5} i=$ <input type="text" aria-label="Summe a"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$1+2+3+4+5=15$." data-nein="Setzt für $i$ nacheinander 1 bis 5 ein und addiert."></div>
+    <div class="fb" data-ok="$1+2+3+4+5=15$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="z2" data-ziel="12">
+  <div class="aufgabe" data-id="z2" data-ziel="12" data-tipps="Für $i$ setzt man $1, 2, 3$ ein. Jedes Mal wird $2\cdot i$ addiert.||Ausgeschrieben: $2\cdot 1+2\cdot 2+2\cdot 3$.">
     <div class="zeile">b) $\displaystyle\sum_{i=1}^{3} 2\cdot i=$ <input type="text" aria-label="Summe b"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$2\cdot1+2\cdot2+2\cdot3=12$." data-nein="$2\cdot 1+2\cdot 2+2\cdot 3$"></div>
+    <div class="fb" data-ok="$2\cdot1+2\cdot2+2\cdot3=2+4+6=12$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="z3" data-ziel="29">
+  <div class="aufgabe" data-id="z3" data-ziel="29" data-tipps="Achtet auf den Startwert unten: $i$ beginnt hier bei 2, nicht bei 1.||Ausgeschrieben: $2^2+3^2+4^2$.">
     <div class="zeile">c) $\displaystyle\sum_{i=2}^{4} i^2=$ <input type="text" aria-label="Summe c"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$2^2+3^2+4^2=4+9+16=29$. Achtung: Hier startet $i$ bei 2." data-nein="Achtet auf den Startwert: $i$ beginnt hier bei 2."></div>
+    <div class="fb" data-ok="$2^2+3^2+4^2=4+9+16=29$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="z4" data-mc="0">
+  <div class="aufgabe" data-id="z4" data-mc="0" data-tipps="Vergleicht die Summanden: $1\cdot\frac16$, $2\cdot\frac16$, $3\cdot\frac16$, … Was bleibt gleich, was ändert sich?||Der Faktor $\frac16$ bleibt gleich, die Zahl davor läuft von 1 bis 6. Diese Zahl ist die Laufvariable $i$.">
     <p>d) Wie schreibt man $1\cdot\frac16+2\cdot\frac16+3\cdot\frac16+4\cdot\frac16+5\cdot\frac16+6\cdot\frac16$ mit dem Summenzeichen?</p>
     <div class="opts">
       <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{6} i\cdot\frac16$</label>
       <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{6} \frac16$</label>
       <label><input type="radio" name="z4"> $\displaystyle\sum_{i=1}^{1/6} i$</label>
     </div>
-    <div class="fb" data-ok="Genau. Diese Summe begegnet euch gleich in Station 1 wieder." data-nein="Was ändert sich von Summand zu Summand? Das muss die Laufvariable $i$ sein."></div>
+    <div class="fb" data-ok="$\displaystyle\sum_{i=1}^{6} i\cdot\frac16$. Diese Summe begegnet euch gleich in Station 1 wieder." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
 </div>
-<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Was bedeuten die Teile des Summenzeichens? Notiert ein eigenes Beispiel mit ausgeschriebener Summe.</li></ul></div>
 </section>
 
 <!-- ================= STATION 1 ================= -->
 <section class="station" id="s1" data-station="1">
 <div class="stkopf"><span class="num">1</span><h2>Was kommt „auf lange Sicht“ heraus?</h2></div>
-<p>Die Zufallsgröße <span>$X$</span> sei die Augenzahl beim Wurf eines Würfels bzw. eines Tetraeders (Augenzahlen 1 bis 4). Einzelne Würfe sind unvorhersehbar. Aber was passiert mit dem <b>Mittelwert aller bisherigen Augenzahlen</b>, wenn man sehr oft wirft?</p>
+<p>Die Zufallsgröße $X$ sei die Augenzahl beim Wurf eines Würfels bzw. eines Tetraeders (Augenzahlen 1 bis 4). Einzelne Würfe sind unvorhersehbar. Aber was passiert mit dem <b>Mittelwert aller bisherigen Augenzahlen</b>, wenn man sehr oft wirft?</p>
 
 <div class="karte">
   <div class="zeile">
@@ -224,24 +235,24 @@ footer a{color:var(--dunkel)}
   </div>
   <div class="svgbox"><svg id="wurfSvg" viewBox="0 0 640 260" role="img" aria-label="Verlauf des Mittelwerts der Augenzahlen"></svg></div>
   <div class="zeile" id="wurfInfo"></div>
-  <p class="hinweis">Tipp: Klickt mehrmals auf „Neu“ und „+1000“. Achtet darauf, wie unruhig der Mittelwert am Anfang ist und wie ruhig am Ende.</p>
+  <p class="hinweis">Klickt mehrmals auf „Neu“ und „+1000“. Achtet darauf, wie unruhig der Mittelwert am Anfang ist und wie ruhig am Ende.</p>
 </div>
 
 <div class="karte auftrag">
   <div class="kopf">Auftrag 1</div>
-  <div class="aufgabe" data-id="s1a" data-ziel="3.5" data-tol="0.051">
+  <div class="aufgabe" data-id="s1a" data-ziel="3.5" data-tol="0.051" data-tipps="Stellt oben „Würfel“ ein und klickt mehrmals auf „+1000“. Lest dann den Mittelwert unter dem Diagramm ab.||Der Mittelwert schwankt am Ende nur noch wenig um eine Zahl mit einer Nachkommastelle. Rundet auf eine Nachkommastelle.">
     <p>a) Gegen welchen Wert läuft der Mittelwert beim <b>Würfel</b>? (Mit „Tetraeder“ könnt ihr zusätzlich vergleichen.)</p>
     <div class="zeile"><input type="text" aria-label="Wert Würfel"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Genau: 3,5. Diesen Wert nimmt der Würfel nie an, trotzdem ist er der Durchschnitt auf lange Sicht. Die rote Linie im Diagramm zeigt ihn jetzt." data-nein="Werft mindestens 1000-mal und lest den Mittelwert ab. Auf eine Nachkommastelle genau reicht."></div>
+    <div class="fb" data-ok="3,5. Diesen Wert nimmt der Würfel nie an, trotzdem ist er der Durchschnitt auf lange Sicht. Die rote Linie im Diagramm zeigt ihn jetzt." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s1c" data-mc="1">
+  <div class="aufgabe" data-id="s1c" data-mc="1" data-tipps="Prüft die erste Möglichkeit am Würfel: Was ist die Hälfte von 6? Passt das zu eurem Ergebnis aus a)?||Jede Augenzahl kommt auf lange Sicht in etwa $\frac16$ aller Würfe vor. Rechnet einmal $1\cdot\frac16+2\cdot\frac16+\dots+6\cdot\frac16$ aus.">
     <p>b) Wie kann man diesen Wert <b>ohne Simulation</b> erhalten?</p>
     <div class="opts">
       <label><input type="radio" name="s1c"> Größte Augenzahl halbieren.</label>
       <label><input type="radio" name="s1c"> Jede Augenzahl mit ihrer Wahrscheinlichkeit multiplizieren und alles addieren.</label>
       <label><input type="radio" name="s1c"> Das kann man nur durch Ausprobieren herausfinden.</label>
     </div>
-    <div class="fb" data-ok="Genau! Beim Würfel: $1\cdot\frac16+2\cdot\frac16+\dots+6\cdot\frac16=\frac{21}{6}=3{,}5$. Warum das so ist, seht ihr in Station 2." data-nein="Beim Würfel wäre „größte Augenzahl halbieren“ 3, nicht 3,5. Denkt an die Wahrscheinlichkeiten, mit denen die Augenzahlen auftreten."></div>
+    <div class="fb" data-ok="Jede Augenzahl wird mit ihrer Wahrscheinlichkeit multipliziert: $\displaystyle\sum_{i=1}^{6} i\cdot\frac16=\frac{21}{6}=3{,}5$. Warum das so ist, seht ihr in Station 2." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
 </div>
 </section>
@@ -249,7 +260,7 @@ footer a{color:var(--dunkel)}
 <!-- ================= STATION 2 ================= -->
 <section class="station" id="s2" data-station="2">
 <div class="stkopf"><span class="num">2</span><h2>Vom Glücksrad zum Erwartungswert</h2></div>
-<p>Bevor man am Glücksrad drehen darf, zahlt man <b>1 € Einsatz</b>. In den acht gleich großen Sektoren steht die Auszahlung in Euro. Die Zufallsgröße <span>$G$</span> gibt den <b>Gewinn</b> in Euro an (Auszahlung minus Einsatz).</p>
+<p>Bevor man am Glücksrad drehen darf, zahlt man <b>1 € Einsatz</b>. In den acht gleich großen Sektoren steht die Auszahlung in Euro. Die Zufallsgröße $G$ gibt den <b>Gewinn</b> in Euro an (Auszahlung minus Einsatz).</p>
 
 <div class="karte">
   <div class="zwei">
@@ -262,6 +273,11 @@ footer a{color:var(--dunkel)}
       </div>
     </div>
     <div>
+      <div class="tabkopf">Verteilung von $G$ <button type="button" class="info" aria-label="Erklärung zur Tabelle">?</button></div>
+      <div class="infobox">Das ist die <b>Wahrscheinlichkeitsverteilung</b> der Zufallsgröße $G$.<br>
+        <b>Obere Zeile:</b> alle Werte $g_i$, die $G$ annehmen kann, hier der Gewinn in €. $-1$ heißt: Auszahlung 0 €, also 1 € Verlust. $3$ heißt: Auszahlung 4 €, also 3 € Gewinn.<br>
+        <b>Untere Zeile:</b> die Wahrscheinlichkeit $P(G=g_i)$, mit der dieser Wert auftritt. 5 der 8 gleich großen Sektoren zeigen 0 €, also ist $P(G=-1)=\frac58$.<br>
+        Alle Wahrscheinlichkeiten zusammen ergeben $1$.</div>
       <table class="vt" aria-label="Verteilung von G">
         <tr><th>$g_i$</th><td>$-1$</td><td>$0$</td><td>$3$</td></tr>
         <tr><th>$P(G=g_i)$</th><td>$\frac58$</td><td>$\frac18$</td><td>$\frac28$</td></tr>
@@ -275,22 +291,30 @@ footer a{color:var(--dunkel)}
 <div class="karte auftrag">
   <div class="kopf">Auftrag 2: Rechnen statt drehen</div>
   <p>Stellt euch vor, jemand spielt <b>800-mal</b>. Wir tun so, als träten die Ergebnisse genau mit ihren Wahrscheinlichkeiten als relative Häufigkeiten auf.</p>
-  <div class="tabwrap"><table class="vt">
-    <tr><th>Gewinn $g_i$</th><td>$-1$ €</td><td>$0$ €</td><td>$3$ €</td></tr>
-    <tr><th>Anzahl der Spiele</th>
-      <td><span class="aufgabe inl" data-id="s2a" data-ziel="500"><input type="text" aria-label="Anzahl -1"></span></td>
-      <td><span class="aufgabe inl" data-id="s2b" data-ziel="100"><input type="text" aria-label="Anzahl 0"></span></td>
-      <td><span class="aufgabe inl" data-id="s2c" data-ziel="200"><input type="text" aria-label="Anzahl 3"></span></td></tr>
-  </table></div>
-  <div class="aufgabe" data-id="s2d" data-ziel="100">
-    <p>Gesamtgewinn nach 800 Spielen (in €):</p>
-    <div class="zeile"><input type="text" aria-label="Gesamtgewinn"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$500\cdot(-1)+100\cdot 0+200\cdot 3=100$ €." data-nein="Multipliziert jede Anzahl mit dem zugehörigen Gewinn und addiert. Habt ihr die Tabelle oben richtig ausgefüllt?"></div>
+  <div class="aufgabe" data-id="s2a" data-ziel="500" data-tipps="Man verliert 1 € mit der Wahrscheinlichkeit $\frac58$. Das heißt: in $\frac58$ aller Spiele.||Berechnet $\frac58$ von 800, also $800\cdot\frac58$.">
+    <p>a) In wie vielen der 800 Spiele <b>verliert</b> man 1 €?</p>
+    <div class="zeile"><input type="text" aria-label="Anzahl Verlust"> Spiele <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$800\cdot\frac58=500$ Spiele." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s2e" data-ziel="0.125" data-tol="0.0005">
-    <p>Durchschnittlicher Gewinn <b>pro Spiel</b> (in €):</p>
-    <div class="zeile"><input type="text" aria-label="Gewinn pro Spiel"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$100:800=0{,}125$ €. Vergleicht mit dem Durchschnitt eurer Simulation, wenn ihr einige Hundert Mal gedreht habt!" data-nein="Teilt den Gesamtgewinn durch die Anzahl der Spiele."></div>
+  <div class="aufgabe" data-id="s2b" data-ziel="100" data-tipps="Gewinn 0 € hat die Wahrscheinlichkeit $\frac18$.||$800\cdot\frac18$">
+    <p>b) In wie vielen Spielen ist der Gewinn 0 €?</p>
+    <div class="zeile"><input type="text" aria-label="Anzahl 0"> Spiele <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$800\cdot\frac18=100$ Spiele." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="s2c" data-ziel="200" data-tipps="Gewinn 3 € hat die Wahrscheinlichkeit $\frac28$.||$800\cdot\frac28$">
+    <p>c) In wie vielen Spielen gewinnt man 3 €?</p>
+    <div class="zeile"><input type="text" aria-label="Anzahl 3"> Spiele <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$800\cdot\frac28=200$ Spiele. Probe: $500+100+200=800$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="s2d" data-ziel="100" data-tipps="In 500 Spielen verliert man jeweils 1 €, in 100 Spielen bekommt man 0 €, in 200 Spielen gewinnt man jeweils 3 €.||$500\cdot(-1)+100\cdot 0+200\cdot 3$">
+    <p>d) Gesamtgewinn nach 800 Spielen (in €):</p>
+    <div class="zeile"><input type="text" aria-label="Gesamtgewinn"> € <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$500\cdot(-1)+100\cdot 0+200\cdot 3=-500+0+600=100$ €." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="s2e" data-ziel="0.125" data-tol="0.0005" data-tipps="Durchschnitt pro Spiel = Gesamtgewinn geteilt durch die Anzahl der Spiele.||$100:800$">
+    <p>e) Durchschnittlicher Gewinn <b>pro Spiel</b> (in €):</p>
+    <div class="zeile"><input type="text" aria-label="Gewinn pro Spiel"> € <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$100:800=0{,}125$ €. Vergleicht mit dem Durchschnitt eurer Simulation, wenn ihr einige Hundert Mal gedreht habt!" data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
 
   <div class="aufklapp" data-nach="s2e">
@@ -306,15 +330,13 @@ footer a{color:var(--dunkel)}
       <b>Erwartungswert</b> der Zufallsgröße $X$. Kurz schreibt man $\mu$ (lies: my) statt $E(X)$.<br>
       Der Erwartungswert ist der <b>mittlere Wert</b> der Zufallsgröße pro Versuch <b>auf lange Sicht</b>.
     </div>
-    <div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Was gibt der Erwartungswert an? Wie hängt er mit dem Durchschnitt „auf lange Sicht“ zusammen?</li><li>Wie berechnet man ihn? Schreibt die Formel einmal ausgeschrieben und einmal mit $\Sigma$ auf.</li><li>Wofür steht $\mu$?</li></ul></div>
-    <div class="aufgabe" data-id="s2f" data-ziel="2.5" data-tol="0.001">
-      <p><b>Kurz anwenden:</b> Berechnet mit der Formel den Erwartungswert der Augenzahl beim <b>Tetraeder</b> (Augenzahlen 1 bis 4, jeweils mit Wahrscheinlichkeit $\frac14$).</p>
+    <div class="aufgabe" data-id="s2f" data-ziel="2.5" data-tol="0.001" data-tipps="Die Werte sind $1, 2, 3, 4$, jeder hat die Wahrscheinlichkeit $\frac14$.||$\mu=1\cdot\frac14+2\cdot\frac14+3\cdot\frac14+4\cdot\frac14=\frac{1+2+3+4}{4}$">
+      <p>f) <b>Kurz anwenden:</b> Berechnet mit der Formel den Erwartungswert der Augenzahl beim <b>Tetraeder</b>.</p>
       <div class="zeile">$\mu=$ <input type="text" aria-label="Erwartungswert Tetraeder"><button class="klein pruef">Prüfen</button></div>
-      <div class="fb" data-ok="$\mu=1\cdot\frac14+2\cdot\frac14+3\cdot\frac14+4\cdot\frac14=\frac{10}{4}=2{,}5$. Das passt zur Simulation in Station 1." data-nein="Jede Augenzahl mal $\frac14$, dann alles addieren."></div>
+      <div class="fb" data-ok="$\mu=1\cdot\frac14+2\cdot\frac14+3\cdot\frac14+4\cdot\frac14=\frac{10}{4}=2{,}5$. Das passt zur Simulation in Station 1." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
     </div>
   </div>
 </div>
-<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Wann heißt ein Spiel fair? Welchen Wert hat dann $\mu$?</li><li>Wie findet man den fairen Einsatz? Notiert das Münzspiel als Beispiel.</li></ul></div>
 </section>
 
 <!-- ================= STATION 3 ================= -->
@@ -327,20 +349,25 @@ footer a{color:var(--dunkel)}
 
 <div class="karte auftrag">
   <div class="kopf">Auftrag 3: Das Münzspiel</div>
-  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl von „Zahl“. Von den $2^3=8$ gleich wahrscheinlichen Ergebnissen (z. B. ZWZ) haben 1, 3, 3 bzw. 1 genau 0, 1, 2 bzw. 3-mal „Zahl“:</p>
+  <p>Drei Münzen werden geworfen. $W$ ist die Anzahl von „Zahl“. Das ist die Verteilung von $W$:</p>
+  <div class="tabkopf">Verteilung von $W$ <button type="button" class="info" aria-label="Erklärung zur Tabelle">?</button></div>
+  <div class="infobox">Das ist die <b>Wahrscheinlichkeitsverteilung</b> der Zufallsgröße $W$ = Anzahl von „Zahl“ (Z) bei drei Münzwürfen.<br>
+    <b>Obere Zeile:</b> die möglichen Werte $w_i$: 0-, 1-, 2- oder 3-mal Zahl.<br>
+    <b>Untere Zeile:</b> deren Wahrscheinlichkeiten. Es gibt $2^3=8$ gleich wahrscheinliche Ergebnisse: WWW, WWZ, WZW, ZWW, WZZ, ZWZ, ZZW, ZZZ. Genau einmal Zahl haben WWZ, WZW und ZWW, also ist $P(W=1)=\frac38$.<br>
+    Alle Wahrscheinlichkeiten zusammen ergeben $1$.</div>
   <div class="tabwrap"><table class="vt">
     <tr><th>$w_i$</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
     <tr><th>$P(W=w_i)$</th><td>$\frac18$</td><td>$\frac38$</td><td>$\frac38$</td><td>$\frac18$</td></tr>
   </table></div>
-  <div class="aufgabe" data-id="s4e" data-ziel="1.5" data-tol="0.001">
-    <p>Durchschnittliche Auszahlung pro Spiel: $E(W)=$</p>
+  <div class="aufgabe" data-id="s4e" data-ziel="1.5" data-tol="0.001" data-tipps="Ihr bekommt so viele Euro, wie „Zahl“ fällt. Die erwartete Auszahlung ist also $E(W)$. Nehmt die Formel aus Station 2.||$E(W)=0\cdot\frac18+1\cdot\frac38+2\cdot\frac38+3\cdot\frac18$">
+    <p>a) Durchschnittliche Auszahlung pro Spiel: $E(W)=$</p>
     <div class="zeile"><input type="text" aria-label="E(W)"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$E(W)=0\cdot\frac18+1\cdot\frac38+2\cdot\frac38+3\cdot\frac18=\frac{12}{8}=1{,}5$ €." data-nein="Wert mal Wahrscheinlichkeit, dann addieren."></div>
+    <div class="fb" data-ok="$E(W)=0\cdot\frac18+1\cdot\frac38+2\cdot\frac38+3\cdot\frac18=\frac{12}{8}=1{,}5$ €." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s4f" data-ziel="-0.1" data-tol="0.001">
-    <p>Der <b>Gewinn</b> ist $X=W-1{,}60$. Erwartungswert des Gewinns pro Spiel: $E(X)=$</p>
+  <div class="aufgabe" data-id="s4f" data-ziel="-0.1" data-tol="0.001" data-tipps="Gewinn = Auszahlung minus Einsatz. Im Schnitt bekommt man 1,50 € ausgezahlt.||$1{,}50-1{,}60$. Achtet auf das Vorzeichen!">
+    <p>b) Der <b>Gewinn</b> ist $X=W-1{,}60$. Erwartungswert des Gewinns pro Spiel: $E(X)=$</p>
     <div class="zeile"><input type="text" aria-label="E(X)"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Auf lange Sicht verliert man pro Spiel 10 Cent. Das Spiel ist <b>nicht fair</b>, es ist zugunsten der Q12 (gut für die Abikasse!)." data-nein="Man bekommt im Schnitt 1,50 € ausgezahlt, hat aber 1,60 € bezahlt."></div>
+    <div class="fb" data-ok="$E(X)=1{,}50-1{,}60=-0{,}10$ €. Auf lange Sicht verliert man pro Spiel 10 Cent. Das Spiel ist <b>nicht fair</b>, es ist zugunsten der Q12 (gut für die Abikasse!)." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
     <p class="hinweis" id="bauchVergleich"></p>
   </div>
 
@@ -349,114 +376,214 @@ footer a{color:var(--dunkel)}
   <div class="zeile"><label for="einsatz">Einsatz:</label><input type="range" id="einsatz" min="0.5" max="2.5" step="0.05" value="1.6" style="flex:1;accent-color:var(--akzent)"><b id="einsatzWert" style="min-width:4.5em"></b></div>
   <div class="svgbox"><svg id="einsatzSvg" viewBox="0 0 640 210" role="img" aria-label="Gewinnverteilung beim Münzspiel"></svg></div>
   <div id="einsatzInfo"></div>
-  <div class="aufgabe" data-id="s4g" data-ziel="1.5" data-tol="0.001">
-    <div class="zeile">Fairer Einsatz: <input type="text" aria-label="Fairer Einsatz"> € <button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Genau: Ein fairer Einsatz ist gleich der erwarteten Auszahlung, also 1,50 €." data-nein="Fair heißt: Erwartungswert des Gewinns gleich 0. Achtet auf die Anzeige unter dem Diagramm."></div>
+  <div class="aufgabe" data-id="s4g" data-ziel="1.5" data-tol="0.001" data-tipps="Fair heißt: Der Erwartungswert des Gewinns ist 0. Schiebt den Regler, bis unter dem Diagramm 0 € steht.||Der Gewinn ist im Schnitt 0, wenn der Einsatz genau so groß ist wie die erwartete Auszahlung aus a).">
+    <div class="zeile">c) Fairer Einsatz: <input type="text" aria-label="Fairer Einsatz"> € <button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="1,50 €. Ein fairer Einsatz ist gleich der erwarteten Auszahlung." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
 </div>
+</section>
 
 <!-- ================= STATION 4 ================= -->
 <section class="station" id="s4" data-station="4">
 <div class="stkopf"><span class="num">4</span><h2>Gleicher Durchschnitt – gleiche Noten? Varianz und Standardabweichung</h2></div>
 <p>In zwei Q12-Mathekursen mit je 24 Schülerinnen und Schülern wird derselbe Test geschrieben. Aus jedem Kurs wird zufällig ein Test ausgewählt. $X_1$ bzw. $X_2$ ist die Note dieses Tests.</p>
 <div class="karte">
+  <div class="tabkopf">Notenspiegel der beiden Kurse <button type="button" class="info" aria-label="Erklärung zur Tabelle">?</button></div>
+  <div class="infobox">Das ist noch <b>keine</b> Wahrscheinlichkeitsverteilung, sondern ein Notenspiegel: Er zeigt, <b>wie viele</b> Tests eine Note bekommen haben.<br>
+    Die Zufallsgröße $X_1$ ist die Note eines zufällig gezogenen Tests aus Kurs 1. Jeder der 24 Tests wird mit gleicher Wahrscheinlichkeit gezogen. Weil 10 von 24 Tests die Note 3 haben, ist $P(X_1=3)=\frac{10}{24}$.<br>
+    <b>Kurz:</b> Teilt man jede Anzahl durch 24, erhält man die Wahrscheinlichkeitsverteilung.</div>
   <div class="tabwrap"><table class="vt">
     <tr><th>Note</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
     <tr><th style="color:var(--blau)">Kurs 1 (Anzahl)</th><td>0</td><td>2</td><td>10</td><td>10</td><td>2</td><td>0</td></tr>
     <tr><th style="color:var(--akzent)">Kurs 2 (Anzahl)</th><td>6</td><td>5</td><td>1</td><td>1</td><td>5</td><td>6</td></tr>
   </table></div>
-  <div class="svgbox"><svg id="notenSvg" viewBox="0 0 640 230" role="img" aria-label="Notenverteilungen der beiden Kurse"></svg></div>
+  <div class="svgbox"><svg id="notenSvg" viewBox="0 0 640 250" role="img" aria-label="Notenverteilungen der beiden Kurse"></svg></div>
   <div class="legende"><span style="--c:var(--blau)">Kurs 1</span><span style="--c:var(--akzent)">Kurs 2</span></div>
 </div>
+
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 4</div>
-  <p class="hinweis" style="margin-top:0">Die Wahrscheinlichkeiten erhaltet ihr aus den Anzahlen, z. B. $P(X_1=3)=\frac{10}{24}$.</p>
-  <div class="aufgabe" data-id="s5a" data-ziel="3.5" data-tol="0.001">
+  <div class="kopf">Auftrag 4: Der Erwartungswert</div>
+  <div class="aufgabe" data-id="s5a" data-ziel="3.5" data-tol="0.001" data-tipps="Bestimmt erst die Wahrscheinlichkeiten: Anzahl geteilt durch 24, z. B. $P(X_1=3)=\frac{10}{24}$. Noten mit Anzahl 0 könnt ihr weglassen.||$E(X_1)=2\cdot\frac{2}{24}+3\cdot\frac{10}{24}+4\cdot\frac{10}{24}+5\cdot\frac{2}{24}$">
     <p>a) Bestimmt die theoretisch zu erwartende Note in Kurs 1.</p>
     <div class="zeile">$E(X_1)=$ <input type="text" aria-label="E(X1)"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$E(X_1)=2\cdot\frac{2}{24}+3\cdot\frac{10}{24}+4\cdot\frac{10}{24}+5\cdot\frac{2}{24}=\frac{84}{24}=3{,}5$." data-nein="Note mal Wahrscheinlichkeit, dann addieren. Die Noten 1 und 6 kommen in Kurs 1 nicht vor."></div>
+    <div class="fb" data-ok="$E(X_1)=2\cdot\frac{2}{24}+3\cdot\frac{10}{24}+4\cdot\frac{10}{24}+5\cdot\frac{2}{24}=\frac{84}{24}=3{,}5$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s5c" data-ziel="3.5" data-tol="0.001">
+  <div class="aufgabe" data-id="s5c" data-ziel="3.5" data-tol="0.001" data-tipps="Genauso wie in a), jetzt mit den Anzahlen von Kurs 2: $P(X_2=1)=\frac{6}{24}$ usw.||$E(X_2)=1\cdot\frac{6}{24}+2\cdot\frac{5}{24}+3\cdot\frac{1}{24}+4\cdot\frac{1}{24}+5\cdot\frac{5}{24}+6\cdot\frac{6}{24}$">
     <p>b) … und in Kurs 2.</p>
     <div class="zeile">$E(X_2)=$ <input type="text" aria-label="E(X2)"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$E(X_2)=1\cdot\frac{6}{24}+2\cdot\frac{5}{24}+3\cdot\frac{1}{24}+4\cdot\frac{1}{24}+5\cdot\frac{5}{24}+6\cdot\frac{6}{24}=\frac{84}{24}=3{,}5$. Genau gleich!" data-nein="$1\cdot\frac{6}{24}+2\cdot\frac{5}{24}+\dots+6\cdot\frac{6}{24}$"></div>
+    <div class="fb" data-ok="$E(X_2)=\frac{6+10+3+4+25+36}{24}=\frac{84}{24}=3{,}5$. Genau gleich wie in Kurs 1!" data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s5d" data-mc="1">
+  <div class="aufgabe" data-id="s5d" data-mc="1" data-tipps="Rechnet in a) einmal anders: Summe aller 24 Noten geteilt durch 24. Was kommt heraus?||Summe aller Noten geteilt durch die Anzahl: So berechnet man den …">
     <p>c) Mit welcher bekannten Größe ist der Erwartungswert hier zu vergleichen?</p>
     <div class="opts">
       <label><input type="radio" name="s5d"> Mit der häufigsten Note</label>
       <label><input type="radio" name="s5d"> Mit dem Notendurchschnitt des Kurses</label>
       <label><input type="radio" name="s5d"> Mit der besten Note</label>
     </div>
-    <div class="fb" data-ok="Genau: Der Erwartungswert ist hier der Notendurchschnitt. Beide Kurse haben den Schnitt 3,5." data-nein="Rechnet den Schnitt der 24 Noten von Kurs 1 aus und vergleicht mit $E(X_1)$."></div>
+    <div class="fb" data-ok="Mit dem Notendurchschnitt. Beide Kurse haben den Schnitt 3,5." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="aufgabe" data-id="s5b" data-mc="2">
+  <div class="aufgabe" data-id="s5b" data-mc="2" data-tipps="Schaut auf das Diagramm: Sehen die beiden Notenverteilungen gleich aus?||Wo liegen in Kurs 1 fast alle Noten? Und in Kurs 2?">
     <p>d) Ist der Erwartungswert hier eine aussagekräftige Größe?</p>
     <div class="opts">
       <label><input type="radio" name="s5b"> Ja, beide Kurse haben gleich abgeschnitten.</label>
       <label><input type="radio" name="s5b"> Ja, er sagt alles über die Notenverteilung aus.</label>
       <label><input type="radio" name="s5b"> Nur bedingt: Der Schnitt ist gleich, aber in Kurs 2 liegen die Noten viel weiter auseinander.</label>
     </div>
-    <div class="fb" data-ok="Richtig. In Kurs 1 liegen fast alle Noten bei 3 und 4, in Kurs 2 gibt es viele Einser und viele Sechser. Wir brauchen eine zweite Kennzahl für die <b>Streuung</b> um den Erwartungswert." data-nein="Schaut auf das Diagramm: Sehen die beiden Verteilungen gleich aus?"></div>
+    <div class="fb" data-ok="Nur bedingt. In Kurs 1 liegen fast alle Noten bei 3 und 4, in Kurs 2 gibt es viele Einser und viele Sechser. Man braucht eine zweite Kennzahl, die beschreibt, wie stark die Werte um den Erwartungswert <b>streuen</b>." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
 </div>
 
-<h3>Ein Maß für die Streuung</h3>
-<p>Idee: Man schaut, wie weit die Werte $x_i$ vom Erwartungswert $\mu$ entfernt sind, also auf die <b>Abweichungen</b> $x_i-\mu$, und gewichtet sie wieder mit den Wahrscheinlichkeiten. Wir probieren das mit Kurs 1 ($\mu=3{,}5$).</p>
+<h3>Wie kann man die Streuung messen?</h3>
+<p>Idee: Man schaut, wie weit die Werte $x_i$ vom Erwartungswert $\mu$ entfernt sind. Diese Unterschiede $x_i-\mu$ heißen <b>Abweichungen</b>. Wir starten mit Kurs 1 ($\mu=3{,}5$).</p>
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 5: Erster Versuch</div>
+  <div class="kopf">Auftrag 5: Abweichungen</div>
+  <div class="tabkopf">Verteilung von $X_1$ (Kurs 1) <button type="button" class="info" aria-label="Erklärung zur Tabelle">?</button></div>
+  <div class="infobox">Das ist die <b>Wahrscheinlichkeitsverteilung</b> von $X_1$.<br>
+    <b>Obere Zeile:</b> die Noten $x_i$, die in Kurs 1 vorkommen. Die Noten 1 und 6 fehlen, weil ihre Wahrscheinlichkeit 0 ist.<br>
+    <b>Untere Zeile:</b> $P(X_1=x_i)$ = Anzahl der Tests mit dieser Note geteilt durch 24.</div>
   <div class="tabwrap"><table class="vt">
     <tr><th>$x_i$</th><td>2</td><td>3</td><td>4</td><td>5</td></tr>
     <tr><th>$P(X_1=x_i)$</th><td>$\frac{2}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{2}{24}$</td></tr>
-    <tr><th>$x_i-\mu$</th><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td></tr>
   </table></div>
-  <div class="aufgabe" data-id="s6a" data-ziel="0" data-tol="0.001">
-    <p>Berechnet $(x_1-\mu)\cdot P(X_1=x_1)+(x_2-\mu)\cdot P(X_1=x_2)+\dots$</p>
-    <div class="zeile"><input type="text" aria-label="Summe Abweichungen"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="Die Summe ist 0. Positive und negative Abweichungen heben sich auf." data-nein="$(-1{,}5)\cdot\frac{2}{24}+(-0{,}5)\cdot\frac{10}{24}+0{,}5\cdot\frac{10}{24}+1{,}5\cdot\frac{2}{24}$. Was fällt euch auf?"></div>
+  <div class="aufgabe" data-id="v1" data-ziel="1.5" data-tol="0.001" data-tipps="Abweichung = Wert minus Erwartungswert, also $x_i-\mu$.||$5-3{,}5$">
+    <p>a) Wie groß ist die Abweichung der Note 5 vom Erwartungswert?</p>
+    <div class="zeile">$5-\mu=$ <input type="text" aria-label="Abweichung Note 5"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$5-3{,}5=1{,}5$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="v2" data-ziel="-1.5" data-tol="0.001" data-tipps="Wieder $x_i-\mu$, jetzt mit $x_i=2$.||$2-3{,}5$. Das Ergebnis ist negativ, weil die Note 2 unter dem Erwartungswert liegt.">
+    <p>b) … und der Note 2?</p>
+    <div class="zeile">$2-\mu=$ <input type="text" aria-label="Abweichung Note 2"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$2-3{,}5=-1{,}5$. Abweichungen können positiv oder negativ sein." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufklapp" data-nach="v2">
+    <p>Alle Abweichungen für Kurs 1:</p>
+    <div class="tabwrap"><table class="vt">
+      <tr><th>$x_i$</th><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>$P(X_1=x_i)$</th><td>$\frac{2}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{10}{24}$</td><td>$\frac{2}{24}$</td></tr>
+      <tr><th>$x_i-\mu$</th><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td></tr>
+    </table></div>
+    <p><b>Erster Versuch:</b> Wie beim Erwartungswert gewichten wir jede Abweichung mit ihrer Wahrscheinlichkeit und addieren.</p>
+    <div class="aufgabe" data-id="s6a" data-ziel="0" data-tol="0.001" data-tipps="Multipliziert jede Abweichung mit der Wahrscheinlichkeit darunter und addiert alles.||$(-1{,}5)\cdot\frac{2}{24}+(-0{,}5)\cdot\frac{10}{24}+0{,}5\cdot\frac{10}{24}+1{,}5\cdot\frac{2}{24}$. Vergleicht den ersten mit dem letzten und den zweiten mit dem dritten Summanden.">
+      <p>c) Berechnet $\displaystyle\sum_{i}(x_i-\mu)\cdot P(X_1=x_i)$.</p>
+      <div class="zeile"><input type="text" aria-label="Summe Abweichungen"><button class="klein pruef">Prüfen</button></div>
+      <div class="fb" data-ok="Die Summe ist 0: $-\frac{3}{24}-\frac{5}{24}+\frac{5}{24}+\frac{3}{24}=0$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
+    <div class="aufgabe" data-id="v3" data-mc="0" data-tipps="Probiert es gedanklich mit Kurs 2: Würde da auch 0 herauskommen? (Der Erwartungswert ist ja auch 3,5.)||Werte über dem Erwartungswert liefern positive, Werte darunter negative Abweichungen. Der Erwartungswert ist gerade der „Schwerpunkt“.">
+      <p>d) Warum ist diese Summe als Maß für die Streuung unbrauchbar?</p>
+      <div class="opts">
+        <label><input type="radio" name="v3"> Positive und negative Abweichungen heben sich auf. Es kommt bei jeder Zufallsgröße 0 heraus.</label>
+        <label><input type="radio" name="v3"> Weil Kurs 1 überhaupt nicht streut.</label>
+        <label><input type="radio" name="v3"> Weil man sich verrechnet hat. Richtig wäre ein positiver Wert.</label>
+      </div>
+      <div class="fb" data-ok="Die Abweichungen heben sich auf, und zwar bei <b>jeder</b> Zufallsgröße. Auch bei Kurs 2 käme 0 heraus, obwohl dort die Noten viel stärker streuen." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
+    <div class="aufgabe" data-id="v4" data-mc="1" data-tipps="Das Problem ist das Vorzeichen. Wie wird aus $-1{,}5$ und $1{,}5$ dieselbe positive Zahl?||Denkt an eine Rechenoperation, die aus negativen Zahlen positive macht, z. B. $(-1{,}5)^2$.">
+      <p>e) Wie könnte man verhindern, dass sich die Abweichungen gegenseitig aufheben?</p>
+      <div class="opts">
+        <label><input type="radio" name="v4"> Man lässt die negativen Abweichungen einfach weg.</label>
+        <label><input type="radio" name="v4"> Man quadriert die Abweichungen. Dann sind alle positiv.</label>
+        <label><input type="radio" name="v4"> Man teilt die Summe durch 24.</label>
+      </div>
+      <div class="fb" data-ok="Man quadriert. Aus $-1{,}5$ und $1{,}5$ wird beide Male $2{,}25$. Große Abweichungen zählen dadurch besonders stark. (Beträge $|x_i-\mu|$ wären auch eine Idee. In der Mathematik hat man sich aber für die Quadrate entschieden.)" data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
   </div>
 </div>
 
-<div class="aufklapp" data-nach="s6a">
-<div class="karte denk">
-  <b>Das ist kein Zufall:</b> Für <b>jede</b> Zufallsgröße heben sich die gewichteten Abweichungen zu 0 auf. Diese Summe taugt also nicht als Streuungsmaß.<br><b>Ausweg:</b> Man nimmt die <b>Quadrate</b> $(x_i-\mu)^2$. Dann fällt das Vorzeichen weg, und große Abweichungen zählen besonders stark.
+<div class="aufklapp" data-nach="v4">
+<div class="karte auftrag">
+  <div class="kopf">Auftrag 6: Quadrierte Abweichungen für Kurs 1</div>
+  <div class="aufgabe" data-id="v5" data-ziel="2.25" data-tol="0.001" data-tipps="Quadriert die Abweichung der Note 2 bzw. 5. Ein Minuszeichen fällt beim Quadrieren weg.||$(-1{,}5)^2=1{,}5\cdot 1{,}5$">
+    <p>a) $(x_i-\mu)^2$ für die Noten 2 und 5:</p>
+    <div class="zeile">$(\pm1{,}5)^2=$ <input type="text" aria-label="Quadrat 1,5"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$(-1{,}5)^2=1{,}5^2=2{,}25$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="v6" data-ziel="0.25" data-tol="0.001" data-tipps="Die Noten 3 und 4 weichen um $-0{,}5$ bzw. $0{,}5$ ab.||$0{,}5\cdot 0{,}5$">
+    <p>b) $(x_i-\mu)^2$ für die Noten 3 und 4:</p>
+    <div class="zeile">$(\pm0{,}5)^2=$ <input type="text" aria-label="Quadrat 0,5"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$0{,}5^2=0{,}25$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufgabe" data-id="s6d" data-ziel="7/12" data-tol="0.006" data-tipps="Jetzt wie beim Erwartungswert: Jede quadrierte Abweichung mit ihrer Wahrscheinlichkeit multiplizieren und alles addieren.||$2{,}25\cdot\frac{2}{24}+0{,}25\cdot\frac{10}{24}+0{,}25\cdot\frac{10}{24}+2{,}25\cdot\frac{2}{24}=\frac{4{,}5+2{,}5+2{,}5+4{,}5}{24}$">
+    <p>c) Gewichtet die quadrierten Abweichungen mit den Wahrscheinlichkeiten und addiert (zwei Nachkommastellen oder als Bruch):</p>
+    <div class="zeile">$\displaystyle\sum_i (x_i-\mu)^2\cdot P(X_1=x_i)=$ <input type="text" aria-label="Varianz Kurs 1"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$2{,}25\cdot\frac{2}{24}+0{,}25\cdot\frac{10}{24}+0{,}25\cdot\frac{10}{24}+2{,}25\cdot\frac{2}{24}=\frac{14}{24}\approx 0{,}58$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
 </div>
+</div>
+
+<div class="aufklapp" data-nach="s6d">
 <div class="def">
   <b class="t">Definition: Varianz</b><br>
-  Für die Zufallsgröße $X$ mit möglichen Werten $x_1, x_2, \dots$ und Erwartungswert $\mu$ heißt
-  $$\mathrm{Var}(X)=(x_1-\mu)^2\cdot P(X=x_1)+(x_2-\mu)^2\cdot P(X=x_2)+\dots$$
-  <b>Varianz</b> von $X$.
+  Genau diese Zahl heißt <b>Varianz</b>. Für die Zufallsgröße $X$ mit möglichen Werten $x_1, x_2, \dots$ und Erwartungswert $\mu$ heißt
+  $$\mathrm{Var}(X)=(x_1-\mu)^2\cdot P(X=x_1)+(x_2-\mu)^2\cdot P(X=x_2)+\dots=\sum_{i}(x_i-\mu)^2\cdot P(X=x_i)$$
+  <b>Varianz</b> von $X$. Für Kurs 1 gilt also $\mathrm{Var}(X_1)=\frac{14}{24}\approx 0{,}58$.
 </div>
-<div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Warum reicht der Erwartungswert allein nicht? Haltet das Notenbeispiel kurz fest.</li><li>Warum quadriert man die Abweichungen $x_i-\mu$? Wie lautet die Formel der Varianz (auch mit $\Sigma$)?</li></ul></div>
-
 <div class="karte auftrag">
-  <div class="kopf">Auftrag 6: Varianz von Kurs 1</div>
-  <div class="aufgabe" data-id="s6d" data-ziel="7/12" data-tol="0.006">
-    <p>a) Berechnet $\mathrm{Var}(X_1)$ (zwei Nachkommastellen oder als Bruch).</p>
-    <div class="zeile">$\mathrm{Var}(X_1)=$ <input type="text" aria-label="Var(X1)"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\mathrm{Var}(X_1)=2{,}25\cdot\frac{2}{24}+0{,}25\cdot\frac{10}{24}+0{,}25\cdot\frac{10}{24}+2{,}25\cdot\frac{2}{24}=\frac{14}{24}\approx 0{,}58$. Für Kurs 2 erhält man $\mathrm{Var}(X_2)=\frac{98}{24}\approx 4{,}08$, also ungefähr das Siebenfache." data-nein="Quadriert die Abweichungen aus der Tabelle: $(-1{,}5)^2=2{,}25$ usw. Dann mit der Wahrscheinlichkeit multiplizieren und addieren."></div>
+  <div class="kopf">Auftrag 7: Varianz von Kurs 2</div>
+  <div class="tabkopf">Verteilung von $X_2$ mit Abweichungen <button type="button" class="info" aria-label="Erklärung zur Tabelle">?</button></div>
+  <div class="infobox"><b>1. Zeile:</b> die Noten $x_i$. <b>2. Zeile:</b> $P(X_2=x_i)$ = Anzahl in Kurs 2 geteilt durch 24. <b>3. Zeile:</b> Abweichung vom Erwartungswert $\mu=3{,}5$. <b>4. Zeile:</b> die quadrierte Abweichung. Für die Varianz multipliziert man jeden Wert der 4. Zeile mit dem Wert der 2. Zeile darüber und addiert alles.</div>
+  <div class="tabwrap"><table class="vt">
+    <tr><th>$x_i$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+    <tr><th>$P(X_2=x_i)$</th><td>$\frac{6}{24}$</td><td>$\frac{5}{24}$</td><td>$\frac{1}{24}$</td><td>$\frac{1}{24}$</td><td>$\frac{5}{24}$</td><td>$\frac{6}{24}$</td></tr>
+    <tr><th>$x_i-\mu$</th><td>$-2{,}5$</td><td>$-1{,}5$</td><td>$-0{,}5$</td><td>$0{,}5$</td><td>$1{,}5$</td><td>$2{,}5$</td></tr>
+    <tr><th>$(x_i-\mu)^2$</th><td>$6{,}25$</td><td>$2{,}25$</td><td>$0{,}25$</td><td>$0{,}25$</td><td>$2{,}25$</td><td>$6{,}25$</td></tr>
+  </table></div>
+  <div class="aufgabe" data-id="v7" data-ziel="49/12" data-tol="0.006" data-tipps="Multipliziert jeden Wert der letzten Zeile mit der Wahrscheinlichkeit in der zweiten Zeile und addiert.||$\frac{6{,}25\cdot 6+2{,}25\cdot 5+0{,}25\cdot 1+0{,}25\cdot 1+2{,}25\cdot 5+6{,}25\cdot 6}{24}=\frac{37{,}5+11{,}25+0{,}25+0{,}25+11{,}25+37{,}5}{24}$">
+    <p>a) Berechnet $\mathrm{Var}(X_2)$ (zwei Nachkommastellen oder als Bruch).</p>
+    <div class="zeile">$\mathrm{Var}(X_2)=$ <input type="text" aria-label="Var(X2)"><button class="klein pruef">Prüfen</button></div>
+    <div class="fb" data-ok="$\mathrm{Var}(X_2)=\frac{98}{24}\approx 4{,}08$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="karte denk" style="margin:10px 0 0">
-    <b>Ein Haken an der Varianz:</b> Durch das Quadrieren hat die Varianz nicht mehr die „Einheit“ der Noten. Deshalb zieht man in der Praxis die Wurzel:
+  <div class="aufgabe" data-id="v8" data-mc="0" data-tipps="Vergleicht: $\mathrm{Var}(X_1)\approx 0{,}58$ und $\mathrm{Var}(X_2)\approx 4{,}08$. Passt das zum Diagramm?||Je weiter die Werte von $\mu$ entfernt liegen, desto größer werden die quadrierten Abweichungen.">
+    <p>b) Was sagt der Vergleich der beiden Varianzen aus?</p>
+    <div class="opts">
+      <label><input type="radio" name="v8"> Die Varianz von Kurs 2 ist etwa siebenmal so groß: Die Noten in Kurs 2 streuen viel stärker um den Schnitt.</label>
+      <label><input type="radio" name="v8"> Kurs 2 hat einen schlechteren Notendurchschnitt.</label>
+      <label><input type="radio" name="v8"> Kurs 1 hat mehr schlechte Noten.</label>
+    </div>
+    <div class="fb" data-ok="Die Varianz von Kurs 2 ist etwa siebenmal so groß. Je größer die Varianz, desto stärker streuen die Werte um den Erwartungswert." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
   </div>
-  <div class="def">
-    <b class="t">Definition: Standardabweichung</b><br>
-    In der Praxis wird oft die <b>Standardabweichung</b> $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) verwendet.<br>
-    Varianz und Standardabweichung sind Maße für die <b>Streuung</b>.
-  </div>
-  <div class="notiz"><div class="kopf">✎ Notiz</div><ul><li>Wie erhält man die Standardabweichung aus der Varianz? Warum verwendet man sie in der Praxis lieber?</li><li>Was bedeutet ein großes bzw. kleines $\sigma$? (Kurs 1 gegen Kurs 2)</li></ul></div>
+</div>
+</div>
 
-  <div class="aufgabe" data-id="s6e" data-ziel="0.764" data-tol="0.006">
-    <p>b) Bestimmt $\sigma_1$ für Kurs 1 (zwei Nachkommastellen).</p>
-    <div class="zeile">$\sigma_1\approx$ <input type="text" aria-label="sigma 1"><button class="klein pruef">Prüfen</button></div>
-    <div class="fb" data-ok="$\sigma_1=\sqrt{0{,}58\overline{3}}\approx 0{,}76$. In Kurs 2 ist $\sigma_2=\sqrt{4{,}08\overline{3}}\approx 2{,}02$. Bei gleichem Durchschnitt weichen die Noten in Kurs 2 also typischerweise etwa 2 Notenstufen vom Schnitt ab, in Kurs 1 nicht einmal eine." data-nein="Zieht die Wurzel aus $\mathrm{Var}(X_1)\approx 0{,}583$."></div>
+<div class="aufklapp" data-nach="v8">
+<div class="karte auftrag">
+  <div class="kopf">Auftrag 8: Von der Varianz zur Standardabweichung</div>
+  <p>Die Varianz hat einen Haken: Durch das Quadrieren wird sie „aufgebläht“ und hat die Einheit „Notenstufen²“. Eine Varianz von 4,08 heißt nicht, dass die Noten um 4 Stufen abweichen.</p>
+  <div class="aufgabe" data-id="v9" data-mc="2" data-tipps="Das Quadrieren soll rückgängig gemacht werden.||Welche Rechenoperation macht das Quadrieren rückgängig?">
+    <p>a) Wie bekommt man wieder eine Größe in „Notenstufen“?</p>
+    <div class="opts">
+      <label><input type="radio" name="v9"> Man halbiert die Varianz.</label>
+      <label><input type="radio" name="v9"> Man teilt die Varianz durch die Anzahl der Werte.</label>
+      <label><input type="radio" name="v9"> Man zieht die Wurzel aus der Varianz.</label>
+    </div>
+    <div class="fb" data-ok="Man zieht die Wurzel. Das macht das Quadrieren wieder rückgängig." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+  </div>
+  <div class="aufklapp" data-nach="v9">
+    <div class="def">
+      <b class="t">Definition: Standardabweichung</b><br>
+      In der Praxis wird oft die <b>Standardabweichung</b> $\sigma=\sqrt{\mathrm{Var}(X)}$ (lies: sigma) verwendet. Die Varianz schreibt man deshalb auch als $\sigma^2$.<br>
+      Varianz und Standardabweichung sind Maße für die <b>Streuung</b>.
+    </div>
+    <div class="aufgabe" data-id="s6e" data-ziel="0.764" data-tol="0.006" data-tipps="$\sigma_1=\sqrt{\mathrm{Var}(X_1)}$ mit $\mathrm{Var}(X_1)=\frac{14}{24}$.||Tippt in den Taschenrechner $\sqrt{14:24}$ und rundet auf zwei Nachkommastellen.">
+      <p>b) Bestimmt $\sigma_1$ für Kurs 1 (zwei Nachkommastellen).</p>
+      <div class="zeile">$\sigma_1\approx$ <input type="text" aria-label="sigma 1"><button class="klein pruef">Prüfen</button></div>
+      <div class="fb" data-ok="$\sigma_1=\sqrt{\frac{14}{24}}\approx 0{,}76$." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
+    <div class="aufgabe" data-id="v10" data-ziel="2.021" data-tol="0.006" data-tipps="$\sigma_2=\sqrt{\mathrm{Var}(X_2)}$ mit $\mathrm{Var}(X_2)=\frac{98}{24}$.||$\sqrt{98:24}$, auf zwei Nachkommastellen gerundet.">
+      <p>c) Bestimmt $\sigma_2$ für Kurs 2.</p>
+      <div class="zeile">$\sigma_2\approx$ <input type="text" aria-label="sigma 2"><button class="klein pruef">Prüfen</button></div>
+      <div class="fb" data-ok="$\sigma_2=\sqrt{\frac{98}{24}}\approx 2{,}02$. Im Diagramm oben sind jetzt die Bereiche von $\mu-\sigma$ bis $\mu+\sigma$ für beide Kurse eingezeichnet." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
+    <div class="aufgabe" data-id="v11" data-mc="1" data-tipps="Schaut ins Diagramm oben: Wie breit ist der Bereich $\mu\pm\sigma$ bei den beiden Kursen?||$\sigma$ hat dieselbe „Einheit“ wie die Noten, also Notenstufen.">
+      <p>d) Wie kann man $\sigma_2\approx 2{,}02$ deuten?</p>
+      <div class="opts">
+        <label><input type="radio" name="v11"> In Kurs 2 haben genau 2 Schüler eine andere Note als 3,5.</label>
+        <label><input type="radio" name="v11"> Die Noten in Kurs 2 weichen typischerweise um etwa 2 Notenstufen vom Schnitt 3,5 ab, in Kurs 1 nur um etwa eine dreiviertel Notenstufe.</label>
+        <label><input type="radio" name="v11"> Der Notendurchschnitt von Kurs 2 ist 2,02.</label>
+      </div>
+      <div class="fb" data-ok="Die Noten in Kurs 2 weichen typischerweise um etwa 2 Notenstufen vom Schnitt ab, in Kurs 1 nur um etwa 0,76. Damit habt ihr beide Kenngrößen: $\mu$ sagt, wo die Werte im Mittel liegen, $\sigma$ sagt, wie stark sie darum streuen." data-nein="Noch nicht. Schaut euch die Tipps an."></div>
+    </div>
   </div>
 </div>
-</div>
-<div class="karte auftrag" style="border-left-color:var(--gut)">
-  <div class="kopf" style="color:var(--gut)">Für die Stunde</div>
-  <p>Was ist euch noch unklar? Notiert <b>eine Frage</b>, die wir in der Stunde klären sollen. (Wird nur in eurem Browser gespeichert, schreibt sie auch ins Heft.)</p>
-  <textarea id="frage" placeholder="Meine Frage …"></textarea>
 </div>
 </section>
 
@@ -483,7 +610,7 @@ footer a{color:var(--dunkel)}
 /* ---------- Hilfsfunktionen ---------- */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const NS='http://www.w3.org/2000/svg';
-const KEY='ma12-ew-v2';
+const KEY='ma12-ew-v3';
 let stand={};
 try{stand=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){stand={}}
 function speichern(){try{localStorage.setItem(KEY,JSON.stringify(stand))}catch(e){}}
@@ -502,40 +629,76 @@ function mathe(el){if(window.renderMathInElement)renderMathInElement(el,{delimit
 function svgEl(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
 function txt(parent,x,y,s,attrs={}){const t=svgEl('text',Object.assign({x,y,'font-size':12,fill:'#444','font-family':'Helvetica, Arial, sans-serif'},attrs),parent);t.textContent=s;return t}
 
-/* ---------- Aufgaben: Eingabe & Multiple Choice ---------- */
+/* ---------- Aufgaben: Eingabe & Multiple Choice, Tipps, Lösung ---------- */
 const geloest=id=>!!(stand.ok&&stand.ok[id]);
 function markiere(id){stand.ok=stand.ok||{};stand.ok[id]=1;speichern();fortschritt();oeffneAbh(id);document.dispatchEvent(new CustomEvent('geloest',{detail:id}))}
 function oeffneAbh(id){$$(`.aufklapp[data-nach="${id}"]`).forEach(e=>e.classList.add('offen'))}
-
-function pruefEingabe(box,still){
-  const inp=box.querySelector('input[type=text]'), fb=box.querySelector(':scope > .fb');
-  const v=zahl(inp.value); if(isNaN(v)&&inp.value.trim()===''){if(!still&&fb){fb.className='fb tipp';fb.innerHTML='Bitte erst eine Zahl eingeben.'}return}
-  const ziel=zielWert(box.dataset.ziel), tol=parseFloat(box.dataset.tol||'0.001');
-  const ok=Math.abs(v-ziel)<=tol;
-  inp.classList.toggle('ok',ok); inp.classList.toggle('nok',!ok&&!isNaN(v));
-  if(fb){fb.className='fb '+(ok?'gut':'schlecht');fb.innerHTML=ok?fb.dataset.ok:(isNaN(v)?'Das kann ich nicht als Zahl lesen. Beispiele: 0,25 oder 1/4 oder −0,5':fb.dataset.nein);mathe(fb)}
-  if(ok){stand.wert=stand.wert||{};stand.wert[box.dataset.id]=inp.value;markiere(box.dataset.id)}
+const VERSUCHE=3;
+function hilfeBauen(box){
+  const fb=box.querySelector(':scope > .fb');
+  const tipps=(box.dataset.tipps||'').split('||').filter(Boolean);
+  const h=document.createElement('div');h.className='hilfe';
+  const liste=document.createElement('div');
+  let n=0;
+  if(tipps.length){const b=document.createElement('button');b.type='button';b.className='tippbtn';
+    const lab=()=>{b.textContent=n<tipps.length?`Tipp ${n+1}`+(tipps.length>1?` von ${tipps.length}`:''):'Keine weiteren Tipps'};
+    lab();b.addEventListener('click',()=>{if(n>=tipps.length)return;const d=document.createElement('div');d.className='tippzeile';d.innerHTML=`<b>Tipp ${n+1}:</b> `+tipps[n];liste.appendChild(d);mathe(d);n++;lab();b.disabled=n>=tipps.length});h.appendChild(b)}
+  const lb=document.createElement('button');lb.type='button';lb.className='loesbtn';lb.textContent='Lösung anzeigen';lb.style.display='none';
+  lb.addEventListener('click',()=>zeigeLoesung(box));h.appendChild(lb);
+  box._loesBtn=lb;
+  fb.before(h);h.after(liste);
 }
+function zeigeLoesung(box,init){
+  const id=box.dataset.id, fb=box.querySelector(':scope > .fb');
+  fb.className='fb loesung';fb.innerHTML='<b>Lösung:</b> '+fb.dataset.ok;mathe(fb);
+  if(box.dataset.mc!=null){const r=box.querySelectorAll('input[type=radio]')[+box.dataset.mc];if(r)r.checked=true}
+  box._loesBtn.style.display='none';
+  if(!init){stand.loes=stand.loes||{};stand.loes[id]=1;markiere(id)}
+}
+function fehlversuch(box){
+  const id=box.dataset.id;stand.fehl=stand.fehl||{};stand.fehl[id]=(stand.fehl[id]||0)+1;speichern();
+  const fb=box.querySelector(':scope > .fb');
+  if(stand.fehl[id]>=VERSUCHE){box._loesBtn.style.display='';fb.innerHTML+=' Ihr könnt euch jetzt auch die Lösung anzeigen lassen.'}
+}
+function pruefEingabe(box){
+  const inp=box.querySelector('input[type=text]'), fb=box.querySelector(':scope > .fb');
+  const v=zahl(inp.value); if(inp.value.trim()===''){fb.className='fb tipp';fb.innerHTML='Bitte erst eine Zahl eingeben.';return}
+  if(isNaN(v)){fb.className='fb tipp';fb.innerHTML='Das kann ich nicht als Zahl lesen. Beispiele: 0,25 oder 1/4 oder −0,5';return}
+  const ok=Math.abs(v-zielWert(box.dataset.ziel))<=parseFloat(box.dataset.tol||'0.001');
+  inp.classList.toggle('ok',ok); inp.classList.toggle('nok',!ok);
+  fb.className='fb '+(ok?'gut':'schlecht');fb.innerHTML=ok?'<b>Richtig!</b> '+fb.dataset.ok:fb.dataset.nein;
+  if(ok){box._loesBtn.style.display='none';stand.wert=stand.wert||{};stand.wert[box.dataset.id]=inp.value;markiere(box.dataset.id)}
+  else fehlversuch(box);
+  mathe(fb);
+}
+$$('.aufgabe').forEach(hilfeBauen);
 $$('.aufgabe[data-ziel]').forEach(box=>{
-  const inp=box.querySelector('input[type=text]');
-  const btn=box.querySelector('.pruef');
-  if(btn)btn.addEventListener('click',()=>pruefEingabe(box));
+  const inp=box.querySelector('input[type=text]'), id=box.dataset.id;
+  box.querySelector('.pruef').addEventListener('click',()=>pruefEingabe(box));
   inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();pruefEingabe(box)}});
-  if(box.classList.contains('inl'))inp.addEventListener('change',()=>pruefEingabe(box,true));
-  if(geloest(box.dataset.id)&&stand.wert&&stand.wert[box.dataset.id]!=null){inp.value=stand.wert[box.dataset.id];inp.classList.add('ok');oeffneAbh(box.dataset.id)}
+  if(geloest(id)){oeffneAbh(id);
+    if(stand.loes&&stand.loes[id])zeigeLoesung(box,true);
+    else if(stand.wert&&stand.wert[id]!=null){inp.value=stand.wert[id];inp.classList.add('ok')}}
+  else if(stand.fehl&&stand.fehl[id]>=VERSUCHE)box._loesBtn.style.display='';
 });
 $$('.aufgabe[data-mc]').forEach(box=>{
-  const richtig=+box.dataset.mc, fb=box.querySelector('.fb');
+  const richtig=+box.dataset.mc, fb=box.querySelector(':scope > .fb'), id=box.dataset.id;
   const radios=[...box.querySelectorAll('input[type=radio]')];
   radios.forEach((r,i)=>r.addEventListener('change',()=>{
-    const ok=i===richtig; fb.className='fb '+(ok?'gut':'schlecht'); fb.innerHTML=ok?fb.dataset.ok:fb.dataset.nein; mathe(fb);
-    if(ok)markiere(box.dataset.id);
+    const ok=i===richtig; fb.className='fb '+(ok?'gut':'schlecht'); fb.innerHTML=ok?'<b>Richtig!</b> '+fb.dataset.ok:'Das stimmt nicht. Schaut euch die Tipps an.';
+    if(ok){box._loesBtn.style.display='none';markiere(id)}else fehlversuch(box);
+    mathe(fb);
   }));
-  if(geloest(box.dataset.id)){radios[richtig].checked=true;fb.className='fb gut';fb.innerHTML=fb.dataset.ok;oeffneAbh(box.dataset.id)}
+  if(geloest(id)){oeffneAbh(id);if(stand.loes&&stand.loes[id])zeigeLoesung(box,true);else{radios[richtig].checked=true;fb.className='fb gut';fb.innerHTML=fb.dataset.ok}}
+  else if(stand.fehl&&stand.fehl[id]>=VERSUCHE)box._loesBtn.style.display='';
 });
+/* ---------- Infoboxen ---------- */
+$$('button.info').forEach(b=>{const box=b.parentElement.nextElementSibling;
+  b.setAttribute('aria-expanded','false');
+  b.addEventListener('click',()=>{const auf=!box.classList.contains('offen');box.classList.toggle('offen',auf);b.setAttribute('aria-expanded',String(auf))})});
 
 /* ---------- Stationen & Fortschritt ---------- */
-const STATIONEN={0:['z1','z2','z3','z4'],1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5c','s5d','s5b','s6a','s6d','s6e']};
+const STATIONEN={0:['z1','z2','z3','z4'],1:['s1a','s1c'],2:['s2a','s2b','s2c','s2d','s2e','s2f'],3:['s4e','s4f','s4g'],4:['s5a','s5c','s5d','s5b','v1','v2','s6a','v3','v4','v5','v6','s6d','v7','v8','v9','s6e','v10','v11']};
 function fortschritt(){
   let n=0;
   for(const k in STATIONEN){const fertig=STATIONEN[k].every(geloest);if(fertig)n++;
@@ -632,14 +795,21 @@ function zeichneEinsatz(){
 $('#einsatz').addEventListener('input',zeichneEinsatz);zeichneEinsatz();
 
 /* ---------- Station 4: Notenverteilung ---------- */
-(function(){
-  const s=$('#notenSvg'), K1=[0,2,10,10,2,0], K2=[6,5,1,1,5,6];
-  const L=40,R=620,T=12,B=200, y=v=>B-v/12*(B-T), bx=i=>L+(i+0.5)*(R-L)/6;
+function zeichneNoten(){
+  const s=$('#notenSvg');s.innerHTML='';const K1=[0,2,10,10,2,0], K2=[6,5,1,1,5,6];
+  const mitS=geloest('s6e')&&geloest('v10');
+  const L=40,R=620,T=mitS?44:12,B=220, y=v=>B-v/12*(B-T), xn=n=>L+(n-0.5)*(R-L)/6, bx=i=>xn(i+1);
   for(let v=0;v<=12;v+=2){svgEl('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:'#eee'},s);txt(s,L-6,y(v)+4,v,{'text-anchor':'end','font-size':10})}
+  if(mitS){[[0.7638,'#2F5F8A',8,'Kurs 1: μ ± σ₁'],[2.0207,'#C4501C',26,'Kurs 2: μ ± σ₂']].forEach(([sg,c,yy,t])=>{
+    svgEl('rect',{x:xn(3.5-sg),y:yy-6,width:xn(3.5+sg)-xn(3.5-sg),height:12,fill:c,opacity:.18,stroke:c},s);
+    txt(s,xn(3.5+sg)+6,yy+4,t,{fill:c,'font-size':11})})}
   K1.forEach((v,i)=>{svgEl('rect',{x:bx(i)-24,y:y(v),width:22,height:B-y(v),fill:'#2F5F8A'},s);svgEl('rect',{x:bx(i)+2,y:y(K2[i]),width:22,height:B-y(K2[i]),fill:'#C4501C'},s);txt(s,bx(i),B+18,'Note '+(i+1),{'text-anchor':'middle'})});
   svgEl('line',{x1:L,x2:R,y1:B,y2:B,stroke:'#999'},s);
-  const m=L+3*(R-L)/6; svgEl('line',{x1:m,x2:m,y1:T,y2:B,stroke:'#555','stroke-dasharray':'5 4'},s);
-})();
+  const m=xn(3.5); svgEl('line',{x1:m,x2:m,y1:mitS?0:T,y2:B,stroke:'#555','stroke-dasharray':'5 4'},s);
+  txt(s,m+4,mitS?T-4:T+10,'μ = 3,5',{'font-size':11,fill:'#555'});
+}
+zeichneNoten();
+document.addEventListener('geloest',e=>{if(e.detail==='s6e'||e.detail==='v10')zeichneNoten()});
 
 /* ---------- Summen-Entfalter ---------- */
 function sumZeigen(){
@@ -660,7 +830,6 @@ $$('#checkliste input').forEach(c=>{c.checked=!!(stand.check&&stand.check[c.data
   c.addEventListener('change',()=>{stand.check=stand.check||{};stand.check[c.dataset.check]=c.checked;speichern()})});
 
 /* ---------- Frage, Reset ---------- */
-const fr=$('#frage');fr.value=stand.frage||'';fr.addEventListener('input',()=>{stand.frage=fr.value;speichern()});
 $('#allesReset').addEventListener('click',e=>{e.preventDefault();stand={};speichern();location.reload()});
 
 fortschritt();
